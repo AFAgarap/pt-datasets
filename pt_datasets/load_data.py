@@ -7,6 +7,26 @@ import torchvision
 def load_dataset(
     name: str = "mnist", data_folder: str = "~/torch_datasets"
 ) -> Tuple[object, object]:
+    """
+    Returns a tuple of torchvision dataset objects.
+
+    Parameters
+    ----------
+    name: str
+        The name of the dataset to load. Current choices:
+            1. mnist (MNIST)
+            2. fashion_mnist (FashionMNIST)
+            3. emnist (EMNIST/Balanced)
+            4. cifar10 (CIFAR10)
+            5. svhn (SVHN)
+    data_folder: str
+        The path to the folder for the datasets.
+
+    Returns
+    -------
+    Tuple[object, object]
+        A tuple consisting of the training dataset and the test dataset.
+    """
     transform = torchvision.transforms.Compose([torchvision.transforms.ToTensor()])
     name = name.lower()
 
