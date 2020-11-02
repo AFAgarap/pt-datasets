@@ -30,7 +30,9 @@ def encode_features(
 ) -> np.ndarray:
     supported_encoders = ["pca", "umap", "tsne"]
     assert encoder in supported_encoders, f"Encoder [{encoder}] is not supported."
-    if encoder == "tsne" and use_cuda:
+    if encoder == "pca":
+        encoder = PCA(n_components=dim, random_state=seed)
+    elif encoder == "tsne" and use_cuda:
         print("[INFO] CUDA-based t-SNE only supports encoding to 2 dimensions.")
         encoder = tsnecuda.TSNE(random_seed=seed)
     elif encoder == "tsne" and not use_cuda:
