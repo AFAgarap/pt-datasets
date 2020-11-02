@@ -30,3 +30,11 @@ def encode_features(
 ) -> np.ndarray:
     supported_encoders = ["pca", "umap", "tsne"]
     assert encoder in supported_encoders, f"Encoder [{encoder}] is not supported."
+    if encoder == "tsne" and use_cuda:
+        encoder = tsnecuda.TSNE(random_seed=seed)
+    elif encoder == "tsne" and not use_cuda:
+        encoder = MulticoreTSNE.MulticoreTSNE(
+            n_jobs=4, random_state=seed, n_components=dim
+        )
+    encoded_features = encoder.fit_transform(features)
+    return encoded_features
