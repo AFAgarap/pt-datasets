@@ -30,6 +30,28 @@ def encode_features(
     use_cuda: bool = True,
     encoder: str = "pca",
 ) -> np.ndarray:
+    """
+    Returns the low-dimensional encoding of the features.
+
+    Parameters
+    ----------
+    features: np.ndarray
+        The input features to encode.
+    seed: int
+        The random seed to use. Default is [42].
+    dim: int
+        The dimensionality of the encoded features. Default is [30].
+    use_cuda: bool
+        Whether to use CUDA for t-SNE encoding or not. Default is [True].
+    encoder: str
+        The encoder to use. Default is [pca].
+        Supported modes: [pca, umap, tsne].
+
+    Returns
+    -------
+    encoded_features: np.ndarray
+        The low-dimensional encoding of the input features.
+    """
     supported_encoders = ["pca", "umap", "tsne"]
     assert encoder in supported_encoders, f"Encoder [{encoder}] is not supported."
     if encoder == "pca":
