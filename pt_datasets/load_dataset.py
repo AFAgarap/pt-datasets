@@ -45,8 +45,15 @@ def load_dataset(
     Tuple[object, object]
         A tuple consisting of the training dataset and the test dataset.
     """
-    transform = torchvision.transforms.Compose([torchvision.transforms.ToTensor()])
+    supported_datasets = ["mnist", "fashion_mnist", "emnist", "cifar10", "svhn"]
+
     name = name.lower()
+
+    assert (
+        name in supported_datasets
+    ), f"[ERROR] Dataset {name} is not supported. Supported datasets: mnist, fashion_mnist, emnist, cifar10, svhn."
+
+    transform = torchvision.transforms.Compose([torchvision.transforms.ToTensor()])
 
     if name == "mnist":
         train_dataset = torchvision.datasets.MNIST(
