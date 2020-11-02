@@ -15,4 +15,4 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 from .create_dataloader import create_dataloader
 from .encode_features import encode_features
-from .load_data import load_dataset
+from .load_dataset import load_dataset
