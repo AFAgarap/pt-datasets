@@ -19,6 +19,8 @@ from typing import Tuple
 import torch
 import torchvision
 
+__author__ = "Abien Fred Agarap"
+
 
 def load_dataset(
     name: str = "mnist", data_folder: str = "~/torch_datasets"

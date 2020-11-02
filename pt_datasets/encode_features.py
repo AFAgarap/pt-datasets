@@ -20,6 +20,8 @@ from sklearn.decomposition import PCA
 import tsnecuda
 from umap import UMAP
 
+__author__ = "Abien Fred Agarap"
+
 
 def encode_features(
     features: np.ndarray,

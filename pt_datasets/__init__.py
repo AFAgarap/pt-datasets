@@ -13,6 +13,9 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
+"""PyTorch dataset loader repository"""
 from .create_dataloader import create_dataloader
 from .encode_features import encode_features
 from .load_dataset import load_dataset
+
+__author__ = "Abien Fred Agarap"
