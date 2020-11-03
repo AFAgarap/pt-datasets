@@ -3,7 +3,7 @@ from setuptools import setup
 
 setup(
     name="pt-datasets",
-    version="0.1.2",
+    version="0.1.3",
     packages=["pt_datasets"],
     url="https://github.com/AFAgarap/pt-datasets",
     license="AGPL-3.0 License",
