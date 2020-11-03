@@ -19,7 +19,7 @@ It is recommended to use a virtual environment to isolate the project dependenci
 
 ```shell script
 $ virtualenv env --python=python3  # we use python 3
-$ pip install .  # install the package
+$ pip install pt-datasets  # install the package
 ```
 
 We use the [`tsnecuda`](https://github.com/CannyLab/tsne-cuda) library for the
