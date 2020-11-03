@@ -5,7 +5,7 @@ with open("requirements.txt", "r") as file:
 
 setup(
     name="pt-datasets",
-    version="0.1.0",
+    version="0.1.1",
     packages=["pt_datasets"],
     url="https://github.com/AFAgarap/pt-datasets",
     license="AGPL-3.0 License",
