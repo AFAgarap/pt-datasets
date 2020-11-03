@@ -17,6 +17,5 @@ setup(
         "torch==1.6.0",
         "MulticoreTSNE==0.1",
         "scikit_learn==0.23.2",
-        "umap==0.1.1",
     ],
 )
