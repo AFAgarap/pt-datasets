@@ -1,0 +1,19 @@
+#!/bin/sh
+
+echo "Installing Cmake..."
+sudo apt install cmake
+
+echo "Installing MKL/OpenBLAS..."
+sudo apt install libopenblas-dev
+
+echo "Installing GCC/llvm-clang..."
+sudo apt install build-essential
+
+git clone https://github.com/rmrao/tsne-cuda.git && cd $PWD/tsne-cuda
+git submodule init
+git submodule update
+cd $PWD/tsne-cuda/build/
+cmake ..
+make -j 4
+cd python/
+pip install -e .
