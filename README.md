@@ -26,6 +26,15 @@ We use the [`tsnecuda`](https://github.com/CannyLab/tsne-cuda) library for the
 CUDA-accelerated t-SNE encoder, which can be installed by following the
 [instructions](https://github.com/CannyLab/tsne-cuda/wiki/Installation) in its wiki.
 
+But there is also a provided script for installing `tsne-cuda` from source.
+
+```shell script
+$ bash setup/install_tsnecuda
+```
+
+Do note that this script has only been tested on an Ubuntu 20.04 LTS system
+with Nvidia GTX960M GPU.
+
 We can then use this package for loading ready-to-use data loaders,
 
 ```python
