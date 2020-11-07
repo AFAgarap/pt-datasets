@@ -14,8 +14,11 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """Function for loading datasets"""
+import os
 from typing import Tuple
 
+import gdown
+import numpy as np
 import torch
 import torchvision
 
@@ -99,3 +102,22 @@ def load_dataset(
             root=data_folder, split="test", download=True, transform=transform
         )
     return (train_dataset, test_dataset)
+
+
+def load_malimg(size: int = 32):
+    download_urls = {
+        "malimg32": "https://drive.google.com/file/d/1DnJSWDCUuxD9pspByRuysQgJ-hfJPW6Q/view?usp=sharing",
+        "malimg64": "https://drive.google.com/file/d/1HeUbAAzF0BldzhjLrThXifGkpx3EDdKk/view?usp=sharing",
+    }
+    assert size in (32, 64), "Supported sizes: [32, 64]"
+    malimg_filename = f"malimg_dataset_{size}x{size}.npy"
+    dataset_path = "~/datasets"
+    if not os.path.exists(dataset_path):
+        os.mkdir(dataset_path)
+    if not os.path.isfile(os.path.join(dataset_path, malimg_filename)):
+        gdown.download(
+            download_urls.get("malimg32" if size == 32 else "malimg64"),
+            os.path.join(dataset_path, malimg_filename),
+        )
+    dataset = np.load(os.path.join(dataset_path, malimg_filename), allow_pickle=True)
+    return dataset
