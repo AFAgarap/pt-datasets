@@ -122,6 +122,7 @@ def load_malimg(
         gdown.download(
             download_urls.get("malimg32" if size == 32 else "malimg64"),
             os.path.join(dataset_path, malimg_filename),
+            quiet=True,
         )
     dataset = np.load(os.path.join(dataset_path, malimg_filename), allow_pickle=True)
     train_data, test_data = train_test_split(
