@@ -15,6 +15,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """Function for loading datasets"""
 import os
+from pathlib import Path
 from typing import Tuple
 
 import gdown
@@ -114,7 +115,7 @@ def load_malimg(
     }
     assert size in (32, 64), "Supported sizes: [32, 64]"
     malimg_filename = f"malimg_dataset_{size}x{size}.npy"
-    dataset_path = "~/datasets"
+    dataset_path = os.path.join(str(Path.home()), "datasets")
     if not os.path.exists(dataset_path):
         os.mkdir(dataset_path)
     if not os.path.isfile(os.path.join(dataset_path, malimg_filename)):
