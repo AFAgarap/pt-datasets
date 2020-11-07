@@ -19,6 +19,7 @@ from typing import Tuple
 
 import gdown
 import numpy as np
+from sklearn.model_selection import train_test_split
 import torch
 import torchvision
 
@@ -104,7 +105,9 @@ def load_dataset(
     return (train_dataset, test_dataset)
 
 
-def load_malimg(size: int = 32):
+def load_malimg(
+    size: int = 32, test_size: float = 0.3, seed: int = 42
+) -> Tuple[torch.utils.data.DataLoader, torch.utils.data.DataLoader]:
     download_urls = {
         "malimg32": "https://drive.google.com/file/d/1DnJSWDCUuxD9pspByRuysQgJ-hfJPW6Q/view?usp=sharing",
         "malimg64": "https://drive.google.com/file/d/1HeUbAAzF0BldzhjLrThXifGkpx3EDdKk/view?usp=sharing",
@@ -120,4 +123,8 @@ def load_malimg(size: int = 32):
             os.path.join(dataset_path, malimg_filename),
         )
     dataset = np.load(os.path.join(dataset_path, malimg_filename), allow_pickle=True)
-    return dataset
+    train_data, test_data = train_test_split(
+        dataset, test_size=test_size, random_state=seed
+    )
+    train_features, train_labels = train_data[:, : (size ** 2)], train_data[:, -1]
+    return train_features, train_labels
