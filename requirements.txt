@@ -1,7 +1,8 @@
-numpy==1.19.0
 torchvision==0.7.0
+numpy==1.19.0
 umap_learn==0.4.6
 torch==1.6.0
+gdown==3.12.2
 MulticoreTSNE==0.1
 scikit_learn==0.23.2
 umap==0.1.1
