@@ -42,6 +42,7 @@ def load_dataset(
             3. emnist (EMNIST/Balanced)
             4. cifar10 (CIFAR10)
             5. svhn (SVHN)
+            6. malimg (Malware Image classification)
     data_folder: str
         The path to the folder for the datasets.
 
