@@ -107,26 +107,20 @@ def load_dataset(
 
 
 def load_malimg(
-    size: int = 32, test_size: float = 0.3, seed: int = 42
+    test_size: float = 0.3, seed: int = 42
 ) -> Tuple[torch.utils.data.DataLoader, torch.utils.data.DataLoader]:
-    download_urls = {
-        "malimg32": "https://drive.google.com/uc?id=1Y6Ha5Jir8EI726KdwAKWHVU-oWmPqNDT",
-        "malimg64": "https://drive.google.com/uc?id=1exj6dNGtsNxdYL2rxIutUp6AP2NrHbRa",
-    }
-    assert size in (32, 64), "Supported sizes: [32, 64]"
-    malimg_filename = f"malimg_dataset_{size}x{size}.npy"
+    download_url = ("https://drive.google.com/uc?id=1Y6Ha5Jir8EI726KdwAKWHVU-oWmPqNDT",)
+    malimg_filename = "malimg_dataset_32x32.npy"
     dataset_path = os.path.join(str(Path.home()), "datasets")
     if not os.path.exists(dataset_path):
         os.mkdir(dataset_path)
     if not os.path.isfile(os.path.join(dataset_path, malimg_filename)):
         gdown.download(
-            download_urls.get("malimg32" if size == 32 else "malimg64"),
-            os.path.join(dataset_path, malimg_filename),
-            quiet=True,
+            download_url, os.path.join(dataset_path, malimg_filename), quiet=True
         )
     dataset = np.load(os.path.join(dataset_path, malimg_filename), allow_pickle=True)
     train_data, test_data = train_test_split(
         dataset, test_size=test_size, random_state=seed
     )
-    train_features, train_labels = train_data[:, : (size ** 2)], train_data[:, -1]
+    train_features, train_labels = train_data[:, : (32 ** 2)], train_data[:, -1]
     return train_features, train_labels
