@@ -50,7 +50,14 @@ def load_dataset(
     Tuple[object, object]
         A tuple consisting of the training dataset and the test dataset.
     """
-    supported_datasets = ["mnist", "fashion_mnist", "emnist", "cifar10", "svhn"]
+    supported_datasets = [
+        "mnist",
+        "fashion_mnist",
+        "emnist",
+        "cifar10",
+        "svhn",
+        "malimg",
+    ]
 
     name = name.lower()
 
