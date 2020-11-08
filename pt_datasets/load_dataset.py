@@ -110,8 +110,8 @@ def load_malimg(
     size: int = 32, test_size: float = 0.3, seed: int = 42
 ) -> Tuple[torch.utils.data.DataLoader, torch.utils.data.DataLoader]:
     download_urls = {
-        "malimg32": "1DnJSWDCUuxD9pspByRuysQgJ-hfJPW6Q",
-        "malimg64": "1HeUbAAzF0BldzhjLrThXifGkpx3EDdKk",
+        "malimg32": "https://drive.google.com/uc?id=1Y6Ha5Jir8EI726KdwAKWHVU-oWmPqNDT",
+        "malimg64": "https://drive.google.com/uc?id=1exj6dNGtsNxdYL2rxIutUp6AP2NrHbRa",
     }
     assert size in (32, 64), "Supported sizes: [32, 64]"
     malimg_filename = f"malimg_dataset_{size}x{size}.npy"
