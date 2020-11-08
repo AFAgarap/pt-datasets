@@ -110,6 +110,8 @@ def load_dataset(
         test_dataset = torchvision.datasets.SVHN(
             root=data_folder, split="test", download=True, transform=transform
         )
+    elif name == "malimg":
+        train_dataset, test_dataset = load_malimg()
     return (train_dataset, test_dataset)
 
 
