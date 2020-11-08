@@ -123,4 +123,11 @@ def load_malimg(
         dataset, test_size=test_size, random_state=seed
     )
     train_features, train_labels = train_data[:, : (32 ** 2)], train_data[:, -1]
-    return train_features, train_labels
+    test_features, test_labels = test_data[:, : (32 ** 2)], test_data[:, -1]
+    train_dataset = torch.utils.data.TensorDataset(
+        torch.from_numpy(train_features), torch.from_numpy(train_labels)
+    )
+    test_dataset = torch.utils.data.TensorDataset(
+        torch.from_numpy(test_features), torch.from_numpy(test_labels)
+    )
+    return train_dataset, test_dataset
