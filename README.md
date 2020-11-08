@@ -7,8 +7,8 @@
 ## Overview
 
 This repository is meant for easier and faster access to the following image
-classification datasets: MNIST, Fashion-MNIST, EMNIST-Balanced, CIFAR10, and
-SVHN. Using this repository, one can load the aforementioned datasets in a
+classification datasets: MNIST, Fashion-MNIST, EMNIST-Balanced, CIFAR10, SVHN, and MalImg.
+Using this repository, one can load the aforementioned datasets in a
 ready-to-use fashion for PyTorch models. Additionally, this can be used to load
 the low-dimensional features of the aforementioned datasets, encoded using PCA,
 t-SNE, or UMAP.
@@ -103,6 +103,30 @@ plt.show()
 ```
 
 ![](assets/tsne_fashion_mnist.png)
+
+## Citation
+
+When using the Malware Image classification dataset, kindly use the following
+citations,
+
+- BibTex
+
+```
+@article{agarap2017towards,
+    title={Towards building an intelligent anti-malware system: a deep learning approach using support vector machine (SVM) for malware classification},
+    author={Agarap, Abien Fred},
+    journal={arXiv preprint arXiv:1801.00318},
+    year={2017}
+}
+```
+
+- MLA
+
+```
+Agarap, Abien Fred. "Towards building an intelligent anti-malware system: a
+deep learning approach using support vector machine (svm) for malware
+classification." arXiv preprint arXiv:1801.00318 (2017).
+```
 
 ## License
 
