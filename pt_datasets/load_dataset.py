@@ -14,8 +14,13 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """Function for loading datasets"""
+import os
+from pathlib import Path
 from typing import Tuple
 
+import gdown
+import numpy as np
+from sklearn.model_selection import train_test_split
 import torch
 import torchvision
 
@@ -37,6 +42,7 @@ def load_dataset(
             3. emnist (EMNIST/Balanced)
             4. cifar10 (CIFAR10)
             5. svhn (SVHN)
+            6. malimg (Malware Image classification)
     data_folder: str
         The path to the folder for the datasets.
 
@@ -45,13 +51,20 @@ def load_dataset(
     Tuple[object, object]
         A tuple consisting of the training dataset and the test dataset.
     """
-    supported_datasets = ["mnist", "fashion_mnist", "emnist", "cifar10", "svhn"]
+    supported_datasets = [
+        "mnist",
+        "fashion_mnist",
+        "emnist",
+        "cifar10",
+        "svhn",
+        "malimg",
+    ]
 
     name = name.lower()
 
     assert (
         name in supported_datasets
-    ), f"[ERROR] Dataset {name} is not supported. Supported datasets: mnist, fashion_mnist, emnist, cifar10, svhn."
+    ), f"[ERROR] Dataset {name} is not supported. Supported datasets: mnist, fashion_mnist, emnist, cifar10, svhn, malimg."
 
     transform = torchvision.transforms.Compose([torchvision.transforms.ToTensor()])
 
@@ -98,4 +111,33 @@ def load_dataset(
         test_dataset = torchvision.datasets.SVHN(
             root=data_folder, split="test", download=True, transform=transform
         )
+    elif name == "malimg":
+        train_dataset, test_dataset = load_malimg()
     return (train_dataset, test_dataset)
+
+
+def load_malimg(
+    test_size: float = 0.3, seed: int = 42
+) -> Tuple[torch.utils.data.DataLoader, torch.utils.data.DataLoader]:
+    download_url = ("https://drive.google.com/uc?id=1Y6Ha5Jir8EI726KdwAKWHVU-oWmPqNDT",)
+    malimg_filename = "malimg_dataset_32x32.npy"
+    dataset_path = os.path.join(str(Path.home()), "datasets")
+    if not os.path.exists(dataset_path):
+        os.mkdir(dataset_path)
+    if not os.path.isfile(os.path.join(dataset_path, malimg_filename)):
+        gdown.download(
+            download_url, os.path.join(dataset_path, malimg_filename), quiet=True
+        )
+    dataset = np.load(os.path.join(dataset_path, malimg_filename), allow_pickle=True)
+    train_data, test_data = train_test_split(
+        dataset, test_size=test_size, random_state=seed
+    )
+    train_features, train_labels = train_data[:, : (32 ** 2)], train_data[:, -1]
+    test_features, test_labels = test_data[:, : (32 ** 2)], test_data[:, -1]
+    train_dataset = torch.utils.data.TensorDataset(
+        torch.from_numpy(train_features), torch.from_numpy(train_labels)
+    )
+    test_dataset = torch.utils.data.TensorDataset(
+        torch.from_numpy(test_features), torch.from_numpy(test_labels)
+    )
+    return train_dataset, test_dataset
