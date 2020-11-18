@@ -58,6 +58,24 @@ def read_data(corpus_file: str, label_column: int = 0, document_start: int = 2) 
 
 
 def preprocess_data(texts: List, labels: List) -> Tuple[List, np.ndarray]:
+    """
+    Loads the dataset from file, and returns the processed dataset.
+
+    Parameters
+    ----------
+    texts: List
+        The texts to vectorize.
+    labels: List
+        The corresponding labels for texts.
+
+    Returns
+    -------
+    Tuple[List, np.ndarray]
+        texts: List
+            The preprocessed text features.
+        labels: np.ndarray
+            The corresponding labels for texts.
+    """
     texts = list(
         map(
             lambda text: text.translate(str.maketrans("", "", string.punctuation)),
