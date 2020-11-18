@@ -14,7 +14,11 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 import csv
-from typing import Dict
+import string
+from typing import Dict, List, Tuple
+
+import nltk
+import numpy as np
 
 __author__ = "Abien Fred Agarap"
 
@@ -51,3 +55,28 @@ def read_data(corpus_file: str, label_column: int = 0, document_start: int = 2) 
                 label = int(columns[label_column].strip("__label__"))
                 dataset[text] = label
     return dataset
+
+
+def preprocess_data(texts: List, labels: List) -> Tuple[List, np.ndarray]:
+    texts = list(
+        map(
+            lambda text: text.translate(str.maketrans("", "", string.punctuation)),
+            texts,
+        )
+    )
+    texts = list(
+        map(
+            lambda text: " ".join([word for word in text.split() if len(word) > 3]),
+            texts,
+        )
+    )
+    texts = list(map(lambda text: text.lower(), texts))
+    texts = list(map(lambda text: text.split(), texts))
+    en_stopwords = nltk.corpus.stopwords.words("english")
+    texts = list(
+        map(lambda text: [word for word in text if word not in en_stopwords], texts)
+    )
+    texts = list(map(lambda text: " ".join(text), texts))
+    labels = np.array(labels, dtype=np.float32)
+    labels -= 1
+    return (texts, labels)
