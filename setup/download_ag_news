@@ -1,0 +1,7 @@
+#!/bin/sh
+
+echo "[INFO] Downloading AG News Dataset..."
+mkdir -p data
+wget --no-clobber -O data/ag_news.train https://raw.githubusercontent.com/AnubhavGupta3377/Text-Classification-Models-Pytorch/master/data/ag_news.train
+wget --no-clobber -O data/ag_news.test https://raw.githubusercontent.com/AnubhavGupta3377/Text-Classification-Models-Pytorch/master/data/ag_news.test
+echo "[SUCCESS] Done downloading AG News Dataset."
