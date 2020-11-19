@@ -47,6 +47,7 @@ def load_dataset(
             4. cifar10 (CIFAR10)
             5. svhn (SVHN)
             6. malimg (Malware Image classification)
+            7. ag_news (AG News)
     data_folder: str
         The path to the folder for the datasets.
 
@@ -62,6 +63,7 @@ def load_dataset(
         "cifar10",
         "svhn",
         "malimg",
+        "ag_news",
     ]
 
     name = name.lower()
