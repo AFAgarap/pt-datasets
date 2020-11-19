@@ -30,7 +30,9 @@ __author__ = "Abien Fred Agarap"
 
 
 def load_dataset(
-    name: str = "mnist", data_folder: str = "~/torch_datasets"
+    name: str = "mnist",
+    data_folder: str = "~/torch_datasets",
+    vectorizer: str = "tfidf",
 ) -> Tuple[object, object]:
     """
     Returns a tuple of torchvision dataset objects.
