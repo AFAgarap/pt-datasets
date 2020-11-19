@@ -122,7 +122,7 @@ def load_malimg(
     test_size: float = 0.3, seed: int = 42
 ) -> Tuple[torch.utils.data.DataLoader, torch.utils.data.DataLoader]:
     """
-    Returns a tuple of data loaders for the
+    Returns a tuple of tensor datasets for the
     training and test splits of MalImg dataset.
 
     Parameters
