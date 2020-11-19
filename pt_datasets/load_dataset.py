@@ -176,4 +176,6 @@ def load_agnews(
         list(train_dataset.values()),
     )
     test_texts, test_labels = (list(test_dataset.keys()), list(test_dataset.values()))
+    train_texts, train_labels = preprocess_data(train_texts, train_labels)
+    test_texts, test_labels = preprocess_data(test_texts, test_labels)
     return train_dataset, test_dataset
