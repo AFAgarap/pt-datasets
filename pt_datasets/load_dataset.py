@@ -24,11 +24,15 @@ from sklearn.model_selection import train_test_split
 import torch
 import torchvision
 
+from pt_datasets.utils import preprocess_data, read_data, vectorize_text
+
 __author__ = "Abien Fred Agarap"
 
 
 def load_dataset(
-    name: str = "mnist", data_folder: str = "~/torch_datasets"
+    name: str = "mnist",
+    data_folder: str = "~/torch_datasets",
+    vectorizer: str = "tfidf",
 ) -> Tuple[object, object]:
     """
     Returns a tuple of torchvision dataset objects.
@@ -43,6 +47,7 @@ def load_dataset(
             4. cifar10 (CIFAR10)
             5. svhn (SVHN)
             6. malimg (Malware Image classification)
+            7. ag_news (AG News)
     data_folder: str
         The path to the folder for the datasets.
 
@@ -58,13 +63,15 @@ def load_dataset(
         "cifar10",
         "svhn",
         "malimg",
+        "ag_news",
     ]
 
     name = name.lower()
 
+    _supported = "Supported datasets: mnist, fashion_mnist, emnist, cifar10, svhn, malimg, ag_news."
     assert (
         name in supported_datasets
-    ), f"[ERROR] Dataset {name} is not supported. Supported datasets: mnist, fashion_mnist, emnist, cifar10, svhn, malimg."
+    ), f"[ERROR] Dataset {name} is not supported. {_supported}"
 
     transform = torchvision.transforms.Compose([torchvision.transforms.ToTensor()])
 
@@ -113,6 +120,8 @@ def load_dataset(
         )
     elif name == "malimg":
         train_dataset, test_dataset = load_malimg()
+    elif name == "ag_news":
+        train_dataset, test_dataset = load_agnews(vectorizer)
     return (train_dataset, test_dataset)
 
 
@@ -120,7 +129,7 @@ def load_malimg(
     test_size: float = 0.3, seed: int = 42
 ) -> Tuple[torch.utils.data.DataLoader, torch.utils.data.DataLoader]:
     """
-    Returns a tuple of data loaders for the
+    Returns a tuple of tensor datasets for the
     training and test splits of MalImg dataset.
 
     Parameters
@@ -158,5 +167,30 @@ def load_malimg(
     )
     test_dataset = torch.utils.data.TensorDataset(
         torch.from_numpy(test_features), torch.from_numpy(test_labels)
+    )
+    return train_dataset, test_dataset
+
+
+def load_agnews(
+    vectorization_mode: str = "tfidf", seed: int = 42
+) -> Tuple[torch.utils.data.DataLoader, torch.utils.data.DataLoader]:
+    train_dataset, test_dataset = (
+        read_data("data/ag_news.train"),
+        read_data("data/ag_news.test"),
+    )
+    train_texts, train_labels = (
+        list(train_dataset.keys()),
+        list(train_dataset.values()),
+    )
+    test_texts, test_labels = (list(test_dataset.keys()), list(test_dataset.values()))
+    train_texts, train_labels = preprocess_data(train_texts, train_labels)
+    test_texts, test_labels = preprocess_data(test_texts, test_labels)
+    train_vectors = vectorize_text(train_texts, vectorization_mode)
+    test_vectors = vectorize_text(test_texts, vectorization_mode)
+    train_dataset = torch.utils.data.TensorDataset(
+        torch.from_numpy(train_vectors), torch.from_numpy(train_labels)
+    )
+    test_dataset = torch.utils.data.TensorDataset(
+        torch.from_numpy(test_vectors), torch.from_numpy(test_labels)
     )
     return train_dataset, test_dataset
