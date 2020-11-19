@@ -68,9 +68,10 @@ def load_dataset(
 
     name = name.lower()
 
+    _supported = "Supported datasets: mnist, fashion_mnist, emnist, cifar10, svhn, malimg, ag_news."
     assert (
         name in supported_datasets
-    ), f"[ERROR] Dataset {name} is not supported. Supported datasets: mnist, fashion_mnist, emnist, cifar10, svhn, malimg."
+    ), f"[ERROR] Dataset {name} is not supported. {_supported}"
 
     transform = torchvision.transforms.Compose([torchvision.transforms.ToTensor()])
 
