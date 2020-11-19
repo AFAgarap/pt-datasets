@@ -24,7 +24,7 @@ from sklearn.model_selection import train_test_split
 import torch
 import torchvision
 
-from pt_datasets.utils import preprocess_data, read_data
+from pt_datasets.utils import preprocess_data, read_data, vectorize_text
 
 __author__ = "Abien Fred Agarap"
 
@@ -171,4 +171,9 @@ def load_agnews(
         read_data("data/ag_news.train"),
         read_data("data/ag_news.test"),
     )
+    train_texts, train_labels = (
+        list(train_dataset.keys()),
+        list(train_dataset.values()),
+    )
+    test_texts, test_labels = (list(test_dataset.keys()), list(test_dataset.values()))
     return train_dataset, test_dataset
