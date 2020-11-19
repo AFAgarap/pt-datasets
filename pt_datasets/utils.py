@@ -107,6 +107,26 @@ def vectorize_text(
     ngram_range: Tuple = (3, 3),
     max_features: int = 2000,
 ) -> np.ndarray:
+    """
+    Returns the n-Grams or TF-IDF vector representation of the text.
+
+    Parameters
+    ----------
+    texts: List
+        The texts to vectorize.
+    vectorizer: str
+        The vectorizer to use.
+    ngram_range: Tuple
+        The lower and upper boundary of the range
+        of n-values for different n-grams to be extracted.
+    max_features: int
+        The maximum number of features to keep.
+
+    Returns
+    -------
+    vectors: np.ndarray
+        The vector representation of the text.
+    """
     supported_vectorizers = ["ngrams", "tfidf"]
     assert vectorizer in supported_vectorizers, f"{vectorizer} is not supported."
 
