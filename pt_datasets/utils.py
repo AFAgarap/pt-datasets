@@ -19,6 +19,7 @@ from typing import Dict, List, Tuple
 
 import nltk
 import numpy as np
+from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 
 __author__ = "Abien Fred Agarap"
 
@@ -98,3 +99,33 @@ def preprocess_data(texts: List, labels: List) -> Tuple[List, np.ndarray]:
     labels = np.array(labels, dtype=np.float32)
     labels -= 1
     return (texts, labels)
+
+
+def vectorize_text(
+    texts: List,
+    vectorizer: str = "tfidf",
+    ngram_range: Tuple = (3, 3),
+    max_features: int = 2000,
+) -> np.ndarray:
+    supported_vectorizers = ["ngrams", "tfidf"]
+    assert vectorizer in supported_vectorizers, f"{vectorizer} is not supported."
+
+    if vectorizer == "tfidf":
+        vectorizer = TfidfVectorizer(
+            ngram_range=ngram_range,
+            max_features=max_features,
+            max_df=0.5,
+            smooth_idf=True,
+            stop_words="english",
+        )
+    elif vectorizer == "ngrams":
+        vectorizer = CountVectorizer(
+            ngram_range=ngram_range,
+            max_features=max_features,
+            max_df=0.5,
+            stop_words="english",
+        )
+    vectors = vectorizer.fit_transform(texts)
+    vectors = vectors.toarray()
+    vectors = vectors.astype(np.float32)
+    return vectors
