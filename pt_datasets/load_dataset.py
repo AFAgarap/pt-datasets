@@ -180,4 +180,10 @@ def load_agnews(
     test_texts, test_labels = preprocess_data(test_texts, test_labels)
     train_vectors = vectorize_text(train_texts, vectorization_mode)
     test_vectors = vectorize_text(test_texts, vectorization_mode)
+    train_dataset = torch.utils.data.TensorDataset(
+        torch.from_numpy(train_vectors), torch.from_numpy(train_labels)
+    )
+    test_dataset = torch.utils.data.TensorDataset(
+        torch.from_numpy(test_vectors), torch.from_numpy(test_labels)
+    )
     return train_dataset, test_dataset
