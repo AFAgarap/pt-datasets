@@ -178,4 +178,6 @@ def load_agnews(
     test_texts, test_labels = (list(test_dataset.keys()), list(test_dataset.values()))
     train_texts, train_labels = preprocess_data(train_texts, train_labels)
     test_texts, test_labels = preprocess_data(test_texts, test_labels)
+    train_vectors = vectorize_text(train_texts, vectorization_mode)
+    test_vectors = vectorize_text(test_texts, vectorization_mode)
     return train_dataset, test_dataset
