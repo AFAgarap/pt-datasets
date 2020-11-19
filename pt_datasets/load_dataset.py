@@ -24,6 +24,8 @@ from sklearn.model_selection import train_test_split
 import torch
 import torchvision
 
+from pt_datasets.utils import preprocess_data, read_data
+
 __author__ = "Abien Fred Agarap"
 
 
@@ -158,5 +160,15 @@ def load_malimg(
     )
     test_dataset = torch.utils.data.TensorDataset(
         torch.from_numpy(test_features), torch.from_numpy(test_labels)
+    )
+    return train_dataset, test_dataset
+
+
+def load_agnews(
+    vectorization_mode: str = "tfidf", seed: int = 42
+) -> Tuple[torch.utils.data.DataLoader, torch.utils.data.DataLoader]:
+    train_dataset, test_dataset = (
+        read_data("data/ag_news.train"),
+        read_data("data/ag_news.test"),
     )
     return train_dataset, test_dataset
