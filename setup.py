@@ -15,7 +15,7 @@ setup(
     license="AGPL-3.0 License",
     author="Abien Fred Agarap",
     author_email="abienfred.agarap@gmail.com",
-    description="PyTorch dataset loader for MNIST, Fashion-MNIST, EMNIST-Balanced, CIFAR10, SVHN, and MalImg datasets",
+    description="Library for loading PyTorch datasets and data loaders.",
     long_description=long_description,
     long_description_content_type="text/markdown",
     install_requires=[
