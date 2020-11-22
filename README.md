@@ -12,6 +12,16 @@ ready-to-use fashion for PyTorch models. Additionally, this can be used to load
 the low-dimensional features of the aforementioned datasets, encoded using PCA,
 t-SNE, or UMAP.
 
+## Datasets
+
+- MNIST
+- Fashion-MNIST
+- EMNIST-Balanced
+- CIFAR10
+- SVHN
+- MalImg
+- AG News
+
 ## Usage
 
 It is recommended to use a virtual environment to isolate the project dependencies.
