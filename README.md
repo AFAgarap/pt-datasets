@@ -6,9 +6,8 @@
 
 ## Overview
 
-This repository is meant for easier and faster access to the following image
-classification datasets: MNIST, Fashion-MNIST, EMNIST-Balanced, CIFAR10, SVHN, and MalImg.
-Using this repository, one can load the aforementioned datasets in a
+This repository is meant for easier and faster access to commonly used
+benchmark datasets. Using this repository, one can load the datasets in a
 ready-to-use fashion for PyTorch models. Additionally, this can be used to load
 the low-dimensional features of the aforementioned datasets, encoded using PCA,
 t-SNE, or UMAP.
