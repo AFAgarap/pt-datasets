@@ -1,3 +1,4 @@
+import os
 from os import path
 from setuptools import setup
 
@@ -6,6 +7,15 @@ this_directory = path.abspath(path.dirname(__file__))
 
 with open(path.join(this_directory, "README.md"), encoding="utf-8") as f:
     long_description = f.read()
+
+ag_news_setup = """
+echo "[INFO] Downloading AG News Dataset..."
+wget --no-clobber -O ~/torch_datasets/ag_news.train https://raw.githubusercontent.com/AnubhavGupta3377/Text-Classification-Models-Pytorch/master/data/ag_news.train
+wget --no-clobber -O ~/torch_datasets/ag_news.test https://raw.githubusercontent.com/AnubhavGupta3377/Text-Classification-Models-Pytorch/master/data/ag_news.test
+echo "[SUCCESS] Done downloading AG News Dataset."
+"""
+
+os.system(ag_news_setup)
 
 setup(
     name="pt-datasets",
