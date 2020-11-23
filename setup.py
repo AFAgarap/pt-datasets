@@ -19,7 +19,7 @@ os.system(ag_news_setup)
 
 setup(
     name="pt-datasets",
-    version="0.3.0",
+    version="0.3.1",
     packages=["pt_datasets"],
     url="https://github.com/AFAgarap/pt-datasets",
     license="AGPL-3.0 License",
