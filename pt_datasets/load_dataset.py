@@ -174,10 +174,11 @@ def load_malimg(
 def load_agnews(
     vectorization_mode: str = "tfidf", seed: int = 42
 ) -> Tuple[torch.utils.data.DataLoader, torch.utils.data.DataLoader]:
-    train_dataset, test_dataset = (
-        read_data("data/ag_news.train"),
-        read_data("data/ag_news.test"),
-    )
+    path = str(Path.home())
+    path = os.path.join(path, "torch_datasets")
+    train_path = os.path.join(path, "ag_news.train")
+    test_path = os.path.join(path, "ag_news.test")
+    train_dataset, test_dataset = (read_data(train_path), read_data(test_path))
     train_texts, train_labels = (
         list(train_dataset.keys()),
         list(train_dataset.values()),
