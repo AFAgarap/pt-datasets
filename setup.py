@@ -32,10 +32,10 @@ setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     install_requires=[
-        "numpy==1.19.0",
-        "torchvision==0.7.0",
+        "numpy==1.19.4",
+        "torchvision==0.8.1",
         "umap_learn==0.4.6",
-        "torch==1.6.0",
+        "torch==1.7.0",
         "MulticoreTSNE==0.1",
         "scikit_learn==0.23.2",
         "gdown==3.12.2",
