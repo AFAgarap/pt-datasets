@@ -17,7 +17,6 @@
 import MulticoreTSNE
 import numpy as np
 from sklearn.decomposition import PCA
-import tsnecuda
 from umap import UMAP
 
 __author__ = "Abien Fred Agarap"
@@ -57,6 +56,8 @@ def encode_features(
     if encoder == "pca":
         encoder = PCA(n_components=dim, random_state=seed)
     elif encoder == "tsne" and use_cuda:
+        import tsnecuda
+
         print("[INFO] CUDA-based t-SNE only supports encoding to 2 dimensions.")
         encoder = tsnecuda.TSNE(random_seed=seed)
     elif encoder == "tsne" and not use_cuda:
