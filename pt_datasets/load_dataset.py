@@ -212,7 +212,9 @@ def load_agnews(
     return train_dataset, test_dataset
 
 
-def load_20newsgroups(subset: str = "train", vectorizer: str = "tfidf"):
+def load_20newsgroups(
+    subset: str = "train", vectorizer: str = "tfidf"
+) -> Tuple[torch.utils.data.TensorDataset, torch.utils.data.TensorDataset]:
     """
     Loads the 20 Newsgroups dataset.
 
