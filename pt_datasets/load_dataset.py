@@ -217,4 +217,5 @@ def load_20newsgroups(subset: str = "train"):
         return_X_y=True, subset=subset, remove=("headers", "footers", "quotes")
     )
     texts, labels = preprocess_data(texts, labels)
-    return (texts, labels)
+    features = vectorize_text(texts)
+    return (features, labels)
