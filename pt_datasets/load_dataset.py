@@ -20,6 +20,7 @@ from typing import Tuple
 
 import gdown
 import numpy as np
+from sklearn.datasets import fetch_20newsgroups
 from sklearn.model_selection import train_test_split
 import torch
 import torchvision
@@ -209,3 +210,7 @@ def load_agnews(
         torch.from_numpy(test_vectors), torch.from_numpy(test_labels)
     )
     return train_dataset, test_dataset
+
+
+def load_20newsgroups(subset: str = "train"):
+    pass
