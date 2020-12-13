@@ -20,6 +20,7 @@ from typing import Tuple
 
 import gdown
 import numpy as np
+from sklearn.datasets import fetch_20newsgroups
 from sklearn.model_selection import train_test_split
 import torch
 import torchvision
@@ -64,11 +65,12 @@ def load_dataset(
         "svhn",
         "malimg",
         "ag_news",
+        "20newsgroups",
     ]
 
     name = name.lower()
 
-    _supported = "Supported datasets: mnist, fashion_mnist, emnist, cifar10, svhn, malimg, ag_news."
+    _supported = f"Supported datasets: {supported_datasets}"
     assert (
         name in supported_datasets
     ), f"[ERROR] Dataset {name} is not supported. {_supported}"
@@ -136,6 +138,8 @@ def load_dataset(
         train_dataset, test_dataset = load_malimg()
     elif name == "ag_news":
         train_dataset, test_dataset = load_agnews(vectorizer)
+    elif name == "20newsgroups":
+        train_dataset, test_dataset = load_20newsgroups(vectorizer)
     return (train_dataset, test_dataset)
 
 
@@ -207,5 +211,42 @@ def load_agnews(
     )
     test_dataset = torch.utils.data.TensorDataset(
         torch.from_numpy(test_vectors), torch.from_numpy(test_labels)
+    )
+    return train_dataset, test_dataset
+
+
+def load_20newsgroups(
+    vectorizer: str = "tfidf"
+) -> Tuple[torch.utils.data.TensorDataset, torch.utils.data.TensorDataset]:
+    """
+    Loads the 20 Newsgroups dataset.
+
+    Parameters
+    ----------
+    vectorizer: str
+        The vectorizer to use, options: [tfidf (default) | ngrams]
+
+    Returns
+    -------
+    train_dataset: torch.utils.data.TensorDataset
+        The training dataset object to be wrapped by a data loader.
+    test_dataset: torch.utils.data.TensorDataset
+        The test dataset object to be wrapped by a data loader.
+    """
+    train_texts, train_labels = fetch_20newsgroups(
+        return_X_y=True, subset="train", remove=("headers", "footers", "quotes")
+    )
+    train_texts, train_labels = preprocess_data(train_texts, train_labels)
+    train_features = vectorize_text(train_texts, vectorizer=vectorizer)
+    train_dataset = torch.utils.data.TensorDataset(
+        torch.from_numpy(train_features), torch.from_numpy(train_labels)
+    )
+    test_texts, test_labels = fetch_20newsgroups(
+        return_X_y=True, subset="test", remove=("headers", "footers", "quotes")
+    )
+    test_texts, test_labels = preprocess_data(test_texts, test_labels)
+    test_features = vectorize_text(test_texts, vectorizer=vectorizer)
+    test_dataset = torch.utils.data.TensorDataset(
+        torch.from_numpy(test_features), torch.from_numpy(test_labels)
     )
     return train_dataset, test_dataset
