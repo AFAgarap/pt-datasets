@@ -138,6 +138,8 @@ def load_dataset(
         train_dataset, test_dataset = load_malimg()
     elif name == "ag_news":
         train_dataset, test_dataset = load_agnews(vectorizer)
+    elif name == "20newsgroups":
+        train_dataset, test_dataset = load_20newsgroups(vectorizer)
     return (train_dataset, test_dataset)
 
 
