@@ -236,4 +236,12 @@ def load_20newsgroups(subset: str = "train", vectorizer: str = "tfidf"):
     train_dataset = torch.utils.data.TensorDataset(
         torch.from_numpy(train_features), torch.from_numpy(train_labels)
     )
-    return train_dataset
+    test_texts, test_labels = fetch_20newsgroups(
+        return_X_y=True, subset=subset, remove=("headers", "footers", "quotes")
+    )
+    test_texts, test_labels = preprocess_data(test_texts, test_labels)
+    test_features = vectorize_text(test_texts, vectorizer=vectorizer)
+    test_dataset = torch.utils.data.TensorDataset(
+        torch.from_numpy(test_features), torch.from_numpy(test_labels)
+    )
+    return train_dataset, test_dataset
