@@ -216,15 +216,13 @@ def load_agnews(
 
 
 def load_20newsgroups(
-    subset: str = "train", vectorizer: str = "tfidf"
+    vectorizer: str = "tfidf"
 ) -> Tuple[torch.utils.data.TensorDataset, torch.utils.data.TensorDataset]:
     """
     Loads the 20 Newsgroups dataset.
 
     Parameters
     ----------
-    subset: str
-        The subset of the dataset to use.
     vectorizer: str
         The vectorizer to use, options: [tfidf (default) | ngrams]
 
@@ -236,7 +234,7 @@ def load_20newsgroups(
         The test dataset object to be wrapped by a data loader.
     """
     train_texts, train_labels = fetch_20newsgroups(
-        return_X_y=True, subset=subset, remove=("headers", "footers", "quotes")
+        return_X_y=True, subset="train", remove=("headers", "footers", "quotes")
     )
     train_texts, train_labels = preprocess_data(train_texts, train_labels)
     train_features = vectorize_text(train_texts, vectorizer=vectorizer)
@@ -244,7 +242,7 @@ def load_20newsgroups(
         torch.from_numpy(train_features), torch.from_numpy(train_labels)
     )
     test_texts, test_labels = fetch_20newsgroups(
-        return_X_y=True, subset=subset, remove=("headers", "footers", "quotes")
+        return_X_y=True, subset="test", remove=("headers", "footers", "quotes")
     )
     test_texts, test_labels = preprocess_data(test_texts, test_labels)
     test_features = vectorize_text(test_texts, vectorizer=vectorizer)
