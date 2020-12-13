@@ -212,12 +212,12 @@ def load_agnews(
     return train_dataset, test_dataset
 
 
-def load_20newsgroups(subset: str = "train"):
+def load_20newsgroups(subset: str = "train", vectorizer: str = "tfidf"):
     texts, labels = fetch_20newsgroups(
         return_X_y=True, subset=subset, remove=("headers", "footers", "quotes")
     )
     texts, labels = preprocess_data(texts, labels)
-    features = vectorize_text(texts)
+    features = vectorize_text(texts, vectorizer=vectorizer)
     train_dataset = torch.utils.data.TensorDataset(
         torch.from_numpy(features), torch.from_numpy(labels)
     )
