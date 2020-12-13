@@ -70,7 +70,7 @@ def load_dataset(
 
     name = name.lower()
 
-    _supported = "Supported datasets: mnist, fashion_mnist, emnist, cifar10, svhn, malimg, ag_news, 20newsgroups."
+    _supported = f"Supported datasets: {supported_datasets}"
     assert (
         name in supported_datasets
     ), f"[ERROR] Dataset {name} is not supported. {_supported}"
