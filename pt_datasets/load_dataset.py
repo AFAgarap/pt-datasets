@@ -225,8 +225,10 @@ def load_20newsgroups(subset: str = "train", vectorizer: str = "tfidf"):
 
     Returns
     -------
-    dataset: torch.utils.data.TensorDataset
-        The dataset object to be wrapped by a data loader.
+    train_dataset: torch.utils.data.TensorDataset
+        The training dataset object to be wrapped by a data loader.
+    test_dataset: torch.utils.data.TensorDataset
+        The test dataset object to be wrapped by a data loader.
     """
     train_texts, train_labels = fetch_20newsgroups(
         return_X_y=True, subset=subset, remove=("headers", "footers", "quotes")
