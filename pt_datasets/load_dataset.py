@@ -213,6 +213,21 @@ def load_agnews(
 
 
 def load_20newsgroups(subset: str = "train", vectorizer: str = "tfidf"):
+    """
+    Loads the 20 Newsgroups dataset.
+
+    Parameters
+    ----------
+    subset: str
+        The subset of the dataset to use.
+    vectorizer: str
+        The vectorizer to use, options: [tfidf (default) | ngrams]
+
+    Returns
+    -------
+    dataset: torch.utils.data.TensorDataset
+        The dataset object to be wrapped by a data loader.
+    """
     texts, labels = fetch_20newsgroups(
         return_X_y=True, subset=subset, remove=("headers", "footers", "quotes")
     )
