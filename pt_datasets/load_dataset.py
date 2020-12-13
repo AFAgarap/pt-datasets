@@ -218,4 +218,7 @@ def load_20newsgroups(subset: str = "train"):
     )
     texts, labels = preprocess_data(texts, labels)
     features = vectorize_text(texts)
-    return (features, labels)
+    train_dataset = torch.utils.data.TensorDataset(
+        torch.from_numpy(features), torch.from_numpy(labels)
+    )
+    return train_dataset
