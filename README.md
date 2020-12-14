@@ -21,6 +21,7 @@ t-SNE, or UMAP.
 - SVHN
 - MalImg
 - AG News
+- 20 Newsgroups
 
 ## Usage
 
