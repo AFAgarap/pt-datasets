@@ -22,6 +22,7 @@ t-SNE, or UMAP.
 - MalImg
 - AG News
 - 20 Newsgroups
+- KMNIST
 
 ## Usage
 
