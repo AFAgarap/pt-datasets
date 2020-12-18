@@ -66,6 +66,7 @@ def load_dataset(
         "malimg",
         "ag_news",
         "20newsgroups",
+        "kmnist",
     ]
 
     name = name.lower()
