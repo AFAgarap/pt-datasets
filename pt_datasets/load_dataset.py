@@ -66,6 +66,7 @@ def load_dataset(
         "malimg",
         "ag_news",
         "20newsgroups",
+        "kmnist",
     ]
 
     name = name.lower()
@@ -140,6 +141,13 @@ def load_dataset(
         train_dataset, test_dataset = load_agnews(vectorizer)
     elif name == "20newsgroups":
         train_dataset, test_dataset = load_20newsgroups(vectorizer)
+    elif name == "kmnist":
+        train_dataset = torchvision.datasets.KMNIST(
+            root=data_folder, train=True, download=True, transform=transform
+        )
+        test_dataset = torchvision.datasets.KMNIST(
+            root=data_folder, train=False, download=True, transform=transform
+        )
     return (train_dataset, test_dataset)
 
 
