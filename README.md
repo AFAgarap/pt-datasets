@@ -1,5 +1,6 @@
 # PyTorch Datasets
 
+[![PyPI version](https://badge.fury.io/py/pt-datasets.svg)](https://badge.fury.io/py/pt-datasets)
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
 [![Python 3.7](https://img.shields.io/badge/python-3.7-blue.svg)](https://www.python.org/downloads/release/python-377/)
 [![Python 3.8](https://img.shields.io/badge/python-3.8-blue.svg)](https://www.python.org/downloads/release/python-382/)
