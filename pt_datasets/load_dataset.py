@@ -247,7 +247,10 @@ def load_20newsgroups(
         return_X_y=True, subset="train", remove=("headers", "footers", "quotes")
     )
     train_texts, train_labels = preprocess_data(train_texts, train_labels)
-    train_features = vectorize_text(train_texts, vectorizer=vectorizer)
+    if return_vectorizer:
+        train_features, vectorizer = vectorize_text(train_texts, vectorizer=vectorizer)
+    else:
+        train_features = vectorize_text(train_texts, vectorizer=vectorizer)
     train_dataset = torch.utils.data.TensorDataset(
         torch.from_numpy(train_features), torch.from_numpy(train_labels)
     )
@@ -259,4 +262,8 @@ def load_20newsgroups(
     test_dataset = torch.utils.data.TensorDataset(
         torch.from_numpy(test_features), torch.from_numpy(test_labels)
     )
-    return train_dataset, test_dataset
+    return (
+        (train_dataset, test_dataset, vectorizer)
+        if return_vectorizer
+        else (train_dataset, test_dataset)
+    )
