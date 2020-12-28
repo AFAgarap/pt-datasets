@@ -200,6 +200,25 @@ def load_malimg(
 def load_agnews(
     vectorization_mode: str = "tfidf", seed: int = 42
 ) -> Tuple[torch.utils.data.DataLoader, torch.utils.data.DataLoader]:
+    """
+    Loads the AG News dataset.
+
+    Parameters
+    ----------
+    vectorizer: str
+        The vectorizer to use, options: [tfidf (default) | ngrams]
+    return_vectorizer: bool
+        Whether to return vectorizer object or not.
+
+    Returns
+    -------
+    train_dataset: torch.utils.data.TensorDataset
+        The training dataset object to be wrapped by a data loader.
+    test_dataset: torch.utils.data.TensorDataset
+        The test dataset object to be wrapped by a data loader.
+    vectorizer: object
+        The text vectorizer object.
+    """
     path = str(Path.home())
     path = os.path.join(path, "torch_datasets")
     train_path = os.path.join(path, "ag_news.train")
