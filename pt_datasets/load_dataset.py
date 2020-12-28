@@ -231,7 +231,12 @@ def load_agnews(
     test_texts, test_labels = (list(test_dataset.keys()), list(test_dataset.values()))
     train_texts, train_labels = preprocess_data(train_texts, train_labels)
     test_texts, test_labels = preprocess_data(test_texts, test_labels)
-    train_vectors = vectorize_text(train_texts, vectorization_mode)
+    if return_vectorizer:
+        train_vectors, vectorizer = vectorize_text(
+            train_texts, vectorization_mode, return_vectorizer=return_vectorizer
+        )
+    else:
+        train_vectors = vectorize_text(train_texts, vectorization_mode)
     test_vectors = vectorize_text(test_texts, vectorization_mode)
     train_dataset = torch.utils.data.TensorDataset(
         torch.from_numpy(train_vectors), torch.from_numpy(train_labels)
