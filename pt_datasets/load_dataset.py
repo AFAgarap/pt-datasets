@@ -224,7 +224,7 @@ def load_agnews(
 
 
 def load_20newsgroups(
-    vectorizer: str = "tfidf"
+    vectorizer: str = "tfidf", return_vectorizer: bool = False
 ) -> Tuple[torch.utils.data.TensorDataset, torch.utils.data.TensorDataset]:
     """
     Loads the 20 Newsgroups dataset.
@@ -233,6 +233,8 @@ def load_20newsgroups(
     ----------
     vectorizer: str
         The vectorizer to use, options: [tfidf (default) | ngrams]
+    return_vectorizer: bool
+        Whether to return vectorizer object or not.
 
     Returns
     -------
