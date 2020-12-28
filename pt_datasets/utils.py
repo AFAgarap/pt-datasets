@@ -148,4 +148,4 @@ def vectorize_text(
     vectors = vectorizer.fit_transform(texts)
     vectors = vectors.toarray()
     vectors = vectors.astype(np.float32)
-    return vectors
+    return vectors, vectorizer
