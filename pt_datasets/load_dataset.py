@@ -198,7 +198,7 @@ def load_malimg(
 
 
 def load_agnews(
-    vectorization_mode: str = "tfidf", seed: int = 42
+    vectorization_mode: str = "tfidf"
 ) -> Tuple[torch.utils.data.DataLoader, torch.utils.data.DataLoader]:
     """
     Loads the AG News dataset.
