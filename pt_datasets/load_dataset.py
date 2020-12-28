@@ -242,6 +242,8 @@ def load_20newsgroups(
         The training dataset object to be wrapped by a data loader.
     test_dataset: torch.utils.data.TensorDataset
         The test dataset object to be wrapped by a data loader.
+    vectorizer: object
+        The text vectorizer object.
     """
     train_texts, train_labels = fetch_20newsgroups(
         return_X_y=True, subset="train", remove=("headers", "footers", "quotes")
