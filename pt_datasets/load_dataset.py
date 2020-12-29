@@ -34,6 +34,7 @@ def load_dataset(
     name: str = "mnist",
     data_folder: str = "~/torch_datasets",
     vectorizer: str = "tfidf",
+    return_vectorizer: bool = False,
 ) -> Tuple[object, object]:
     """
     Returns a tuple of torchvision dataset objects.
