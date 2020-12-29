@@ -149,14 +149,16 @@ def load_dataset(
                 vectorizer, return_vectorizer
             )
         else:
-            train_dataset, test_dataset = load_agnews(vectorizer)
+            train_dataset, test_dataset = load_agnews(vectorizer, return_vectorizer)
     elif name == "20newsgroups":
         if return_vectorizer:
             train_dataset, test_dataset, vectorizer = load_20newsgroups(
                 vectorizer, return_vectorizer
             )
         else:
-            train_dataset, test_dataset = load_20newsgroups(vectorizer)
+            train_dataset, test_dataset = load_20newsgroups(
+                vectorizer, return_vectorizer
+            )
     elif name == "kmnist":
         train_dataset = torchvision.datasets.KMNIST(
             root=data_folder, train=True, download=True, transform=transform
