@@ -34,6 +34,7 @@ def load_dataset(
     name: str = "mnist",
     data_folder: str = "~/torch_datasets",
     vectorizer: str = "tfidf",
+    return_vectorizer: bool = False,
 ) -> Tuple[object, object]:
     """
     Returns a tuple of torchvision dataset objects.
@@ -51,6 +52,11 @@ def load_dataset(
             7. ag_news (AG News)
     data_folder: str
         The path to the folder for the datasets.
+    vectorizer: str
+        The vectorization method to use.
+        Options: [tfidf (default) | ngrams]
+    return_vectorizer: bool
+        Whether to return the vectorizer object or not.
 
     Returns
     -------
@@ -138,9 +144,19 @@ def load_dataset(
     elif name == "malimg":
         train_dataset, test_dataset = load_malimg()
     elif name == "ag_news":
-        train_dataset, test_dataset = load_agnews(vectorizer)
+        if return_vectorizer:
+            train_dataset, test_dataset, vectorizer = load_agnews(
+                vectorizer, return_vectorizer
+            )
+        else:
+            train_dataset, test_dataset = load_agnews(vectorizer)
     elif name == "20newsgroups":
-        train_dataset, test_dataset = load_20newsgroups(vectorizer)
+        if return_vectorizer:
+            train_dataset, test_dataset, vectorizer = load_20newsgroups(
+                vectorizer, return_vectorizer
+            )
+        else:
+            train_dataset, test_dataset = load_20newsgroups(vectorizer)
     elif name == "kmnist":
         train_dataset = torchvision.datasets.KMNIST(
             root=data_folder, train=True, download=True, transform=transform
@@ -148,7 +164,12 @@ def load_dataset(
         test_dataset = torchvision.datasets.KMNIST(
             root=data_folder, train=False, download=True, transform=transform
         )
-    return (train_dataset, test_dataset)
+    return (
+        train_dataset,
+        test_dataset,
+        vectorizer if return_vectorizer else train_dataset,
+        test_dataset,
+    )
 
 
 def load_malimg(
@@ -198,8 +219,27 @@ def load_malimg(
 
 
 def load_agnews(
-    vectorization_mode: str = "tfidf", seed: int = 42
+    vectorization_mode: str = "tfidf", return_vectorizer: bool = False
 ) -> Tuple[torch.utils.data.DataLoader, torch.utils.data.DataLoader]:
+    """
+    Loads the AG News dataset.
+
+    Parameters
+    ----------
+    vectorizer: str
+        The vectorizer to use, options: [tfidf (default) | ngrams]
+    return_vectorizer: bool
+        Whether to return vectorizer object or not.
+
+    Returns
+    -------
+    train_dataset: torch.utils.data.TensorDataset
+        The training dataset object to be wrapped by a data loader.
+    test_dataset: torch.utils.data.TensorDataset
+        The test dataset object to be wrapped by a data loader.
+    vectorizer: object
+        The text vectorizer object.
+    """
     path = str(Path.home())
     path = os.path.join(path, "torch_datasets")
     train_path = os.path.join(path, "ag_news.train")
@@ -212,7 +252,12 @@ def load_agnews(
     test_texts, test_labels = (list(test_dataset.keys()), list(test_dataset.values()))
     train_texts, train_labels = preprocess_data(train_texts, train_labels)
     test_texts, test_labels = preprocess_data(test_texts, test_labels)
-    train_vectors = vectorize_text(train_texts, vectorization_mode)
+    if return_vectorizer:
+        train_vectors, vectorizer = vectorize_text(
+            train_texts, vectorization_mode, return_vectorizer=return_vectorizer
+        )
+    else:
+        train_vectors = vectorize_text(train_texts, vectorization_mode)
     test_vectors = vectorize_text(test_texts, vectorization_mode)
     train_dataset = torch.utils.data.TensorDataset(
         torch.from_numpy(train_vectors), torch.from_numpy(train_labels)
@@ -220,11 +265,15 @@ def load_agnews(
     test_dataset = torch.utils.data.TensorDataset(
         torch.from_numpy(test_vectors), torch.from_numpy(test_labels)
     )
-    return train_dataset, test_dataset
+    return (
+        (train_dataset, test_dataset, vectorizer)
+        if return_vectorizer
+        else (train_dataset, test_dataset)
+    )
 
 
 def load_20newsgroups(
-    vectorizer: str = "tfidf"
+    vectorizer: str = "tfidf", return_vectorizer: bool = False
 ) -> Tuple[torch.utils.data.TensorDataset, torch.utils.data.TensorDataset]:
     """
     Loads the 20 Newsgroups dataset.
@@ -233,6 +282,8 @@ def load_20newsgroups(
     ----------
     vectorizer: str
         The vectorizer to use, options: [tfidf (default) | ngrams]
+    return_vectorizer: bool
+        Whether to return vectorizer object or not.
 
     Returns
     -------
@@ -240,12 +291,17 @@ def load_20newsgroups(
         The training dataset object to be wrapped by a data loader.
     test_dataset: torch.utils.data.TensorDataset
         The test dataset object to be wrapped by a data loader.
+    vectorizer: object
+        The text vectorizer object.
     """
     train_texts, train_labels = fetch_20newsgroups(
         return_X_y=True, subset="train", remove=("headers", "footers", "quotes")
     )
     train_texts, train_labels = preprocess_data(train_texts, train_labels)
-    train_features = vectorize_text(train_texts, vectorizer=vectorizer)
+    if return_vectorizer:
+        train_features, vectorizer = vectorize_text(train_texts, vectorizer=vectorizer)
+    else:
+        train_features = vectorize_text(train_texts, vectorizer=vectorizer)
     train_dataset = torch.utils.data.TensorDataset(
         torch.from_numpy(train_features), torch.from_numpy(train_labels)
     )
@@ -257,4 +313,8 @@ def load_20newsgroups(
     test_dataset = torch.utils.data.TensorDataset(
         torch.from_numpy(test_features), torch.from_numpy(test_labels)
     )
-    return train_dataset, test_dataset
+    return (
+        (train_dataset, test_dataset, vectorizer)
+        if return_vectorizer
+        else (train_dataset, test_dataset)
+    )
