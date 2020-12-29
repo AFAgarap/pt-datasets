@@ -144,7 +144,12 @@ def load_dataset(
     elif name == "malimg":
         train_dataset, test_dataset = load_malimg()
     elif name == "ag_news":
-        train_dataset, test_dataset = load_agnews(vectorizer)
+        if return_vectorizer:
+            train_dataset, test_dataset, vectorizer = load_agnews(
+                vectorizer, return_vectorizer
+            )
+        else:
+            train_dataset, test_dataset = load_agnews(vectorizer)
     elif name == "20newsgroups":
         train_dataset, test_dataset = load_20newsgroups(vectorizer)
     elif name == "kmnist":
