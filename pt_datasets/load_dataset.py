@@ -52,6 +52,11 @@ def load_dataset(
             7. ag_news (AG News)
     data_folder: str
         The path to the folder for the datasets.
+    vectorizer: str
+        The vectorization method to use.
+        Options: [tfidf (default) | ngrams]
+    return_vectorizer: bool
+        Whether to return the vectorizer object or not.
 
     Returns
     -------
