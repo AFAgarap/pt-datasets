@@ -244,7 +244,11 @@ def load_agnews(
     test_dataset = torch.utils.data.TensorDataset(
         torch.from_numpy(test_vectors), torch.from_numpy(test_labels)
     )
-    return train_dataset, test_dataset
+    return (
+        (train_dataset, test_dataset, vectorizer)
+        if return_vectorizer
+        else (train_dataset, test_dataset)
+    )
 
 
 def load_20newsgroups(
