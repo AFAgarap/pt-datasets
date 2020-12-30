@@ -167,10 +167,9 @@ def load_dataset(
             root=data_folder, train=False, download=True, transform=transform
         )
     return (
-        train_dataset,
-        test_dataset,
-        vectorizer if return_vectorizer else train_dataset,
-        test_dataset,
+        (train_dataset, test_dataset, vectorizer)
+        if return_vectorizer
+        else (train_dataset, test_dataset)
     )
 
 
