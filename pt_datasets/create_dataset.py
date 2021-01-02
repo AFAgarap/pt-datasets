@@ -36,5 +36,9 @@ def create_dataset(
     dataset: torch.utils.data.TensorDataset
         The Tensor Dataset object.
     """
+    if not isinstance(features, torch.Tensor):
+        features = torch.from_numpy(features)
+    if not isinstance(labels, torch.Tensor):
+        labels = torch.from_numpy(labels)
     dataset = torch.utils.data.TensorDataset(features, labels)
     return dataset
