@@ -15,6 +15,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """PyTorch dataset loader repository"""
 from .create_dataloader import create_dataloader
+from .create_dataset import create_dataset
 from .encode_features import encode_features
 from .load_dataset import load_dataset
 
