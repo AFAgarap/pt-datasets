@@ -33,3 +33,4 @@ def list_datasets() -> str:
         "AG News" "20 Newsgroups",
         "Malware Image",
     ]
+    return datasets
