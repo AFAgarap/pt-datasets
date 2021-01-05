@@ -20,3 +20,16 @@ from .encode_features import encode_features
 from .load_dataset import load_dataset
 
 __author__ = "Abien Fred Agarap"
+
+
+def list_datasets() -> str:
+    datasets = [
+        "MNIST",
+        "Fashion-MNIST",
+        "EMNIST",
+        "KMNIST",
+        "SVHN",
+        "CIFAR10",
+        "AG News" "20 Newsgroups",
+        "Malware Image",
+    ]
