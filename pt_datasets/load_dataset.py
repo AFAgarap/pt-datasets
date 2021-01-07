@@ -32,6 +32,7 @@ __author__ = "Abien Fred Agarap"
 
 def load_dataset(
     name: str = "mnist",
+    normalize: bool = True,
     data_folder: str = "~/torch_datasets",
     vectorizer: str = "tfidf",
     return_vectorizer: bool = False,
@@ -50,6 +51,8 @@ def load_dataset(
             5. svhn (SVHN)
             6. malimg (Malware Image classification)
             7. ag_news (AG News)
+    normalize: bool
+        Whether to normalize images or not.
     data_folder: str
         The path to the folder for the datasets.
     vectorizer: str
@@ -85,12 +88,13 @@ def load_dataset(
     transform = torchvision.transforms.Compose([torchvision.transforms.ToTensor()])
 
     if name == "mnist":
-        transform = torchvision.transforms.Compose(
-            [
-                torchvision.transforms.ToTensor(),
-                torchvision.transforms.Normalize((0.1307,), (0.3081,)),
-            ]
-        )
+        if normalize:
+            transform = torchvision.transforms.Compose(
+                [
+                    torchvision.transforms.ToTensor(),
+                    torchvision.transforms.Normalize((0.1307,), (0.3081,)),
+                ]
+            )
         train_dataset = torchvision.datasets.MNIST(
             root=data_folder, train=True, download=True, transform=transform
         )
@@ -120,14 +124,15 @@ def load_dataset(
             transform=transform,
         )
     elif name == "cifar10":
-        transform = torchvision.transforms.Compose(
-            [
-                torchvision.transforms.ToTensor(),
-                torchvision.transforms.Normalize(
-                    (0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010)
-                ),
-            ]
-        )
+        if normalize:
+            transform = torchvision.transforms.Compose(
+                [
+                    torchvision.transforms.ToTensor(),
+                    torchvision.transforms.Normalize(
+                        (0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010)
+                    ),
+                ]
+            )
         train_dataset = torchvision.datasets.CIFAR10(
             root=data_folder, train=True, download=True, transform=transform
         )
