@@ -51,6 +51,8 @@ def load_dataset(
             5. svhn (SVHN)
             6. malimg (Malware Image classification)
             7. ag_news (AG News)
+    normalize: bool
+        Whether to normalize images or not.
     data_folder: str
         The path to the folder for the datasets.
     vectorizer: str
