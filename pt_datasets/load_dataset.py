@@ -32,6 +32,7 @@ __author__ = "Abien Fred Agarap"
 
 def load_dataset(
     name: str = "mnist",
+    normalize: bool = True,
     data_folder: str = "~/torch_datasets",
     vectorizer: str = "tfidf",
     return_vectorizer: bool = False,
