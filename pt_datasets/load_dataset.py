@@ -88,12 +88,13 @@ def load_dataset(
     transform = torchvision.transforms.Compose([torchvision.transforms.ToTensor()])
 
     if name == "mnist":
-        transform = torchvision.transforms.Compose(
-            [
-                torchvision.transforms.ToTensor(),
-                torchvision.transforms.Normalize((0.1307,), (0.3081,)),
-            ]
-        )
+        if normalize:
+            transform = torchvision.transforms.Compose(
+                [
+                    torchvision.transforms.ToTensor(),
+                    torchvision.transforms.Normalize((0.1307,), (0.3081,)),
+                ]
+            )
         train_dataset = torchvision.datasets.MNIST(
             root=data_folder, train=True, download=True, transform=transform
         )
