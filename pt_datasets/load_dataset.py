@@ -20,7 +20,7 @@ from typing import Tuple
 
 import gdown
 import numpy as np
-from sklearn.datasets import fetch_20newsgroups
+from sklearn.datasets import fetch_20newsgroups, load_breast_cancer
 from sklearn.model_selection import train_test_split
 import torch
 import torchvision
@@ -324,3 +324,17 @@ def load_20newsgroups(
         if return_vectorizer
         else (train_dataset, test_dataset)
     )
+
+
+def load_wdbc(test_size: float = 3e-1, seed: int = 42):
+    """
+    Loads the Wisconsin Diagnostic Breast Cancer dataset.
+
+    Parameters
+    ----------
+    test_size: float
+        The size of the test set.
+    seed: int
+        The random seed to use for reproducibility.
+    """
+    pass
