@@ -338,5 +338,7 @@ def load_wdbc(test_size: float = 3e-1, seed: int = 42):
         The random seed to use for reproducibility.
     """
     features, labels = load_breast_cancer(return_X_y=True)
-
+    train_features, test_features, train_labels, test_labels = train_test_split(
+        features, labels, test_size=test_size, random_state=seed
+    )
     return features, labels
