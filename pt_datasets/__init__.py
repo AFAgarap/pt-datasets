@@ -32,5 +32,6 @@ def list_datasets() -> str:
         "CIFAR10",
         "AG News" "20 Newsgroups",
         "Malware Image",
+        "Wisconsin Diagnostic Breast Cancer",
     ]
     return datasets
