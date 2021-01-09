@@ -33,9 +33,9 @@ setup(
     long_description_content_type="text/markdown",
     install_requires=[
         "numpy==1.19.4",
-        "torchvision==0.8.1",
+        "torchvision==0.8.2",
         "umap_learn==0.4.6",
-        "torch==1.7.0",
+        "torch==1.7.1",
         "MulticoreTSNE==0.1",
         "scikit_learn==0.23.2",
         "gdown==3.12.2",
