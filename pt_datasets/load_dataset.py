@@ -33,6 +33,7 @@ __author__ = "Abien Fred Agarap"
 def load_dataset(
     name: str = "mnist",
     normalize: bool = True,
+    augment: bool = False,
     data_folder: str = "~/torch_datasets",
     vectorizer: str = "tfidf",
     return_vectorizer: bool = False,
@@ -51,8 +52,13 @@ def load_dataset(
             5. svhn (SVHN)
             6. malimg (Malware Image classification)
             7. ag_news (AG News)
+            8. 20newsgroups (20 Newsgroups text classification)
+            9. kmnist (KMNIST)
+            10. wdbc (Wiscosin Diagnostic Breast Cancer classification)
     normalize: bool
         Whether to normalize images or not.
+    augment: bool
+        Whether to perform image augmentation or not.
     data_folder: str
         The path to the folder for the datasets.
     vectorizer: str
@@ -86,6 +92,15 @@ def load_dataset(
     ), f"[ERROR] Dataset {name} is not supported. {_supported}"
 
     transform = torchvision.transforms.Compose([torchvision.transforms.ToTensor()])
+    if augment and name in ["mnist", "fashion_mnist", "emnist", "kmnist"]:
+        transform = torchvision.transforms.Compose(
+            [
+                torchvision.transforms.RandomHorizontalFlip(),
+                torchvision.transforms.RandomVerticalFlip(),
+                torchvision.transforms.Normalize((0.1307,), (0.3081,)),
+                torchvision.transforms.ToTensor(),
+            ]
+        )
 
     if name == "mnist":
         if normalize:
