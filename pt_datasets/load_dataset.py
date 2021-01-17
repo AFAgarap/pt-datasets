@@ -82,6 +82,7 @@ def load_dataset(
         "ag_news",
         "20newsgroups",
         "kmnist",
+        "wdbc",
     ]
 
     name = name.lower()
@@ -186,6 +187,8 @@ def load_dataset(
         test_dataset = torchvision.datasets.KMNIST(
             root=data_folder, train=False, download=True, transform=transform
         )
+    elif name == "wdbc":
+        train_dataset, test_dataset = load_wdbc()
     return (
         (train_dataset, test_dataset, vectorizer)
         if return_vectorizer
