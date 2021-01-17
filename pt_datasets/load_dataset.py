@@ -52,6 +52,9 @@ def load_dataset(
             5. svhn (SVHN)
             6. malimg (Malware Image classification)
             7. ag_news (AG News)
+            8. 20newsgroups (20 Newsgroups text classification)
+            9. kmnist (KMNIST)
+            10. wdbc (Wiscosin Diagnostic Breast Cancer classification)
     normalize: bool
         Whether to normalize images or not.
     augment: bool
