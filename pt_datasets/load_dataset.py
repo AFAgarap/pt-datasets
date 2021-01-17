@@ -33,6 +33,7 @@ __author__ = "Abien Fred Agarap"
 def load_dataset(
     name: str = "mnist",
     normalize: bool = True,
+    augment: bool = False,
     data_folder: str = "~/torch_datasets",
     vectorizer: str = "tfidf",
     return_vectorizer: bool = False,
@@ -53,6 +54,8 @@ def load_dataset(
             7. ag_news (AG News)
     normalize: bool
         Whether to normalize images or not.
+    augment: bool
+        Whether to perform image augmentation or not.
     data_folder: str
         The path to the folder for the datasets.
     vectorizer: str
