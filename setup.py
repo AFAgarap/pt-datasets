@@ -39,6 +39,7 @@ setup(
         "MulticoreTSNE==0.1",
         "scikit_learn==0.23.2",
         "gdown==3.12.2",
+        "nltk==3.5",
     ],
 )
 
