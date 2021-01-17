@@ -92,6 +92,15 @@ def load_dataset(
     ), f"[ERROR] Dataset {name} is not supported. {_supported}"
 
     transform = torchvision.transforms.Compose([torchvision.transforms.ToTensor()])
+    if augment and name in ["mnist", "fashion_mnist", "emnist", "kmnist"]:
+        transform = torchvision.transforms.Compose(
+            [
+                torchvision.transforms.RandomHorizontalFlip(),
+                torchvision.transforms.RandomVerticalFlip(),
+                torchvision.transforms.Normalize((0.1307,), (0.3081,)),
+                torchvision.transforms.ToTensor(),
+            ]
+        )
 
     if name == "mnist":
         if normalize:
