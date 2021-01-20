@@ -20,9 +20,11 @@ import string
 from typing import Dict, List, Tuple
 from zipfile import ZipFile
 
+import cv2
 import nltk
 import numpy as np
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
+import torch
 
 __author__ = "Abien Fred Agarap"
 
@@ -235,3 +237,27 @@ def central_crop(image: np.ndarray) -> np.ndarray:
     return image[
         offset_height : offset_height + size, offset_width : offset_width + size
     ]
+
+
+def load_image(filename: str, size: Tuple = 224) -> torch.Tensor:
+    """
+    Loads the image from file.
+
+    Parameters
+    ----------
+    filename: str
+        The image data to load.
+    size: int
+        The size to use for the loaded image.
+
+    Returns
+    -------
+    image: torch.Tensor:
+        The loaded image.
+    """
+    image = cv2.imread(filename)
+    image = crop_top(image)
+    image = central_crop(image)
+    image = cv2.resize(image, (size, size))
+    image = torch.Tensor(image)
+    return image
