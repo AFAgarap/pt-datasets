@@ -10,6 +10,9 @@ BINARY_COVID_DATASET = (
 
 
 def download_binary_covid_dataset():
+    """
+    Downloads the COVID19 Binary classification dataset
+    """
     path = os.path.join(str(Path.home()), "datasets")
     filename = "BinaryCOVIDDataset.zip"
     gdown.download(BINARY_COVID_DATASET, os.path.join(path, filename))
