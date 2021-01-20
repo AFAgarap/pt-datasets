@@ -191,3 +191,8 @@ def read_metadata(metadata_file: str) -> List:
                 data[index][3],
             ]
     return data
+
+
+def crop_top(image: np.ndarray, percent: float = 8e-2) -> np.ndarray:
+    offset = int(image.shape[0] * percent)
+    return image[offset:]
