@@ -162,3 +162,32 @@ def unzip_dataset(dataset_filename: str) -> None:
         print(f"[INFO] Extracting {dataset_filename}...")
         with ZipFile(dataset_filename, "r") as zip_object:
             zip_object.extractall(os.path.join(str(Path.home()), "datasets"))
+
+
+def read_metadata(metadata_file: str) -> List:
+    """
+    Returns a nested list that consists of the following
+    metadata for the dataset,
+    ID, filename, class, source
+
+    Parameter
+    ---------
+    metadata_filename: str
+        The path to the dataset metadata.
+
+    Returns
+    -------
+    data: List
+        The metadata for the dataset.
+    """
+    with open(metadata_file, "r") as file:
+        data = file.readlines()
+    for index in range(len(data)):
+        data[index] = data[index].strip("\n").split()
+        if data[index][0] == "COVID":
+            data[index] = [
+                f"{data[index][0]} {data[index][1]}",
+                data[index][2],
+                data[index][3],
+            ]
+    return data
