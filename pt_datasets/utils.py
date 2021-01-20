@@ -194,11 +194,41 @@ def read_metadata(metadata_file: str) -> List:
 
 
 def crop_top(image: np.ndarray, percent: float = 8e-2) -> np.ndarray:
+    """
+    Returns an image whose top has been cropped out.
+
+    Parameters
+    ----------
+    image: np.ndarray
+        The image whose top will be cropped out.
+    percent: float
+        The percentage of top to crop.
+
+    Returns
+    -------
+    image: np.ndarray
+        The top cropped image.
+    """
     offset = int(image.shape[0] * percent)
     return image[offset:]
 
 
 def central_crop(image: np.ndarray) -> np.ndarray:
+    """
+    Returns a crop of the image center.
+    Code from Wang et al. (2020):
+    https://github.com/lindawangg/COVID-Net
+
+    Parameter
+    ---------
+    image: np.ndarray
+        The image whose central crop will be returned.
+
+    Returns
+    -------
+    image: np.ndarray
+        The central cropped image.
+    """
     size = min(image.shape[0], image.shape[1])
     offset_height = int((image.shape[0] - size) / 2)
     offset_width = int((image.shape[1] - size) / 2)
