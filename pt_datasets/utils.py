@@ -14,8 +14,11 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 import csv
+import os
+from pathlib import Path
 import string
 from typing import Dict, List, Tuple
+from zipfile import ZipFile
 
 import nltk
 import numpy as np
@@ -152,3 +155,10 @@ def vectorize_text(
     vectors = vectors.toarray()
     vectors = vectors.astype(np.float32)
     return (vectors, vectorizer) if return_vectorizer else vectors
+
+
+def unzip_dataset(dataset_filename: str) -> None:
+    if dataset_filename.endswith("zip"):
+        print(f"[INFO] Extracting {dataset_filename}...")
+        with ZipFile(dataset_filename, "r") as zip_object:
+            zip_object.extractall(os.path.join(str(Path.home()), "datasets"))
