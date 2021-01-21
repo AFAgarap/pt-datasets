@@ -18,7 +18,7 @@ class BinaryCOVID19Dataset(torch.utils.data.Dataset):
     Dataset class for the COVID19 binary classification dataset.
     """
 
-    def __init__(self, train: bool = True):
+    def __init__(self, train: bool = True, transform=None):
         """
         Builds the COVID19 binary classification dataset.
 
@@ -35,6 +35,7 @@ class BinaryCOVID19Dataset(torch.utils.data.Dataset):
             path = os.path.join(DATASET_PATH, "test")
             self.annotations = read_metadata(TEST_METADATA)
             self.root_dir = path
+        self.transform = transform
 
     def __len__(self):
         return len(self.annotations)
@@ -44,6 +45,8 @@ class BinaryCOVID19Dataset(torch.utils.data.Dataset):
             idx = idx.tolist()
         image_name = os.path.join(self.root_dir, self.annotations[idx][1])
         image = load_image(image_name, 128)
+        if self.transform:
+            image = self.transform(image)
         label = self.annotations[idx][2]
         label = 0 if label == "negative" else 1
         sample = {"image": image, "label": label}
