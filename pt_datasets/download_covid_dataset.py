@@ -7,11 +7,14 @@ import gdown
 BINARY_COVID19_DATASET = (
     "https://drive.google.com/uc?id=1sGHrm76Rt_qRoHo-nU3A4iK8RMuTRMB6"
 )
+MULTI_COVID19_DATASET = (
+    "https://drive.google.com/uc?id=1Rgc6gx2DaUtUbs7FEyS8DnMEaoDnjR-0"
+)
 
 
 def download_binary_covid19_dataset():
     """
-    Downloads the COVID19 Binary classification dataset
+    Downloads the COVID19 Binary classification dataset.
     """
     path = os.path.join(str(Path.home()), "datasets")
     filename = "BinaryCOVID19Dataset.tar.xz"
