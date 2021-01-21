@@ -194,7 +194,7 @@ def load_dataset(
     elif name == "wdbc":
         train_dataset, test_dataset = load_wdbc()
     elif name == "binary_covid":
-        train_dataset, test_dataset = load_binary_covid19()
+        train_dataset, test_dataset = load_binary_covid19(transform=transform)
     return (
         (train_dataset, test_dataset, vectorizer)
         if return_vectorizer
@@ -374,7 +374,9 @@ def load_wdbc(test_size: float = 3e-1, seed: int = 42):
     return train_dataset, test_dataset
 
 
-def load_binary_covid19() -> Tuple[torch.utils.data.Dataset, torch.utils.data.Dataset]:
+def load_binary_covid19(
+    transform: torchvision.transforms
+) -> Tuple[torch.utils.data.Dataset, torch.utils.data.Dataset]:
     """
     Returns a tuple of the tensor datasets for the
     train and test sets of the COVID19 binary classification dataset.
@@ -393,7 +395,7 @@ def load_binary_covid19() -> Tuple[torch.utils.data.Dataset, torch.utils.data.Da
         download_binary_covid19_dataset()
         unzip_dataset(os.path.join(dataset_path, "BinaryCOVID19Dataset.tar.xz"))
     train_data, test_data = (
-        BinaryCOVID19Dataset(train=True),
-        BinaryCOVID19Dataset(train=False),
+        BinaryCOVID19Dataset(train=True, transform=transform),
+        BinaryCOVID19Dataset(train=False, transform=transform),
     )
     return train_data, test_data
