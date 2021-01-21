@@ -161,6 +161,14 @@ def vectorize_text(
 
 
 def unzip_dataset(dataset_filename: str) -> None:
+    """
+    Extracts the contents of a `.zip` or `.tar` file.
+
+    Parameter
+    ---------
+    dataset_filename: str
+        The path to the compressed dataset.
+    """
     print(f"[INFO] Extracting {dataset_filename}...")
     if dataset_filename.endswith(".zip"):
         with ZipFile(dataset_filename, "r") as zip_object:
