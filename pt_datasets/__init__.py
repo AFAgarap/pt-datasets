@@ -33,6 +33,7 @@ def list_datasets() -> str:
         "AG News" "20 Newsgroups",
         "Malware Image",
         "Wisconsin Diagnostic Breast Cancer",
-        "Binary COVID19 Diagnostic",
+        "Binary COVID19",
+        "Multi COVID19",
     ]
     return datasets

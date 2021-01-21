@@ -60,7 +60,8 @@ def load_dataset(
             8. 20newsgroups (20 Newsgroups text classification)
             9. kmnist (KMNIST)
             10. wdbc (Wiscosin Diagnostic Breast Cancer classification)
-            11. binary_covid (Binary COVID19 diagnostic)
+            11. binary_covid (Binary COVID19)
+            12. multi_covid (Multi COVID19)
     normalize: bool
         Whether to normalize images or not.
     augment: bool
@@ -90,6 +91,7 @@ def load_dataset(
         "kmnist",
         "wdbc",
         "binary_covid",
+        "multi_covid",
     ]
 
     name = name.lower()
