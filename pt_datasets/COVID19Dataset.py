@@ -14,7 +14,19 @@ TEST_METADATA = os.path.join(DATASET_DIR, "test_split.txt")
 
 
 class BinaryCOVID19Dataset(torch.utils.data.Dataset):
+    """
+    Dataset class for the COVID19 binary classification dataset.
+    """
+
     def __init__(self, train: bool = True):
+        """
+        Builds the COVID19 binary classification dataset.
+
+        Parameter
+        ---------
+        train: bool
+            Whether to load the training set or not.
+        """
         if train:
             path = os.path.join(DATASET_PATH, "train")
             self.annotations = read_metadata(TRAIN_METADATA)
