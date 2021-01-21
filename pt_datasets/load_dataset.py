@@ -25,8 +25,11 @@ from sklearn.model_selection import train_test_split
 import torch
 import torchvision
 
-from pt_datasets.COVID19Dataset import BinaryCOVID19Dataset
-from pt_datasets.download_covid_dataset import download_binary_covid19_dataset
+from pt_datasets.COVID19Dataset import BinaryCOVID19Dataset, MultiCOVID19Dataset
+from pt_datasets.download_covid_dataset import (
+    download_binary_covid19_dataset,
+    download_covidx5_dataset,
+)
 from pt_datasets.utils import preprocess_data, read_data, vectorize_text, unzip_dataset
 
 __author__ = "Abien Fred Agarap"
@@ -397,5 +400,32 @@ def load_binary_covid19(
     train_data, test_data = (
         BinaryCOVID19Dataset(train=True, transform=transform),
         BinaryCOVID19Dataset(train=False, transform=transform),
+    )
+    return train_data, test_data
+
+
+def load_multi_covid19(
+    transform: torchvision.transforms
+) -> Tuple[torch.utils.data.Dataset, torch.utils.data.Dataset]:
+    """
+    Returns a tuple of the tensor datasets for the
+    train and test sets of the COVID19 multi-classification dataset.
+
+    Returns
+    -------
+    train_data: torch.utils.data.TensorDataset
+        The training set of COVIDx5 dataset.
+    test_data: torch.utils.data.TensorDataset
+        The test set of COVIDx5 dataset.
+    """
+    dataset_path = os.path.join(str(Path.home()), "datasets")
+    if not os.path.exists(dataset_path):
+        os.mkdir(dataset_path)
+    if not os.path.exists(os.path.join(dataset_path, "MultiCOVID19Dataset")):
+        download_covidx5_dataset()
+        unzip_dataset(os.path.join(dataset_path, "MultiCOVID19Dataset.tar.xz"))
+    train_data, test_data = (
+        MultiCOVID19Dataset(train=True, transform=transform),
+        MultiCOVID19Dataset(train=False, transform=transform),
     )
     return train_data, test_data
