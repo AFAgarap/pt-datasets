@@ -22,7 +22,7 @@ def _post_install():
 
 setup(
     name="pt-datasets",
-    version="0.8.0",
+    version="0.9.0",
     packages=["pt_datasets"],
     url="https://github.com/AFAgarap/pt-datasets",
     license="AGPL-3.0 License",

@@ -1,3 +1,19 @@
+# PyTorch Datasets utility repository
+# Copyright (C) 2020  Abien Fred Agarap
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published
+# by the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+"""COVID19 dataset classes"""
 import os
 from pathlib import Path
 from typing import Dict
@@ -5,6 +21,8 @@ from typing import Dict
 import torch
 
 from pt_datasets.utils import read_metadata, load_image
+
+__author__ = "Abien Fred Agarap"
 
 
 DATASET_DIR = os.path.join(str(Path.home()), "torch_datasets/BinaryCOVID19Dataset")
@@ -49,5 +67,50 @@ class BinaryCOVID19Dataset(torch.utils.data.Dataset):
             image = self.transform(image)
         label = self.annotations[idx][2]
         label = 0 if label == "negative" else 1
+        sample = {"image": image, "label": label}
+        return sample
+
+
+class MultiCOVID19Dataset(torch.utils.data.Dataset):
+    """
+    Dataset class for the COVID19 multi-classification dataset.
+    """
+
+    def __init__(self, train: bool = True, transform=None):
+        """
+        Builds the COVID19 multi-classification dataset.
+
+        Parameter
+        ---------
+        train: bool
+            Whether to load the training set or not.
+        """
+        if train:
+            path = os.path.join(DATASET_PATH, "train")
+            self.annotations = read_metadata(TRAIN_METADATA)
+            self.root_dir = path
+        else:
+            path = os.path.join(DATASET_PATH, "test")
+            self.annotations = read_metadata(TEST_METADATA)
+            self.root_dir = path
+        self.transform = transform
+
+    def __len__(self):
+        return len(self.annotations)
+
+    def __getitem__(self, idx) -> Dict:
+        if torch.is_tensor(idx):
+            idx = idx.tolist()
+        image_name = os.path.join(self.root_dir, self.annotations[idx][1])
+        image = load_image(image_name, 128)
+        if self.transform:
+            image = self.transform(image)
+        label = self.annotations[idx][2]
+        if label == "normal":
+            label = 0
+        elif label == "pneumonia":
+            label = 1
+        elif label == "COVID-19":
+            label = 2
         sample = {"image": image, "label": label}
         return sample
