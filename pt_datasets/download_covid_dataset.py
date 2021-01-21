@@ -19,6 +19,8 @@ from pathlib import Path
 
 import gdown
 
+__author__ = "Abien Fred Agarap"
+
 
 BINARY_COVID19_DATASET = (
     "https://drive.google.com/uc?id=1sGHrm76Rt_qRoHo-nU3A4iK8RMuTRMB6"
