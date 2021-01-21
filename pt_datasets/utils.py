@@ -271,5 +271,4 @@ def load_image(filename: str, size: Tuple = 224) -> torch.Tensor:
     image = crop_top(image)
     image = central_crop(image)
     image = cv2.resize(image, (size, size))
-    image = torch.Tensor(image)
     return image
