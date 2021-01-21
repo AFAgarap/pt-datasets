@@ -25,6 +25,7 @@ t-SNE, or UMAP.
 - 20 Newsgroups
 - KMNIST
 - Wisconsin Diagnostic Breast Cancer
+- [COVID19 binary classification](https://github.com/lindawangg/COVID-Net)
 
 ## Usage
 
