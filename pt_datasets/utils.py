@@ -17,6 +17,7 @@ import csv
 import os
 from pathlib import Path
 import string
+import tarfile
 from typing import Dict, List, Tuple
 from zipfile import ZipFile
 
@@ -160,10 +161,13 @@ def vectorize_text(
 
 
 def unzip_dataset(dataset_filename: str) -> None:
-    if dataset_filename.endswith("zip"):
-        print(f"[INFO] Extracting {dataset_filename}...")
+    print(f"[INFO] Extracting {dataset_filename}...")
+    if dataset_filename.endswith(".zip"):
         with ZipFile(dataset_filename, "r") as zip_object:
             zip_object.extractall(os.path.join(str(Path.home()), "datasets"))
+    elif dataset_filename.endswith(".tar.xz"):
+        with tarfile.open(dataset_filename, "r") as tar_object:
+            tar_object.extractall(os.path.join(str(Path.home()), "datasets"))
 
 
 def read_metadata(metadata_file: str) -> List:
