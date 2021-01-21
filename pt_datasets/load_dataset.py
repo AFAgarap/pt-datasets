@@ -25,7 +25,9 @@ from sklearn.model_selection import train_test_split
 import torch
 import torchvision
 
-from pt_datasets.utils import preprocess_data, read_data, vectorize_text
+from pt_datasets.COVID19Dataset import BinaryCOVID19Dataset
+from pt_datasets.download_covid_dataset import download_binary_covid19_dataset
+from pt_datasets.utils import preprocess_data, read_data, vectorize_text, unzip_dataset
 
 __author__ = "Abien Fred Agarap"
 
@@ -366,3 +368,28 @@ def load_wdbc(test_size: float = 3e-1, seed: int = 42):
         torch.from_numpy(test_labels), torch.from_numpy(test_labels)
     )
     return train_dataset, test_dataset
+
+
+def load_binary_covid19() -> Tuple[torch.utils.data.Dataset, torch.utils.data.Dataset]:
+    """
+    Returns a tuple of the tensor datasets for the
+    train and test sets of the COVID19 binary classification dataset.
+
+    Returns
+    -------
+    train_data: torch.utils.data.TensorDataset
+        The training set of Binary COVID19 dataset.
+    test_data: torch.utils.data.TensorDataset
+        The test set of Binary COVID19 dataset.
+    """
+    dataset_path = os.path.join(str(Path.home()), "datasets")
+    if not os.path.exists(dataset_path):
+        os.mkdir(dataset_path)
+    if not os.path.exists(os.path.join(dataset_path, "BinaryCOVID19Dataset")):
+        download_binary_covid19_dataset()
+        unzip_dataset(os.path.join(dataset_path, "BinaryCOVID19Dataset.tar.xz"))
+    train_data, test_data = (
+        BinaryCOVID19Dataset(train=True),
+        BinaryCOVID19Dataset(train=False),
+    )
+    return train_data, test_data
