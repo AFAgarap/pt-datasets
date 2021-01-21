@@ -14,12 +14,18 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 import csv
+import os
+from pathlib import Path
 import string
+import tarfile
 from typing import Dict, List, Tuple
+from zipfile import ZipFile
 
+import cv2
 import nltk
 import numpy as np
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
+import torch
 
 __author__ = "Abien Fred Agarap"
 
@@ -152,3 +158,117 @@ def vectorize_text(
     vectors = vectors.toarray()
     vectors = vectors.astype(np.float32)
     return (vectors, vectorizer) if return_vectorizer else vectors
+
+
+def unzip_dataset(dataset_filename: str) -> None:
+    """
+    Extracts the contents of a `.zip` or `.tar` file.
+
+    Parameter
+    ---------
+    dataset_filename: str
+        The path to the compressed dataset.
+    """
+    print(f"[INFO] Extracting {dataset_filename}...")
+    if dataset_filename.endswith(".zip"):
+        with ZipFile(dataset_filename, "r") as zip_object:
+            zip_object.extractall(os.path.join(str(Path.home()), "datasets"))
+    elif dataset_filename.endswith(".tar.xz"):
+        with tarfile.open(dataset_filename, "r") as tar_object:
+            tar_object.extractall(os.path.join(str(Path.home()), "datasets"))
+
+
+def read_metadata(metadata_file: str) -> List:
+    """
+    Returns a nested list that consists of the following
+    metadata for the dataset,
+    ID, filename, class, source
+
+    Parameter
+    ---------
+    metadata_filename: str
+        The path to the dataset metadata.
+
+    Returns
+    -------
+    data: List
+        The metadata for the dataset.
+    """
+    with open(metadata_file, "r") as file:
+        data = file.readlines()
+    for index in range(len(data)):
+        data[index] = data[index].strip("\n").split()
+        if data[index][0] == "COVID":
+            data[index] = [
+                f"{data[index][0]} {data[index][1]}",
+                data[index][2],
+                data[index][3],
+            ]
+    return data
+
+
+def crop_top(image: np.ndarray, percent: float = 8e-2) -> np.ndarray:
+    """
+    Returns an image whose top has been cropped out.
+
+    Parameters
+    ----------
+    image: np.ndarray
+        The image whose top will be cropped out.
+    percent: float
+        The percentage of top to crop.
+
+    Returns
+    -------
+    image: np.ndarray
+        The top cropped image.
+    """
+    offset = int(image.shape[0] * percent)
+    return image[offset:]
+
+
+def central_crop(image: np.ndarray) -> np.ndarray:
+    """
+    Returns a crop of the image center.
+    Code from Wang et al. (2020):
+    https://github.com/lindawangg/COVID-Net
+
+    Parameter
+    ---------
+    image: np.ndarray
+        The image whose central crop will be returned.
+
+    Returns
+    -------
+    image: np.ndarray
+        The central cropped image.
+    """
+    size = min(image.shape[0], image.shape[1])
+    offset_height = int((image.shape[0] - size) / 2)
+    offset_width = int((image.shape[1] - size) / 2)
+    return image[
+        offset_height : offset_height + size, offset_width : offset_width + size
+    ]
+
+
+def load_image(filename: str, size: Tuple = 224) -> torch.Tensor:
+    """
+    Loads the image from file.
+
+    Parameters
+    ----------
+    filename: str
+        The image data to load.
+    size: int
+        The size to use for the loaded image.
+
+    Returns
+    -------
+    image: torch.Tensor:
+        The loaded image.
+    """
+    image = cv2.imread(filename)
+    image = crop_top(image)
+    image = central_crop(image)
+    image = cv2.resize(image, (size, size))
+    return image
