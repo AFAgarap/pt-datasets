@@ -20,3 +20,13 @@ def download_binary_covid19_dataset():
     filename = "BinaryCOVID19Dataset.tar.xz"
     print("[INFO] Downloading the dataset...")
     gdown.download(BINARY_COVID19_DATASET, os.path.join(path, filename))
+
+
+def download_covidx5_dataset():
+    """
+    Downloads the COVID19 multi-classification dataset.
+    """
+    path = os.path.join(str(Path.home()), "datasets")
+    filename = "MultiCOVID19Dataset.tar.xz"
+    print("[INFO] Downloading the dataset...")
+    gdown.download(MULTI_COVID19_DATASET, os.path.join(path, filename))
