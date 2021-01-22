@@ -40,7 +40,7 @@ class BinaryCOVID19Dataset(torch.utils.data.Dataset):
     def __init__(
         self,
         train: bool = True,
-        transform: torchvision.transform = None,
+        transform: torchvision.transforms = None,
         size: int = 64,
     ):
         """
