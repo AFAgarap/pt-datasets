@@ -388,7 +388,7 @@ def load_wdbc(test_size: float = 3e-1, seed: int = 42):
 
 
 def load_binary_covid19(
-    transform: torchvision.transforms
+    transform: torchvision.transforms, size: int = 64
 ) -> Tuple[torch.utils.data.Dataset, torch.utils.data.Dataset]:
     """
     Returns a tuple of the tensor datasets for the
@@ -415,7 +415,7 @@ def load_binary_covid19(
 
 
 def load_multi_covid19(
-    transform: torchvision.transforms
+    transform: torchvision.transforms, size: int = 64
 ) -> Tuple[torch.utils.data.Dataset, torch.utils.data.Dataset]:
     """
     Returns a tuple of the tensor datasets for the
