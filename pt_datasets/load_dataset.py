@@ -66,13 +66,16 @@ def load_dataset(
         Whether to normalize images or not.
     augment: bool
         Whether to perform image augmentation or not.
+        This is only used for *MNIST datasets.
     data_folder: str
         The path to the folder for the datasets.
     vectorizer: str
         The vectorization method to use.
         Options: [tfidf (default) | ngrams]
+        This is only used for datasets [name = ag_news | 20newsgroups].
     return_vectorizer: bool
         Whether to return the vectorizer object or not.
+        This is only used for datasets [name = ag_news | 20newsgroups].
 
     Returns
     -------
