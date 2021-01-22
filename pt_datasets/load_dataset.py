@@ -42,6 +42,7 @@ def load_dataset(
     data_folder: str = "~/torch_datasets",
     vectorizer: str = "tfidf",
     return_vectorizer: bool = False,
+    image_size: int = 64,
 ) -> Tuple[object, object]:
     """
     Returns a tuple of torchvision dataset objects.
@@ -76,6 +77,8 @@ def load_dataset(
     return_vectorizer: bool
         Whether to return the vectorizer object or not.
         This is only used for datasets [name = ag_news | 20newsgroups].
+    image_size: int
+        The image size to use for COVID19 datasets.
 
     Returns
     -------
