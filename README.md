@@ -28,7 +28,7 @@ t-SNE, or UMAP.
 - [COVID19 binary classification](https://github.com/lindawangg/COVID-Net)
 - [COVID19 multi-classification](https://github.com/lindawangg/COVID-Net)
 
-_Note on COVID19 dataset: Training models on this is not intended to produce
+_Note on COVID19 datasets: Training models on this is not intended to produce
 models for direct clinical diagnosis. Please do not use the model output for
 self-diagnosis, and seek help from your local health authorities._
 
