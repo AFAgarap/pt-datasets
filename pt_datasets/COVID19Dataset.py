@@ -19,6 +19,7 @@ from pathlib import Path
 from typing import Dict
 
 import torch
+import torchvision
 
 from pt_datasets.utils import read_metadata, load_image
 
@@ -36,7 +37,12 @@ class BinaryCOVID19Dataset(torch.utils.data.Dataset):
     Dataset class for the COVID19 binary classification dataset.
     """
 
-    def __init__(self, train: bool = True, transform=None):
+    def __init__(
+        self,
+        train: bool = True,
+        transform: torchvision.transform = None,
+        size: int = 64,
+    ):
         """
         Builds the COVID19 binary classification dataset.
 
@@ -54,6 +60,7 @@ class BinaryCOVID19Dataset(torch.utils.data.Dataset):
             self.annotations = read_metadata(TEST_METADATA)
             self.root_dir = path
         self.transform = transform
+        self.size = size
 
     def __len__(self):
         return len(self.annotations)
@@ -62,7 +69,7 @@ class BinaryCOVID19Dataset(torch.utils.data.Dataset):
         if torch.is_tensor(idx):
             idx = idx.tolist()
         image_name = os.path.join(self.root_dir, self.annotations[idx][1])
-        image = load_image(image_name, 128)
+        image = load_image(image_name, self.size)
         if self.transform:
             image = self.transform(image)
         label = self.annotations[idx][2]
@@ -76,7 +83,12 @@ class MultiCOVID19Dataset(torch.utils.data.Dataset):
     Dataset class for the COVID19 multi-classification dataset.
     """
 
-    def __init__(self, train: bool = True, transform=None):
+    def __init__(
+        self,
+        train: bool = True,
+        transform: torchvision.transforms = None,
+        size: int = 64,
+    ):
         """
         Builds the COVID19 multi-classification dataset.
 
@@ -94,6 +106,7 @@ class MultiCOVID19Dataset(torch.utils.data.Dataset):
             self.annotations = read_metadata(TEST_METADATA)
             self.root_dir = path
         self.transform = transform
+        self.size = size
 
     def __len__(self):
         return len(self.annotations)
@@ -102,7 +115,7 @@ class MultiCOVID19Dataset(torch.utils.data.Dataset):
         if torch.is_tensor(idx):
             idx = idx.tolist()
         image_name = os.path.join(self.root_dir, self.annotations[idx][1])
-        image = load_image(image_name, 128)
+        image = load_image(image_name, self.size)
         if self.transform:
             image = self.transform(image)
         label = self.annotations[idx][2]
