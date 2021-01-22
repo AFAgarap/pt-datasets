@@ -398,6 +398,13 @@ def load_binary_covid19(
     Returns a tuple of the tensor datasets for the
     train and test sets of the COVID19 binary classification dataset.
 
+    Parameters
+    ----------
+    transform: torchvision.transform
+        The transformation pipeline to use for image preprocessing.
+    size: int
+        The size to use for image resizing.
+
     Returns
     -------
     train_data: torch.utils.data.TensorDataset
@@ -424,6 +431,13 @@ def load_multi_covid19(
     """
     Returns a tuple of the tensor datasets for the
     train and test sets of the COVID19 multi-classification dataset.
+
+    Parameters
+    ----------
+    transform: torchvision.transform
+        The transformation pipeline to use for image preprocessing.
+    size: int
+        The size to use for image resizing.
 
     Returns
     -------
