@@ -50,6 +50,10 @@ class BinaryCOVID19Dataset(torch.utils.data.Dataset):
         ---------
         train: bool
             Whether to load the training set or not.
+        transform: torchvision
+            The transformation pipeline to use for image preprocessing.
+        size: int
+            The size to use for resizing images.
         """
         if train:
             path = os.path.join(DATASET_PATH, "train")
@@ -96,6 +100,10 @@ class MultiCOVID19Dataset(torch.utils.data.Dataset):
         ---------
         train: bool
             Whether to load the training set or not.
+        transform: torchvision
+            The transformation pipeline to use for image preprocessing.
+        size: int
+            The size to use for resizing images.
         """
         if train:
             path = os.path.join(DATASET_PATH, "train")
