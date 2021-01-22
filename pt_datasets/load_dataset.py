@@ -42,6 +42,7 @@ def load_dataset(
     data_folder: str = "~/torch_datasets",
     vectorizer: str = "tfidf",
     return_vectorizer: bool = False,
+    image_size: int = 64,
 ) -> Tuple[object, object]:
     """
     Returns a tuple of torchvision dataset objects.
@@ -76,6 +77,8 @@ def load_dataset(
     return_vectorizer: bool
         Whether to return the vectorizer object or not.
         This is only used for datasets [name = ag_news | 20newsgroups].
+    image_size: int
+        The image size to use for COVID19 datasets.
 
     Returns
     -------
@@ -202,9 +205,13 @@ def load_dataset(
     elif name == "wdbc":
         train_dataset, test_dataset = load_wdbc()
     elif name == "binary_covid":
-        train_dataset, test_dataset = load_binary_covid19(transform=transform)
+        train_dataset, test_dataset = load_binary_covid19(
+            transform=transform, size=image_size
+        )
     elif name == "multi_covid":
-        train_dataset, test_dataset = load_multi_covid19(transform=transform)
+        train_dataset, test_dataset = load_multi_covid19(
+            transform=transform, size=image_size
+        )
     return (
         (train_dataset, test_dataset, vectorizer)
         if return_vectorizer
@@ -385,11 +392,18 @@ def load_wdbc(test_size: float = 3e-1, seed: int = 42):
 
 
 def load_binary_covid19(
-    transform: torchvision.transforms
+    transform: torchvision.transforms, size: int = 64
 ) -> Tuple[torch.utils.data.Dataset, torch.utils.data.Dataset]:
     """
     Returns a tuple of the tensor datasets for the
     train and test sets of the COVID19 binary classification dataset.
+
+    Parameters
+    ----------
+    transform: torchvision.transform
+        The transformation pipeline to use for image preprocessing.
+    size: int
+        The size to use for image resizing.
 
     Returns
     -------
@@ -412,11 +426,18 @@ def load_binary_covid19(
 
 
 def load_multi_covid19(
-    transform: torchvision.transforms
+    transform: torchvision.transforms, size: int = 64
 ) -> Tuple[torch.utils.data.Dataset, torch.utils.data.Dataset]:
     """
     Returns a tuple of the tensor datasets for the
     train and test sets of the COVID19 multi-classification dataset.
+
+    Parameters
+    ----------
+    transform: torchvision.transform
+        The transformation pipeline to use for image preprocessing.
+    size: int
+        The size to use for image resizing.
 
     Returns
     -------
