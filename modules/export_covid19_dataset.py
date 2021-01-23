@@ -19,15 +19,16 @@ def unpack_examples(data_loader: torch.utils.data.Dataset) -> Tuple[List, List]:
     return features, labels
 
 
-def vectorize_features(
-    features: List, dataset_size: int, batch_size: int = 2048
-) -> np.ndarray:
+def vectorize_examples(
+    features: List, labels: List, dataset_size: int, batch_size: int = 2048
+) -> Tuple[np.ndarray, np.ndarray]:
     array = np.zeros((dataset_size, 3, 64, 64))
     for index, row in enumerate(features):
         offset = index * batch_size
         array[offset : offset + batch_size] = row
+    labels = np.array(labels)
     array = array.astype("float32")
-    return array
+    return array, labels
 
 
 def export_dataset(dataset: np.ndarray, filename: str) -> None:
@@ -41,7 +42,9 @@ def main():
     train_data, test_data = load_dataset("multi_covid")
     train_loader = create_dataloader(train_data, batch_size=batch_size)
     train_features, train_labels = unpack_examples(train_loader)
-    train_features = vectorize_features(train_features, dataset_size=len(train_data))
+    train_features, train_labels = vectorize_examples(
+        train_features, train_labels, dataset_size=len(train_data)
+    )
     export_dataset(train_features, "train.pt")
 
 
