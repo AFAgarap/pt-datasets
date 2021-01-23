@@ -43,6 +43,7 @@ def main():
     batch_size = 2048
     train_data, test_data = load_dataset("multi_covid")
     train_loader = create_dataloader(train_data, batch_size=batch_size)
+    test_loader = create_dataloader(test_data, batch_size=len(test_data))
     train_features, train_labels = unpack_examples(train_loader)
     train_features, train_labels = vectorize_examples(
         train_features,
@@ -52,6 +53,12 @@ def main():
     )
     train_dataset = (train_features, train_labels)
     export_dataset(train_dataset, "train.pt")
+    test_features, test_labels = unpack_examples(test_loader)
+    test_features, test_labels = vectorize_examples(
+        test_features, test_labels, dataset_size=len(test_data), batch_size=batch_size
+    )
+    test_dataset = (test_features, test_labels)
+    export_dataset(test_dataset, "test.pt")
 
 
 if __name__ == "__main__":
