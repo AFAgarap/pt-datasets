@@ -45,7 +45,8 @@ def main():
     train_features, train_labels = vectorize_examples(
         train_features, train_labels, dataset_size=len(train_data)
     )
-    export_dataset(train_features, "train.pt")
+    train_dataset = (train_features, train_labels)
+    export_dataset(train_dataset, "train.pt")
 
 
 if __name__ == "__main__":
