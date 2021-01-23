@@ -1,4 +1,5 @@
 import time
+from typing import List, Tuple
 
 import numpy as np
 import torch
@@ -14,16 +15,30 @@ test_loader = create_dataloader(test_data, batch_size=len(test_data))
 train_labels = []
 processed_train = []
 
-for index, example in enumerate(train_loader):
-    start_time = time.time()
-    train_labels.append(example.get("label"))
-    processed_train.append(example.get("image"))
-    duration = time.time() - start_time
-    print(f"[INFO] Processing batch {index} took {duration:.6f}s")
 
-array = np.zeros((len(train_data), 3, 64, 64))
-for index, row in enumerate(processed_train):
-    offset = index * batch_size
-    array[offset : offset + batch_size] = row
+def unpack_examples(data_loader: torch.utils.data.Dataset) -> Tuple[List, List]:
+    features = []
+    labels = []
+    for index, example in enumerate(data_loader):
+        start_time = time.time()
+        features.append(example.get("image").numpy())
+        labels.append(example.get("label"))
+        duration = time.time() - start_time
+        print(f"[INFO] Processing batch {index} took {duration:.6f}s")
+    return features, labels
 
-torch.save(array, "multi_covid_train.pt")
+
+def vectorize_features(
+    features: List, dataset_size: int, batch_size: int = 2048
+) -> np.ndarray:
+    array = np.zeros((dataset_size, 3, 64, 64))
+    for index, row in enumerate(processed_train):
+        offset = index * batch_size
+        array[offset : offset + batch_size] = row
+    return array
+
+
+def export_dataset(dataset: np.ndarray, filename: str) -> None:
+    if not filename.endswith(".pt"):
+        filename = f"{filename}.pt"
+    torch.save(dataset, filename)
