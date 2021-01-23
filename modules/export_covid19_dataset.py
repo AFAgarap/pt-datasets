@@ -32,7 +32,7 @@ def vectorize_features(
     features: List, dataset_size: int, batch_size: int = 2048
 ) -> np.ndarray:
     array = np.zeros((dataset_size, 3, 64, 64))
-    for index, row in enumerate(processed_train):
+    for index, row in enumerate(features):
         offset = index * batch_size
         array[offset : offset + batch_size] = row
     return array
