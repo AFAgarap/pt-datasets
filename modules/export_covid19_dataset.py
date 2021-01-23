@@ -42,3 +42,7 @@ def main():
     train_features, train_labels = unpack_examples(train_loader)
     train_features = vectorize_features(train_features, dataset_size=len(train_data))
     export_dataset(train_features, "train.pt")
+
+
+if __name__ == "__main__":
+    main()
