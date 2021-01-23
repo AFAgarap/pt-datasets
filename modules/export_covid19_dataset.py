@@ -21,7 +21,7 @@ def unpack_examples(data_loader: torch.utils.data.Dataset) -> Tuple[List, List]:
     labels = []
     for index, example in enumerate(data_loader):
         start_time = time.time()
-        features.append(example.get("image").numpy())
+        features.append(example.get("image").numpy().astype("float32"))
         labels.append(example.get("label"))
         duration = time.time() - start_time
         print(f"[INFO] Processing batch {index} took {duration:.6f}s")
