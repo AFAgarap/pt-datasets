@@ -45,7 +45,10 @@ def main():
     train_loader = create_dataloader(train_data, batch_size=batch_size)
     train_features, train_labels = unpack_examples(train_loader)
     train_features, train_labels = vectorize_examples(
-        train_features, train_labels, dataset_size=len(train_data)
+        train_features,
+        train_labels,
+        dataset_size=len(train_data),
+        batch_size=batch_size,
     )
     train_dataset = (train_features, train_labels)
     export_dataset(train_dataset, "train.pt")
