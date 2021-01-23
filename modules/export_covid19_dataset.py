@@ -7,15 +7,6 @@ import torch
 from pt_datasets import load_dataset, create_dataloader
 
 
-batch_size = 2048
-train_data, test_data = load_dataset("multi_covid")
-train_loader = create_dataloader(train_data, batch_size=batch_size)
-test_loader = create_dataloader(test_data, batch_size=len(test_data))
-
-train_labels = []
-processed_train = []
-
-
 def unpack_examples(data_loader: torch.utils.data.Dataset) -> Tuple[List, List]:
     features = []
     labels = []
@@ -42,3 +33,10 @@ def export_dataset(dataset: np.ndarray, filename: str) -> None:
     if not filename.endswith(".pt"):
         filename = f"{filename}.pt"
     torch.save(dataset, filename)
+
+
+def main():
+    batch_size = 2048
+    train_data, test_data = load_dataset("multi_covid")
+    train_loader = create_dataloader(train_data, batch_size=batch_size)
+    train_features, train_labels = unpack_examples(train_loader)
