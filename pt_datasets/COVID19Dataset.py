@@ -118,7 +118,7 @@ class MultiCOVID19Dataset(torch.utils.data.Dataset):
             )
             self.root_dir = path
         else:
-            path = os.path.join(DATASET_PATH, "data/test")
+            path = os.path.join(MULTI_COVID19_DIR, "data/test")
             self.annotations = read_metadata(
                 os.path.join(MULTI_COVID19_DIR, TEST_METADATA)
             )
