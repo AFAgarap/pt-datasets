@@ -26,10 +26,10 @@ from pt_datasets.utils import read_metadata, load_image
 __author__ = "Abien Fred Agarap"
 
 
-DATASET_DIR = os.path.join(str(Path.home()), "torch_datasets/BinaryCOVID19Dataset")
+DATASET_DIR = os.path.join(str(Path.home()), "torch_datasets")
 DATASET_PATH = os.path.join(DATASET_DIR, "data")
-TRAIN_METADATA = os.path.join(DATASET_DIR, "train_split.txt")
-TEST_METADATA = os.path.join(DATASET_DIR, "test_split.txt")
+TRAIN_METADATA = "train_split.txt"
+TEST_METADATA = "test_split.txt"
 
 
 class BinaryCOVID19Dataset(torch.utils.data.Dataset):
@@ -55,13 +55,18 @@ class BinaryCOVID19Dataset(torch.utils.data.Dataset):
         size: int
             The size to use for resizing images.
         """
+        BINARY_COVID19_DIR = os.path.join(DATASET_DIR, "BinaryCOVID19Dataset")
         if train:
-            path = os.path.join(DATASET_PATH, "train")
-            self.annotations = read_metadata(TRAIN_METADATA)
+            path = os.path.join(BINARY_COVID19_DIR, "data/train")
+            self.annotations = read_metadata(
+                os.path.join(BINARY_COVID19_DIR, TRAIN_METADATA)
+            )
             self.root_dir = path
         else:
-            path = os.path.join(DATASET_PATH, "test")
-            self.annotations = read_metadata(TEST_METADATA)
+            path = os.path.join(BINARY_COVID19_DIR, "data/test")
+            self.annotations = read_metadata(
+                os.path.join(BINARY_COVID19_DIR, TEST_METADATA)
+            )
             self.root_dir = path
         self.transform = transform
         self.size = size
@@ -105,13 +110,18 @@ class MultiCOVID19Dataset(torch.utils.data.Dataset):
         size: int
             The size to use for resizing images.
         """
+        MULTI_COVID19_DIR = os.path.join(DATASET_DIR, "MultiCOVID19Dataset")
         if train:
-            path = os.path.join(DATASET_PATH, "train")
-            self.annotations = read_metadata(TRAIN_METADATA)
+            path = os.path.join(MULTI_COVID19_DIR, "data/train")
+            self.annotations = read_metadata(
+                os.path.join(MULTI_COVID19_DIR, TRAIN_METADATA)
+            )
             self.root_dir = path
         else:
-            path = os.path.join(DATASET_PATH, "test")
-            self.annotations = read_metadata(TEST_METADATA)
+            path = os.path.join(MULTI_COVID19_DIR, "data/test")
+            self.annotations = read_metadata(
+                os.path.join(MULTI_COVID19_DIR, TEST_METADATA)
+            )
             self.root_dir = path
         self.transform = transform
         self.size = size
