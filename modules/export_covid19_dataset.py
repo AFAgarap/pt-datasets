@@ -12,7 +12,7 @@ def unpack_examples(data_loader: torch.utils.data.Dataset) -> Tuple[List, List]:
     labels = []
     for index, example in enumerate(data_loader):
         start_time = time.time()
-        features.append(example.get("image").numpy().astype("float32"))
+        features.append(example.get("image"))
         labels.append(example.get("label"))
         duration = time.time() - start_time
         print(f"[INFO] Processing batch {index} took {duration:.6f}s")
@@ -26,6 +26,7 @@ def vectorize_features(
     for index, row in enumerate(features):
         offset = index * batch_size
         array[offset : offset + batch_size] = row
+    array = array.astype("float32")
     return array
 
 
