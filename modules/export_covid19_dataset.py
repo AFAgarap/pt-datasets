@@ -104,6 +104,7 @@ def main(arguments):
         if arguments.dataset == "binary_covid"
         else MULTI_COVID19_PATH
     )
+    assert arguments.dataset in ["binary_covid", "multi_covid"]
     train_data, test_data = load_dataset(arguments.dataset)
     train_loader = create_dataloader(train_data, batch_size=batch_size)
     test_loader = create_dataloader(test_data, batch_size=len(test_data))
