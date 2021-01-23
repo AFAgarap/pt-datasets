@@ -16,6 +16,7 @@
 """Module for exporting COVID19 dataset"""
 import argparse
 import os
+from pathlib import Path
 import time
 from typing import List, Tuple
 
@@ -26,6 +27,14 @@ from pt_datasets import load_dataset, create_dataloader
 
 
 __author__ = "Abien Fred Agarap"
+
+
+BINARY_COVID19_PATH = os.path.join(
+    str(Path.home()), "torch_datasets/BinaryCOVID19Dataset"
+)
+MULTI_COVID19_PATH = os.path.join(
+    str(Path.home()), "torch_datasets/MultiCOVID19Dataset"
+)
 
 
 def parse_args():
@@ -44,13 +53,6 @@ def parse_args():
         type=int,
         default=2048,
         help="the mini-batch size to use, default: [2048]",
-    )
-    group.add_argument(
-        "-f",
-        "--filename",
-        type=str,
-        default="torch_datasets/MultiCOVID19Dataset",
-        help="the path where the datasets shall be exported.",
     )
     group.add_argument(
         "-s",
@@ -97,7 +99,11 @@ def export_dataset(dataset: np.ndarray, filename: str) -> None:
 
 def main(arguments):
     batch_size = arguments.batch_size
-    path = arguments.filename
+    path = (
+        BINARY_COVID19_PATH
+        if arguments.dataset == "binary_covid"
+        else MULTI_COVID19_PATH
+    )
     train_data, test_data = load_dataset("multi_covid")
     train_loader = create_dataloader(train_data, batch_size=batch_size)
     test_loader = create_dataloader(test_data, batch_size=len(test_data))
