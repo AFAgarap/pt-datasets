@@ -40,3 +40,5 @@ def main():
     train_data, test_data = load_dataset("multi_covid")
     train_loader = create_dataloader(train_data, batch_size=batch_size)
     train_features, train_labels = unpack_examples(train_loader)
+    train_features = vectorize_features(train_features, dataset_size=len(train_data))
+    export_dataset(train_features, "train.pt")
