@@ -45,7 +45,7 @@ def parse_args():
         "--dataset",
         type=str,
         default="multi_covid",
-        help="the COVID19 dataset to export, options: [binary_covd | multi_covid (default)]",
+        help="the COVID19 dataset to export, options: [binary_covid | multi_covid (default)]",
     )
     group.add_argument(
         "-b",
