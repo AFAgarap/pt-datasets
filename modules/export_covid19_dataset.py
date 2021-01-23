@@ -23,12 +23,14 @@ def vectorize_examples(
     features: List, labels: List, dataset_size: int, batch_size: int = 2048
 ) -> Tuple[np.ndarray, np.ndarray]:
     array = np.zeros((dataset_size, 3, 64, 64))
-    for index, row in enumerate(features):
+    labels_array = np.zeros((dataset_size))
+    for index, (row, label) in enumerate(zip(features, labels)):
         offset = index * batch_size
         array[offset : offset + batch_size] = row
-    labels = np.array(labels)
+        labels_array[offset : offset + batch_size] = label
+    labels_array = labels_array.astype("uint8")
     array = array.astype("float32")
-    return array, labels
+    return array, labels_array
 
 
 def export_dataset(dataset: np.ndarray, filename: str) -> None:
