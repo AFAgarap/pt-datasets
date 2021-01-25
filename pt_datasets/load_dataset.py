@@ -382,6 +382,10 @@ def load_wdbc(test_size: float = 3e-1, seed: int = 42):
     train_features, test_features, train_labels, test_labels = train_test_split(
         features, labels, test_size=test_size, random_state=seed, shuffle=True
     )
+    train_features = train_features.astype("float32")
+    train_labels = train_labels.astype("uint8")
+    test_features = test_features.astype("float32")
+    test_labels = test_labels.astype("uint8")
     train_dataset = torch.utils.data.TensorDataset(
         torch.from_numpy(train_features), torch.from_numpy(train_labels)
     )
