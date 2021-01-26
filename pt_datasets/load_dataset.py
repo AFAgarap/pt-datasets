@@ -22,6 +22,7 @@ import gdown
 import numpy as np
 from sklearn.datasets import fetch_20newsgroups, load_breast_cancer
 from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
 import torch
 import torchvision
 
@@ -382,6 +383,9 @@ def load_wdbc(test_size: float = 3e-1, seed: int = 42):
     train_features, test_features, train_labels, test_labels = train_test_split(
         features, labels, test_size=test_size, random_state=seed, shuffle=True
     )
+    scaler = StandardScaler()
+    train_features = scaler.fit_transform(train_features)
+    test_features = scaler.fit_transform(test_features)
     train_features = train_features.astype("float32")
     test_features = test_features.astype("float32")
     train_dataset = torch.utils.data.TensorDataset(
