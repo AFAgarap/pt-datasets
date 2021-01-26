@@ -388,7 +388,7 @@ def load_wdbc(test_size: float = 3e-1, seed: int = 42):
         torch.from_numpy(train_features), torch.from_numpy(train_labels)
     )
     test_dataset = torch.utils.data.TensorDataset(
-        torch.from_numpy(test_labels), torch.from_numpy(test_labels)
+        torch.from_numpy(test_features), torch.from_numpy(test_labels)
     )
     return train_dataset, test_dataset
 
