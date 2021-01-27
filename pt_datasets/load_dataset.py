@@ -449,7 +449,7 @@ def load_binary_covid19(
 
 
 def load_multi_covid19(
-    transform: torchvision.transforms, size: int = 64
+    transform: torchvision.transforms, size: int = 64, preprocessed: bool = False
 ) -> Tuple[torch.utils.data.Dataset, torch.utils.data.Dataset]:
     """
     Returns a tuple of the tensor datasets for the
@@ -461,6 +461,8 @@ def load_multi_covid19(
         The transformation pipeline to use for image preprocessing.
     size: int
         The size to use for image resizing.
+    preprocessed: bool
+        Whether to load preprocessed dataset or not.
 
     Returns
     -------
