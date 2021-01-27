@@ -58,6 +58,12 @@ class COVIV19Dataset(torch.utils.data.Dataset):
                 dataset = torch.load(os.path.join(BINARY_COVID19_DIR, "train.pt"))
             else:
                 dataset = torch.load(os.path.join(BINARY_COVID19_DIR, "test.pt"))
+        elif classes == "multi":
+            self.classes = ["normal", "pneumonia", "COVID-19"]
+            if train:
+                dataset = torch.load(os.path.join(MULTI_COVID19_DIR, "train.pt"))
+            else:
+                dataset = torch.load(os.path.join(MULTI_COVID19_DIR, "test.pt"))
         self.data = dataset[0]
         self.labels = dataset[1]
         self.transform = transform
