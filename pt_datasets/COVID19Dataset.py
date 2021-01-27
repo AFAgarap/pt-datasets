@@ -41,6 +41,7 @@ class COVIV19Dataset(torch.utils.data.Dataset):
         train: bool = True,
     ):
         if classes == "binary":
+            self.classes = ["negative", "positive"]
             if train:
                 dataset = torch.load(os.path.join(BINARY_COVID19_DIR, "train.pt"))
             else:
