@@ -26,7 +26,11 @@ from sklearn.preprocessing import StandardScaler
 import torch
 import torchvision
 
-from pt_datasets.COVID19Dataset import BinaryCOVID19Dataset, MultiCOVID19Dataset
+from pt_datasets.COVID19Dataset import (
+    BinaryCOVID19Dataset,
+    COVID19Dataset,
+    MultiCOVID19Dataset,
+)
 from pt_datasets.download_covid_dataset import (
     download_binary_covid19_dataset,
     download_covidx5_dataset,
@@ -403,7 +407,7 @@ def load_wdbc(test_size: float = 3e-1, seed: int = 42):
 
 
 def load_binary_covid19(
-    transform: torchvision.transforms, size: int = 64
+    transform: torchvision.transforms, size: int = 64, preprocessed: bool = False
 ) -> Tuple[torch.utils.data.Dataset, torch.utils.data.Dataset]:
     """
     Returns a tuple of the tensor datasets for the
@@ -415,6 +419,8 @@ def load_binary_covid19(
         The transformation pipeline to use for image preprocessing.
     size: int
         The size to use for image resizing.
+    preprocessed: bool
+        Whether to load preprocessed dataset or not.
 
     Returns
     -------
