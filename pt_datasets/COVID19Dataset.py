@@ -16,7 +16,7 @@
 """COVID19 dataset classes"""
 import os
 from pathlib import Path
-from typing import Dict
+from typing import Dict, Tuple
 
 import torch
 import torchvision
@@ -26,10 +26,53 @@ from pt_datasets.utils import read_metadata, load_image
 __author__ = "Abien Fred Agarap"
 
 
-DATASET_DIR = os.path.join(str(Path.home()), "torch_datasets")
-DATASET_PATH = os.path.join(DATASET_DIR, "data")
+DATASET_DIR = os.path.join(str(Path.home()), "datasets")
+BINARY_COVID19_DIR = os.path.join(DATASET_DIR, "BinaryCOVID19Dataset")
+MULTI_COVID19_DIR = os.path.join(DATASET_DIR, "MultiCOVID19Dataset")
 TRAIN_METADATA = "train_split.txt"
 TEST_METADATA = "test_split.txt"
+
+
+class COVIV19Dataset(torch.utils.data.Dataset):
+    def __init__(
+        self,
+        classes: str = "binary",
+        transform: torchvision.transforms = None,
+        train: bool = True,
+    ):
+        """
+        Builds the preprocessed COVID19 dataset.
+
+        Parameters
+        ----------
+        classes: str
+            The dataset to load, either "binary" or "multi".
+        transform: torchvision.transforms
+            The transformation pipeline to use for image preprocessing.
+        train: bool
+            Whether to load the training set or not.
+        """
+        if classes == "binary":
+            self.classes = ["negative", "positive"]
+            if train:
+                dataset = torch.load(os.path.join(BINARY_COVID19_DIR, "train.pt"))
+            else:
+                dataset = torch.load(os.path.join(BINARY_COVID19_DIR, "test.pt"))
+        self.data = dataset[0]
+        self.labels = dataset[1]
+        self.transform = transform
+
+    def __len__(self):
+        return len(self.data)
+
+    def __getitem__(self, idx) -> Tuple:
+        if torch.is_tensor(idx):
+            idx = idx.tolist()
+        image = self.data[idx]
+        if self.transform:
+            image = self.transform(image)
+        label = self.labels[idx]
+        return (image, label)
 
 
 class BinaryCOVID19Dataset(torch.utils.data.Dataset):
@@ -55,7 +98,6 @@ class BinaryCOVID19Dataset(torch.utils.data.Dataset):
         size: int
             The size to use for resizing images.
         """
-        BINARY_COVID19_DIR = os.path.join(DATASET_DIR, "BinaryCOVID19Dataset")
         if train:
             path = os.path.join(BINARY_COVID19_DIR, "data/train")
             self.annotations = read_metadata(
@@ -110,7 +152,6 @@ class MultiCOVID19Dataset(torch.utils.data.Dataset):
         size: int
             The size to use for resizing images.
         """
-        MULTI_COVID19_DIR = os.path.join(DATASET_DIR, "MultiCOVID19Dataset")
         if train:
             path = os.path.join(MULTI_COVID19_DIR, "data/train")
             self.annotations = read_metadata(
