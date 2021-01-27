@@ -16,7 +16,7 @@
 """COVID19 dataset classes"""
 import os
 from pathlib import Path
-from typing import Dict
+from typing import Dict, Tuple
 
 import torch
 import torchvision
@@ -52,8 +52,12 @@ class COVIV19Dataset(torch.utils.data.Dataset):
     def __len__(self):
         return len(self.data)
 
-    def __getitem__(self, idx):
-        pass
+    def __getitem__(self, idx) -> Tuple:
+        if torch.is_tensor(idx):
+            idx = idx.tolist()
+        image = self.data[idx]
+        label = self.labels[idx]
+        return (image, label)
 
 
 class BinaryCOVID19Dataset(torch.utils.data.Dataset):
