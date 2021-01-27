@@ -44,6 +44,7 @@ def load_dataset(
     vectorizer: str = "tfidf",
     return_vectorizer: bool = False,
     image_size: int = 64,
+    preprocessed_covidx: bool = False,
 ) -> Tuple[object, object]:
     """
     Returns a tuple of torchvision dataset objects.
@@ -80,6 +81,10 @@ def load_dataset(
         This is only used for datasets [name = ag_news | 20newsgroups].
     image_size: int
         The image size to use for COVID19 datasets.
+    preprocessed_covidx: bool
+        Whether to use the preprocessed COVID19 datasets or not.
+        This requires the use of `modules/export_covid19_dataset`
+        in the package repository.
 
     Returns
     -------
