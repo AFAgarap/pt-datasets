@@ -477,8 +477,14 @@ def load_multi_covid19(
     if not os.path.exists(os.path.join(dataset_path, "MultiCOVID19Dataset")):
         download_covidx5_dataset()
         unzip_dataset(os.path.join(dataset_path, "MultiCOVID19Dataset.tar.xz"))
-    train_data, test_data = (
-        MultiCOVID19Dataset(train=True, transform=transform),
-        MultiCOVID19Dataset(train=False, transform=transform),
-    )
+    if preprocessed:
+        train_data, test_data = (
+            COVID19Dataset(train=True, classes="multi"),
+            COVID19Dataset(train=False, classes="multi"),
+        )
+    else:
+        train_data, test_data = (
+            MultiCOVID19Dataset(train=True, transform=transform),
+            MultiCOVID19Dataset(train=False, transform=transform),
+        )
     return train_data, test_data
