@@ -27,6 +27,8 @@ __author__ = "Abien Fred Agarap"
 
 
 DATASET_DIR = os.path.join(str(Path.home()), "datasets")
+BINARY_COVID19_DIR = os.path.join(DATASET_DIR, "BinaryCOVID19Dataset")
+MULTI_COVID19_DIR = os.path.join(DATASET_DIR, "MultiCOVID19Dataset")
 TRAIN_METADATA = "train_split.txt"
 TEST_METADATA = "test_split.txt"
 
@@ -67,7 +69,6 @@ class BinaryCOVID19Dataset(torch.utils.data.Dataset):
         size: int
             The size to use for resizing images.
         """
-        BINARY_COVID19_DIR = os.path.join(DATASET_DIR, "BinaryCOVID19Dataset")
         if train:
             path = os.path.join(BINARY_COVID19_DIR, "data/train")
             self.annotations = read_metadata(
@@ -122,7 +123,6 @@ class MultiCOVID19Dataset(torch.utils.data.Dataset):
         size: int
             The size to use for resizing images.
         """
-        MULTI_COVID19_DIR = os.path.join(DATASET_DIR, "MultiCOVID19Dataset")
         if train:
             path = os.path.join(MULTI_COVID19_DIR, "data/train")
             self.annotations = read_metadata(
