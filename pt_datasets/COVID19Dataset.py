@@ -69,6 +69,8 @@ class COVIV19Dataset(torch.utils.data.Dataset):
         if torch.is_tensor(idx):
             idx = idx.tolist()
         image = self.data[idx]
+        if self.transform:
+            image = self.transform(image)
         label = self.labels[idx]
         return (image, label)
 
