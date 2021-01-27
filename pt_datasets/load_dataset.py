@@ -216,11 +216,11 @@ def load_dataset(
         train_dataset, test_dataset = load_wdbc()
     elif name == "binary_covid":
         train_dataset, test_dataset = load_binary_covid19(
-            transform=transform, size=image_size
+            transform=transform, size=image_size, preprocessed=preprocessed_covidx
         )
     elif name == "multi_covid":
         train_dataset, test_dataset = load_multi_covid19(
-            transform=transform, size=image_size
+            transform=transform, size=image_size, preprocessed=preprocessed_covidx
         )
     return (
         (train_dataset, test_dataset, vectorizer)
