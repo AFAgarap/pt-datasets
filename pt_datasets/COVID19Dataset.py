@@ -77,7 +77,7 @@ class COVID19Dataset(torch.utils.data.Dataset):
         image = self.data[idx]
         if self.transform:
             image = self.transform(image)
-        label = self.labels[idx]
+        label = self.labels[idx].astype("int64")
         return (image, label)
 
 
