@@ -33,7 +33,7 @@ TRAIN_METADATA = "train_split.txt"
 TEST_METADATA = "test_split.txt"
 
 
-class COVIV19Dataset(torch.utils.data.Dataset):
+class COVID19Dataset(torch.utils.data.Dataset):
     def __init__(
         self,
         classes: str = "binary",
