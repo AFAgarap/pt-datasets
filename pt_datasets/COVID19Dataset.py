@@ -40,6 +40,18 @@ class COVIV19Dataset(torch.utils.data.Dataset):
         transform: torchvision.transforms = None,
         train: bool = True,
     ):
+        """
+        Builds the preprocessed COVID19 dataset.
+
+        Parameters
+        ----------
+        classes: str
+            The dataset to load, either "binary" or "multi".
+        transform: torchvision.transforms
+            The transformation pipeline to use for image preprocessing.
+        train: bool
+            Whether to load the training set or not.
+        """
         if classes == "binary":
             self.classes = ["negative", "positive"]
             if train:
