@@ -26,7 +26,7 @@ from pt_datasets.utils import read_metadata, load_image
 __author__ = "Abien Fred Agarap"
 
 
-DATASET_DIR = os.path.join(str(Path.home()), "torch_datasets")
+DATASET_DIR = os.path.join(str(Path.home()), "datasets")
 DATASET_PATH = os.path.join(DATASET_DIR, "data")
 TRAIN_METADATA = "train_split.txt"
 TEST_METADATA = "test_split.txt"
