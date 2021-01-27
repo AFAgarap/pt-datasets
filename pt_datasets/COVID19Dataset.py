@@ -35,9 +35,18 @@ TEST_METADATA = "test_split.txt"
 
 class COVIV19Dataset(torch.utils.data.Dataset):
     def __init__(
-        self, classes: str = "binary", transform: torchvision.transforms = None
+        self,
+        classes: str = "binary",
+        transform: torchvision.transforms = None,
+        train: bool = True,
     ):
-        pass
+        if classes == "binary":
+            if train:
+                dataset = torch.load(os.path.join(BINARY_COVID19_DIR, "train.pt"))
+            else:
+                dataset = torch.load(os.path.join(BINARY_COVID19_DIR, "test.pt"))
+        self.data = dataset[0]
+        self.labels = dataset[1]
 
     def __len__(self):
         pass
