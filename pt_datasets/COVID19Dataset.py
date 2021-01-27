@@ -50,7 +50,7 @@ class COVIV19Dataset(torch.utils.data.Dataset):
         self.labels = dataset[1]
 
     def __len__(self):
-        pass
+        return len(self.data)
 
     def __getitem__(self, idx):
         pass
