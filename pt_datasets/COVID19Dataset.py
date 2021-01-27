@@ -32,6 +32,19 @@ TRAIN_METADATA = "train_split.txt"
 TEST_METADATA = "test_split.txt"
 
 
+class COVIV19Dataset(torch.utils.data.Dataset):
+    def __init__(
+        self, classes: str = "binary", transform: torchvision.transforms = None
+    ):
+        pass
+
+    def __len__(self):
+        pass
+
+    def __getitem__(self, idx):
+        pass
+
+
 class BinaryCOVID19Dataset(torch.utils.data.Dataset):
     """
     Dataset class for the COVID19 binary classification dataset.
