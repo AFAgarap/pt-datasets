@@ -60,6 +60,7 @@ class COVIV19Dataset(torch.utils.data.Dataset):
                 dataset = torch.load(os.path.join(BINARY_COVID19_DIR, "test.pt"))
         self.data = dataset[0]
         self.labels = dataset[1]
+        self.transform = transform
 
     def __len__(self):
         return len(self.data)
