@@ -134,6 +134,7 @@ class BinaryCOVID19Dataset(torch.utils.data.Dataset):
                     os.path.join(BINARY_COVID19_DIR, TEST_METADATA)
                 )
                 self.root_dir = path
+        self.classes = ["negative", "positive"]
         self.transform = transform
         self.size = size
 
