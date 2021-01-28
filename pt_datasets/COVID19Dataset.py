@@ -259,41 +259,51 @@ def preprocess_dataset(
     train: bool = False, size: int = 64, batch_size: int = 2048
 ) -> None:
     transform = torchvision.transforms.Compose([torchvision.transforms.ToTensor()])
-    print("[INFO] Loading datasets...")
-    train_data = BinaryCOVID19Dataset(train=True, size=size, transform=transform)
-    test_data = BinaryCOVID19Dataset(train=False, size=size, transform=transform)
-    print("[INFO] Creating data loaders...")
-    train_loader = create_dataloader(train_data, batch_size=batch_size)
-    test_loader = create_dataloader(test_data, batch_size=batch_size)
-    print("[INFO] Unpacking examples...")
-    train_features, train_labels = unpack_examples(train_loader)
-    test_features, test_labels = unpack_examples(test_loader)
-    print("[INFO] Vectorizing examples...")
-    train_features, train_labels = vectorize_examples(
-        train_features,
-        train_labels,
-        dataset_size=len(train_data),
-        batch_size=batch_size,
-        image_size=size,
-    )
-    test_features, test_labels = vectorize_examples(
-        test_features,
-        test_labels,
-        dataset_size=len(test_data),
-        batch_size=batch_size,
-        image_size=size,
-    )
-    train_dataset = (train_features, train_labels)
-    test_dataset = (test_features, test_labels)
-    print(
-        "[INFO] Exporting dataset to {}".format(
-            os.path.join(BINARY_COVID19_DIR, f"train_{size}.pt")
+    if train:
+        print("[INFO] Loading dataset...")
+        train_data = BinaryCOVID19Dataset(train=True, size=size, transform=transform)
+        print("[INFO] Creating data loader...")
+        train_loader = create_dataloader(train_data, batch_size=batch_size)
+        print("[INFO] Unpacking examples...")
+        train_features, train_labels = unpack_examples(train_loader)
+        print("[INFO] Vectorizing examples...")
+        train_features, train_labels = vectorize_examples(
+            train_features,
+            train_labels,
+            dataset_size=len(train_data),
+            batch_size=batch_size,
+            image_size=size,
         )
-    )
-    export_dataset(train_dataset, os.path.join(BINARY_COVID19_DIR, f"train_{size}.pt"))
-    print(
-        "[INFO] Exporting dataset to {}".format(
-            os.path.join(BINARY_COVID19_DIR, f"test_{size}.pt")
+        train_dataset = (train_features, train_labels)
+        print(
+            "[INFO] Exporting dataset to {}".format(
+                os.path.join(BINARY_COVID19_DIR, f"train_{size}.pt")
+            )
         )
-    )
-    export_dataset(test_dataset, os.path.join(BINARY_COVID19_DIR, f"test_{size}.pt"))
+        export_dataset(
+            train_dataset, os.path.join(BINARY_COVID19_DIR, f"train_{size}.pt")
+        )
+    else:
+        print("[INFO] Loading dataset...")
+        test_data = BinaryCOVID19Dataset(train=False, size=size, transform=transform)
+        print("[INFO] Creating data loader...")
+        test_loader = create_dataloader(test_data, batch_size=batch_size)
+        print("[INFO] Unpacking examples...")
+        test_features, test_labels = unpack_examples(test_loader)
+        print("[INFO] Vectorizing examples...")
+        test_features, test_labels = vectorize_examples(
+            test_features,
+            test_labels,
+            dataset_size=len(test_data),
+            batch_size=batch_size,
+            image_size=size,
+        )
+        test_dataset = (test_features, test_labels)
+        print(
+            "[INFO] Exporting dataset to {}".format(
+                os.path.join(BINARY_COVID19_DIR, f"test_{size}.pt")
+            )
+        )
+        export_dataset(
+            test_dataset, os.path.join(BINARY_COVID19_DIR, f"test_{size}.pt")
+        )
