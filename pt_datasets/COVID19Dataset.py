@@ -113,7 +113,7 @@ class BinaryCOVID19Dataset(torch.utils.data.Dataset):
         if preprocessed:
             if not os.path.isfile(os.path.join(BINARY_COVID19_DIR, f"train_{size}.pt")):
                 print("[INFO] No preprocessed dataset found. Preprocessing now...")
-                preprocess_dataset(size=size)
+                preprocess_dataset(train=True, size=size)
             if train:
                 dataset = torch.load(
                     os.path.join(BINARY_COVID19_DIR, f"train_{size}.pt")
@@ -255,7 +255,9 @@ def export_dataset(dataset: np.ndarray, filename: str) -> None:
     torch.save(dataset, filename)
 
 
-def preprocess_dataset(size: int = 64, batch_size: int = 2048) -> None:
+def preprocess_dataset(
+    train: bool = False, size: int = 64, batch_size: int = 2048
+) -> None:
     transform = torchvision.transforms.Compose([torchvision.transforms.ToTensor()])
     print("[INFO] Loading datasets...")
     train_data = BinaryCOVID19Dataset(train=True, size=size, transform=transform)
