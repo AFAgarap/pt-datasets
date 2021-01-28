@@ -121,18 +121,19 @@ class BinaryCOVID19Dataset(torch.utils.data.Dataset):
                     )
                 self.data = dataset[0]
                 self.labels = dataset[1]
-        if train:
-            path = os.path.join(BINARY_COVID19_DIR, "data/train")
-            self.annotations = read_metadata(
-                os.path.join(BINARY_COVID19_DIR, TRAIN_METADATA)
-            )
-            self.root_dir = path
         else:
-            path = os.path.join(BINARY_COVID19_DIR, "data/test")
-            self.annotations = read_metadata(
-                os.path.join(BINARY_COVID19_DIR, TEST_METADATA)
-            )
-            self.root_dir = path
+            if train:
+                path = os.path.join(BINARY_COVID19_DIR, "data/train")
+                self.annotations = read_metadata(
+                    os.path.join(BINARY_COVID19_DIR, TRAIN_METADATA)
+                )
+                self.root_dir = path
+            else:
+                path = os.path.join(BINARY_COVID19_DIR, "data/test")
+                self.annotations = read_metadata(
+                    os.path.join(BINARY_COVID19_DIR, TEST_METADATA)
+                )
+                self.root_dir = path
         self.transform = transform
         self.size = size
 
