@@ -240,7 +240,7 @@ def vectorize_examples(
     num_channels = 3
     array = np.zeros((dataset_size, num_channels, image_size, image_size))
     labels_array = np.zeros((dataset_size))
-    for index, (row, label) in enumerate(zip((features, labels))):
+    for index, (row, label) in enumerate(zip(features, labels)):
         offset = index * batch_size
         array[offset : offset + batch_size] = row
         labels_array[offset : offset + batch_size] = label
