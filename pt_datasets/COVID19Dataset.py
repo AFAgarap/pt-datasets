@@ -150,17 +150,24 @@ class BinaryCOVID19Dataset(torch.utils.data.Dataset):
     def __len__(self):
         return len(self.annotations)
 
-    def __getitem__(self, idx) -> Dict:
+    def __getitem__(self, idx) -> Tuple or Dict:
         if torch.is_tensor(idx):
             idx = idx.tolist()
-        image_name = os.path.join(self.root_dir, self.annotations[idx][1])
-        image = load_image(image_name, self.size)
-        if self.transform:
-            image = self.transform(image)
-        label = self.annotations[idx][2]
-        label = 0 if label == "negative" else 1
-        sample = {"image": image, "label": label}
-        return sample
+        if self.preprocessed:
+            image = self.data[idx]
+            if self.transform:
+                image = self.transform(image)
+            label = self.labels[idx].astype("int64")
+            return (image, label)
+        else:
+            image_name = os.path.join(self.root_dir, self.annotations[idx][1])
+            image = load_image(image_name, self.size)
+            if self.transform:
+                image = self.transform(image)
+            label = self.annotations[idx][2]
+            label = 0 if label == "negative" else 1
+            sample = {"image": image, "label": label}
+            return sample
 
 
 class MultiCOVID19Dataset(torch.utils.data.Dataset):
