@@ -110,17 +110,18 @@ class BinaryCOVID19Dataset(torch.utils.data.Dataset):
             Whether to load preprocessed dataset or not.
         """
         if preprocessed:
-            if os.path.isfile(os.path.join(BINARY_COVID19_DIR, f"train_{size}.pt")):
-                if train:
-                    dataset = torch.load(
-                        os.path.join(BINARY_COVID19_DIR, f"train_{size}.pt")
-                    )
-                else:
-                    dataset = torch.load(
-                        os.path.join(BINARY_COVID19_DIR, f"test_{size}.pt")
-                    )
-                self.data = dataset[0]
-                self.labels = dataset[1]
+            if not os.path.isfile(os.path.join(BINARY_COVID19_DIR, f"train_{size}.pt")):
+                preprocess_dataset(size=size)
+            if train:
+                dataset = torch.load(
+                    os.path.join(BINARY_COVID19_DIR, f"train_{size}.pt")
+                )
+            else:
+                dataset = torch.load(
+                    os.path.join(BINARY_COVID19_DIR, f"test_{size}.pt")
+                )
+            self.data = dataset[0]
+            self.labels = dataset[1]
         else:
             if train:
                 path = os.path.join(BINARY_COVID19_DIR, "data/train")
@@ -250,3 +251,7 @@ def export_dataset(dataset: np.ndarray, filename: str) -> None:
     if not filename.endswith(".pt"):
         filename = f"{filename}.pt"
     torch.save(dataset, filename)
+
+
+def preprocess_dataset(size: int = 64) -> None:
+    pass
