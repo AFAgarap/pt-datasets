@@ -230,3 +230,9 @@ def vectorize_examples(
     labels_array = labels_array.astype("int64")
     array = array.astype("float32")
     return array, labels_array
+
+
+def export_dataset(dataset: np.ndarray, filename: str) -> None:
+    if not filename.endswith(".pt"):
+        filename = f"{filename}.pt"
+    torch.save(dataset, filename)
