@@ -256,9 +256,10 @@ def export_dataset(dataset: np.ndarray, filename: str) -> None:
 
 
 def preprocess_dataset(size: int = 64, batch_size: int = 2048) -> None:
+    transform = torchvision.transforms.Compose([torchvision.transforms.ToTensor()])
     print("[INFO] Loading datasets...")
-    train_data = BinaryCOVID19Dataset(train=True, size=size)
-    test_data = BinaryCOVID19Dataset(train=False, size=size)
+    train_data = BinaryCOVID19Dataset(train=True, size=size, transform=transform)
+    test_data = BinaryCOVID19Dataset(train=False, size=size, transform=transform)
     print("[INFO] Creating data loaders...")
     train_loader = create_dataloader(train_data, batch_size=batch_size)
     test_loader = create_dataloader(test_data, batch_size=batch_size)
