@@ -23,6 +23,7 @@ import numpy as np
 import torch
 import torchvision
 
+from . import create_dataloader
 from pt_datasets.utils import read_metadata, load_image
 
 __author__ = "Abien Fred Agarap"
@@ -111,6 +112,7 @@ class BinaryCOVID19Dataset(torch.utils.data.Dataset):
         """
         if preprocessed:
             if not os.path.isfile(os.path.join(BINARY_COVID19_DIR, f"train_{size}.pt")):
+                print("[INFO] No preprocessed dataset found. Preprocessing now...")
                 preprocess_dataset(size=size)
             if train:
                 dataset = torch.load(
@@ -253,5 +255,37 @@ def export_dataset(dataset: np.ndarray, filename: str) -> None:
     torch.save(dataset, filename)
 
 
-def preprocess_dataset(size: int = 64) -> None:
-    pass
+def preprocess_dataset(size: int = 64, batch_size: int = 2048) -> None:
+    print("[INFO] Loading datasets...")
+    train_data = BinaryCOVID19Dataset(train=True, size=size)
+    test_data = BinaryCOVID19Dataset(train=False, size=size)
+    print("[INFO] Creating data loaders...")
+    train_loader = create_dataloader(train_data, batch_size=batch_size)
+    test_loader = create_dataloader(test_data, batch_size=batch_size)
+    print("[INFO] Unpacking examples...")
+    train_features, train_labels = unpack_examples(train_loader)
+    test_features, test_labels = unpack_examples(test_loader)
+    print("[INFO] Vectorizing examples...")
+    train_features, train_labels = vectorize_examples(
+        train_features,
+        train_labels,
+        dataset_size=len(train_data),
+        batch_size=batch_size,
+    )
+    test_features, test_labels = vectorize_examples(
+        test_features, test_labels, dataset_size=len(test_data), batch_size=batch_size
+    )
+    train_dataset = (train_features, train_labels)
+    test_dataset = (test_features, test_labels)
+    print(
+        "[INFO] Exporting dataset to {}".format(
+            os.path.join(BINARY_COVID19_DIR, f"train_{size}.pt")
+        )
+    )
+    export_dataset(train_dataset, os.path.join(BINARY_COVID19_DIR, f"train_{size}.pt"))
+    print(
+        "[INFO] Exporting dataset to {}".format(
+            os.path.join(BINARY_COVID19_DIR, f"test_{size}.pt")
+        )
+    )
+    export_dataset(test_dataset, os.path.join(BINARY_COVID19_DIR, f"test_{size}.pt"))
