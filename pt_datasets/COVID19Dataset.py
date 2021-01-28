@@ -16,7 +16,8 @@
 """COVID19 dataset classes"""
 import os
 from pathlib import Path
-from typing import Dict, Tuple
+import time
+from typing import Dict, List, Tuple
 
 import torch
 import torchvision
@@ -198,3 +199,14 @@ class MultiCOVID19Dataset(torch.utils.data.Dataset):
             label = 2
         sample = {"image": image, "label": label}
         return sample
+
+
+def unpack_examples(data_loader: torch.utils.data.DataLoader) -> Tuple[List, List]:
+    features, labels = [], []
+    for index, example in enumerate(data_loader):
+        start_time = time.time()
+        features.append(example.get("image"))
+        labels.append(example.get("label"))
+        duration = time.time() - start_time
+        print(f"[INFO] Processing batch {index + 1} took {duration:.6f}s.")
+    return features, labels
