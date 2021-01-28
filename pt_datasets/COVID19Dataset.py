@@ -145,6 +145,7 @@ class BinaryCOVID19Dataset(torch.utils.data.Dataset):
         self.classes = ["negative", "positive"]
         self.transform = transform
         self.size = size
+        self.preprocessed = preprocessed
 
     def __len__(self):
         return len(self.annotations)
