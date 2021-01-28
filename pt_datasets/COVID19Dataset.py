@@ -19,6 +19,7 @@ from pathlib import Path
 import time
 from typing import Dict, List, Tuple
 
+import numpy as np
 import torch
 import torchvision
 
@@ -210,3 +211,22 @@ def unpack_examples(data_loader: torch.utils.data.DataLoader) -> Tuple[List, Lis
         duration = time.time() - start_time
         print(f"[INFO] Processing batch {index + 1} took {duration:.6f}s.")
     return features, labels
+
+
+def vectorize_examples(
+    features: List,
+    labels: List,
+    dataset_size: int,
+    batch_size: int = 512,
+    image_size: int = 64,
+) -> Tuple[np.ndarray, np.ndarray]:
+    num_channels = 3
+    array = np.zeros((dataset_size, num_channels, image_size, image_size))
+    labels_array = np.zeros((dataset_size))
+    for index, (row, label) in enumerate(zip((features, labels))):
+        offset = index * batch_size
+        array[offset : offset + batch_size] = row
+        labels_array[offset : offset + batch_size] = label
+    labels_array = labels_array.astype("int64")
+    array = array.astype("float32")
+    return array, labels_array
