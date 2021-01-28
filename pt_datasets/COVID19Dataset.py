@@ -112,8 +112,13 @@ class BinaryCOVID19Dataset(torch.utils.data.Dataset):
         """
         if preprocessed:
             if not os.path.isfile(os.path.join(BINARY_COVID19_DIR, f"train_{size}.pt")):
-                print("[INFO] No preprocessed dataset found. Preprocessing now...")
+                print(
+                    "[INFO] No preprocessed training dataset found. Preprocessing now..."
+                )
                 preprocess_dataset(train=True, size=size)
+            if not os.path.isfile(os.path.join(BINARY_COVID19_DIR, f"test_{size}.pt")):
+                print("[INFO] No preprocessed test dataset found. Preprocessing now...")
+                preprocess_dataset(train=False, size=size)
             if train:
                 dataset = torch.load(
                     os.path.join(BINARY_COVID19_DIR, f"train_{size}.pt")
