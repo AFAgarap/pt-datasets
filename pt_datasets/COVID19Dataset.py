@@ -271,9 +271,14 @@ def preprocess_dataset(size: int = 64, batch_size: int = 2048) -> None:
         train_labels,
         dataset_size=len(train_data),
         batch_size=batch_size,
+        image_size=size,
     )
     test_features, test_labels = vectorize_examples(
-        test_features, test_labels, dataset_size=len(test_data), batch_size=batch_size
+        test_features,
+        test_labels,
+        dataset_size=len(test_data),
+        batch_size=batch_size,
+        image_size=size,
     )
     train_dataset = (train_features, train_labels)
     test_dataset = (test_features, test_labels)
