@@ -231,7 +231,7 @@ class MultiCOVID19Dataset(torch.utils.data.Dataset):
         self.preprocessed = preprocessed
 
     def __len__(self):
-        return len(self.annotations)
+        return len(self.data) if self.preprocessed else len(self.annotations)
 
     def __getitem__(self, idx) -> Dict:
         if torch.is_tensor(idx):
