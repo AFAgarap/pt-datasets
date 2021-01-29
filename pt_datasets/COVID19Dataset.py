@@ -329,7 +329,7 @@ def vectorize_examples(
     return array, labels_array
 
 
-def export_dataset(dataset: np.ndarray, filename: str) -> None:
+def export_dataset(dataset: Tuple[np.ndarray, np.ndarray], filename: str) -> None:
     """
     Exports the vectorized dataset to a `.pt` file.
 
