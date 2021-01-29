@@ -259,6 +259,23 @@ class MultiCOVID19Dataset(torch.utils.data.Dataset):
 
 
 def unpack_examples(data_loader: torch.utils.data.DataLoader) -> Tuple[List, List]:
+    """
+    Unpacks examples from a data loader,
+    and returns them as tuples of list pairs.
+
+    Parameter
+    ---------
+    data_loader: torch.utils.data.DataLoader
+        The data loader object that contains the features-labels pairs.
+
+    Returns
+    -------
+    Tuple[List, List]
+        features: List
+            The dataset features.
+        labels: List
+            The dataset labels.
+    """
     features, labels = [], []
     for index, example in enumerate(data_loader):
         start_time = time.time()
