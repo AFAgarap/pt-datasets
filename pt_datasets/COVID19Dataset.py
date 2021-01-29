@@ -330,6 +330,16 @@ def vectorize_examples(
 
 
 def export_dataset(dataset: np.ndarray, filename: str) -> None:
+    """
+    Exports the vectorized dataset to a `.pt` file.
+
+    Parameters
+    ----------
+    dataset: Tuple[np.ndarray, np.ndarray]
+        The tuple of vectorized features and labels.
+    filename: str
+        The path where to save the dataset.
+    """
     if not filename.endswith(".pt"):
         filename = f"{filename}.pt"
     torch.save(dataset, filename)
