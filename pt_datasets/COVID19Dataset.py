@@ -225,6 +225,7 @@ class MultiCOVID19Dataset(torch.utils.data.Dataset):
                 os.path.join(MULTI_COVID19_DIR, TEST_METADATA)
             )
             self.root_dir = path
+        self.classes = ["normal", "non-COVID-19 pneumonia", "COVID-19 pneumonia"]
         self.transform = transform
         self.size = size
 
