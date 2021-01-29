@@ -228,6 +228,7 @@ class MultiCOVID19Dataset(torch.utils.data.Dataset):
         self.classes = ["normal", "non-COVID-19 pneumonia", "COVID-19 pneumonia"]
         self.transform = transform
         self.size = size
+        self.preprocessed = preprocessed
 
     def __len__(self):
         return len(self.annotations)
