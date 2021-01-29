@@ -12,8 +12,5 @@ sudo apt install build-essential
 git clone https://github.com/rmrao/tsne-cuda.git && cd $PWD/tsne-cuda
 git submodule init
 git submodule update
-cd $PWD/tsne-cuda/build/
-cmake ..
-make -j 4
-cd python/
+cd $PWD/tsne-cuda/build/ && cmake && make -j 4 && cd python/
 pip install -e .
