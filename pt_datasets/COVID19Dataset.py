@@ -236,19 +236,26 @@ class MultiCOVID19Dataset(torch.utils.data.Dataset):
     def __getitem__(self, idx) -> Dict:
         if torch.is_tensor(idx):
             idx = idx.tolist()
-        image_name = os.path.join(self.root_dir, self.annotations[idx][1])
-        image = load_image(image_name, self.size)
-        if self.transform:
-            image = self.transform(image)
-        label = self.annotations[idx][2]
-        if label == "normal":
-            label = 0
-        elif label == "pneumonia":
-            label = 1
-        elif label == "COVID-19":
-            label = 2
-        sample = {"image": image, "label": label}
-        return sample
+        if self.preprocessed:
+            image = self.data[idx]
+            if self.transform:
+                image = self.transform(image)
+            label = self.labels[idx].astype("int64")
+            return (image, label)
+        else:
+            image_name = os.path.join(self.root_dir, self.annotations[idx][1])
+            image = load_image(image_name, self.size)
+            if self.transform:
+                image = self.transform(image)
+            label = self.annotations[idx][2]
+            if label == "normal":
+                label = 0
+            elif label == "pneumonia":
+                label = 1
+            elif label == "COVID-19":
+                label = 2
+            sample = {"image": image, "label": label}
+            return sample
 
 
 def unpack_examples(data_loader: torch.utils.data.DataLoader) -> Tuple[List, List]:
