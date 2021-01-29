@@ -202,6 +202,9 @@ class MultiCOVID19Dataset(torch.utils.data.Dataset):
                     "[INFO] No preprocessed training dataset found. Preprocessing now..."
                 )
                 preprocess_dataset(train=True, size=size)
+            if not os.path.isfile(os.path.join(MULTI_COVID19_DIR, f"test_{size}.pt")):
+                print("[INFO] No preprocessed test dataset found. Preprocessing now...")
+                preprocess_dataset(train=False, size=size)
         if train:
             path = os.path.join(MULTI_COVID19_DIR, "data/train")
             self.annotations = read_metadata(
