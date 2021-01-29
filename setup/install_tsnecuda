@@ -9,11 +9,18 @@ sudo apt install libopenblas-dev
 echo "Installing GCC/llvm-clang..."
 sudo apt install build-essential
 
+echo "Installing gcc-8..."
+sudo apt install build-essential
+sudo apt install gcc-8 g++-8
+
+echo "Updating gcc configuration..."
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 8 --slave /usr/bin/g++ g++ /usr/bin/g++-8
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-9 9 --slave /usr/bin/g++ g++ /usr/bin/g++-9
+sudo update-alternatives --config gcc
+
 git clone https://github.com/rmrao/tsne-cuda.git && cd $PWD/tsne-cuda
 git submodule init
 git submodule update
-cd $PWD/tsne-cuda/build/
-cmake ..
-make -j 4
-cd python/
+mkdir -p $PWD/tsne-cuda/build
+cd $PWD/tsne-cuda/build/ && cmake && make -j 4 && cd python/
 pip install -e .
