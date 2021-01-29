@@ -41,6 +41,7 @@ setup(
         "gdown==3.12.2",
         "nltk==3.5",
         "cmake",
+        "opencv-python==4.2.0.34",
     ],
 )
 
