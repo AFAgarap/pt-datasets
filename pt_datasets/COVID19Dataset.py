@@ -293,6 +293,30 @@ def vectorize_examples(
     batch_size: int = 512,
     image_size: int = 64,
 ) -> Tuple[np.ndarray, np.ndarray]:
+    """
+    Returns a the vectorized features-labels pairs.
+
+    Parameters
+    ----------
+    features: List
+        The dataset features.
+    labels: List
+        The dataset labels.
+    dataset_size: int
+        The size of the dataset.
+    batch_size: int
+        The mini-batch used for unpacking the examples.
+    image_size: int
+        The number of channels in the dataset features.
+
+    Returns
+    -------
+    Tuple[np.ndarray, np.ndarray]
+        array: np.ndarray
+            The vectorized features.
+        labels_array: np.ndarray
+            The vectorized labels.
+    """
     num_channels = 3
     array = np.zeros((dataset_size, num_channels, image_size, image_size))
     labels_array = np.zeros((dataset_size))
