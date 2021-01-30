@@ -22,7 +22,7 @@ def _post_install():
 
 setup(
     name="pt-datasets",
-    version="0.9.9",
+    version="0.9.10",
     packages=["pt_datasets"],
     url="https://github.com/AFAgarap/pt-datasets",
     license="AGPL-3.0 License",
@@ -40,7 +40,7 @@ setup(
         "scikit_learn==0.23.2",
         "gdown==3.12.2",
         "nltk==3.5",
-        "cmake",
+        "cmake==3.18.0",
         "opencv-python==4.2.0.34",
     ],
 )
