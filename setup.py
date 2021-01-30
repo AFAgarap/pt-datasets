@@ -40,7 +40,7 @@ setup(
         "scikit_learn==0.23.2",
         "gdown==3.12.2",
         "nltk==3.5",
-        "cmake",
+        "cmake==3.18.0",
         "opencv-python==4.2.0.34",
     ],
 )
