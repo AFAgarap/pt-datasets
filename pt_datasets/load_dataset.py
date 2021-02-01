@@ -26,11 +26,7 @@ from sklearn.preprocessing import StandardScaler
 import torch
 import torchvision
 
-from pt_datasets.COVID19Dataset import (
-    BinaryCOVID19Dataset,
-    COVID19Dataset,
-    MultiCOVID19Dataset,
-)
+from pt_datasets.COVID19Dataset import BinaryCOVID19Dataset, MultiCOVID19Dataset
 from pt_datasets.download_covid_dataset import (
     download_binary_covid19_dataset,
     download_covidx5_dataset,
@@ -435,16 +431,10 @@ def load_binary_covid19(
     if not os.path.exists(os.path.join(dataset_path, "BinaryCOVID19Dataset")):
         download_binary_covid19_dataset()
         unzip_dataset(os.path.join(dataset_path, "BinaryCOVID19Dataset.tar.xz"))
-    if preprocessed:
-        train_data, test_data = (
-            COVID19Dataset(train=True, classes="binary"),
-            COVID19Dataset(train=False, classes="binary"),
-        )
-    else:
-        train_data, test_data = (
-            BinaryCOVID19Dataset(train=True, transform=transform),
-            BinaryCOVID19Dataset(train=False, transform=transform),
-        )
+    (train_data, test_data) = (
+        BinaryCOVID19Dataset(train=True, preprocessed=preprocessed, size=size),
+        BinaryCOVID19Dataset(train=False, preprocessed=preprocessed, size=size),
+    )
     return train_data, test_data
 
 
@@ -477,14 +467,8 @@ def load_multi_covid19(
     if not os.path.exists(os.path.join(dataset_path, "MultiCOVID19Dataset")):
         download_covidx5_dataset()
         unzip_dataset(os.path.join(dataset_path, "MultiCOVID19Dataset.tar.xz"))
-    if preprocessed:
-        train_data, test_data = (
-            COVID19Dataset(train=True, classes="multi"),
-            COVID19Dataset(train=False, classes="multi"),
-        )
-    else:
-        train_data, test_data = (
-            MultiCOVID19Dataset(train=True, transform=transform),
-            MultiCOVID19Dataset(train=False, transform=transform),
-        )
+    (train_data, test_data) = (
+        MultiCOVID19Dataset(train=True, preprocessed=preprocessed, size=size),
+        MultiCOVID19Dataset(train=False, preprocessed=preprocessed, size=size),
+    )
     return train_data, test_data
