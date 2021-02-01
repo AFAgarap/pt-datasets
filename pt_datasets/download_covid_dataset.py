@@ -23,10 +23,10 @@ __author__ = "Abien Fred Agarap"
 
 
 BINARY_COVID19_DATASET = (
-    "https://drive.google.com/uc?id=1sGHrm76Rt_qRoHo-nU3A4iK8RMuTRMB6"
+    "https://drive.google.com/uc?id=1xfuoZmwjf5wu_H2xgqUevs9rjW1R-Sel"
 )
 MULTI_COVID19_DATASET = (
-    "https://drive.google.com/uc?id=1Rgc6gx2DaUtUbs7FEyS8DnMEaoDnjR-0"
+    "https://drive.google.com/uc?id=1zjtn3ZRZTIYXMo0NnWNHdOQtpw6IUvUl"
 )
 
 
