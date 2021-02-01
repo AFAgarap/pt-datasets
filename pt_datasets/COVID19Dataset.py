@@ -115,10 +115,12 @@ class BinaryCOVID19Dataset(torch.utils.data.Dataset):
                 print(
                     "[INFO] No preprocessed training dataset found. Preprocessing now..."
                 )
-                preprocess_dataset(train=True, size=size)
+                preprocess_dataset(train=True, size=size, export_dir=BINARY_COVID19_DIR)
             if not os.path.isfile(os.path.join(BINARY_COVID19_DIR, f"test_{size}.pt")):
                 print("[INFO] No preprocessed test dataset found. Preprocessing now...")
-                preprocess_dataset(train=False, size=size)
+                preprocess_dataset(
+                    train=False, size=size, export_dir=BINARY_COVID19_DIR
+                )
             if train:
                 dataset = torch.load(
                     os.path.join(BINARY_COVID19_DIR, f"train_{size}.pt")
@@ -201,10 +203,10 @@ class MultiCOVID19Dataset(torch.utils.data.Dataset):
                 print(
                     "[INFO] No preprocessed training dataset found. Preprocessing now..."
                 )
-                preprocess_dataset(train=True, size=size)
+                preprocess_dataset(train=True, size=size, export_dir=MULTI_COVID19_DIR)
             if not os.path.isfile(os.path.join(MULTI_COVID19_DIR, f"test_{size}.pt")):
                 print("[INFO] No preprocessed test dataset found. Preprocessing now...")
-                preprocess_dataset(train=False, size=size)
+                preprocess_dataset(train=False, size=size, export_dir=MULTI_COVID19_DIR)
             if train:
                 dataset = torch.load(
                     os.path.join(MULTI_COVID19_DIR, f"train_{size}.pt")
@@ -346,12 +348,17 @@ def export_dataset(dataset: Tuple[np.ndarray, np.ndarray], filename: str) -> Non
 
 
 def preprocess_dataset(
-    train: bool = False, size: int = 64, batch_size: int = 2048
+    export_dir: str, train: bool = False, size: int = 64, batch_size: int = 2048
 ) -> None:
     transform = torchvision.transforms.Compose([torchvision.transforms.ToTensor()])
     if train:
         print("[INFO] Loading dataset...")
-        train_data = BinaryCOVID19Dataset(train=True, size=size, transform=transform)
+        if "BinaryCOVID19Dataset" in export_dir:
+            train_data = BinaryCOVID19Dataset(
+                train=True, size=size, transform=transform
+            )
+        elif "MultiCOVID19Dataset" in export_dir:
+            train_data = MultiCOVID19Dataset(train=True, size=size, transform=transform)
         print("[INFO] Creating data loader...")
         train_loader = create_dataloader(train_data, batch_size=batch_size)
         print("[INFO] Unpacking examples...")
@@ -367,15 +374,18 @@ def preprocess_dataset(
         train_dataset = (train_features, train_labels)
         print(
             "[INFO] Exporting dataset to {}".format(
-                os.path.join(BINARY_COVID19_DIR, f"train_{size}.pt")
+                os.path.join(export_dir, f"train_{size}.pt")
             )
         )
-        export_dataset(
-            train_dataset, os.path.join(BINARY_COVID19_DIR, f"train_{size}.pt")
-        )
+        export_dataset(train_dataset, os.path.join(export_dir, f"train_{size}.pt"))
     else:
         print("[INFO] Loading dataset...")
-        test_data = BinaryCOVID19Dataset(train=False, size=size, transform=transform)
+        if "BinaryCOVID19Dataset" in export_dir:
+            test_data = BinaryCOVID19Dataset(
+                train=False, size=size, transform=transform
+            )
+        elif "MultiCOVID19Dataset" in export_dir:
+            test_data = MultiCOVID19Dataset(train=False, size=size, transform=transform)
         print("[INFO] Creating data loader...")
         test_loader = create_dataloader(test_data, batch_size=batch_size)
         print("[INFO] Unpacking examples...")
@@ -391,9 +401,7 @@ def preprocess_dataset(
         test_dataset = (test_features, test_labels)
         print(
             "[INFO] Exporting dataset to {}".format(
-                os.path.join(BINARY_COVID19_DIR, f"test_{size}.pt")
+                os.path.join(export_dir, f"test_{size}.pt")
             )
         )
-        export_dataset(
-            test_dataset, os.path.join(BINARY_COVID19_DIR, f"test_{size}.pt")
-        )
+        export_dataset(test_dataset, os.path.join(export_dir, f"test_{size}.pt"))
