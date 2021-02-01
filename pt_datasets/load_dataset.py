@@ -26,11 +26,7 @@ from sklearn.preprocessing import StandardScaler
 import torch
 import torchvision
 
-from pt_datasets.COVID19Dataset import (
-    BinaryCOVID19Dataset,
-    COVID19Dataset,
-    MultiCOVID19Dataset,
-)
+from pt_datasets.COVID19Dataset import BinaryCOVID19Dataset, MultiCOVID19Dataset
 from pt_datasets.download_covid_dataset import (
     download_binary_covid19_dataset,
     download_covidx5_dataset,
