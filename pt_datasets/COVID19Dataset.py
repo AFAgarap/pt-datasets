@@ -36,54 +36,6 @@ TRAIN_METADATA = "train_split.txt"
 TEST_METADATA = "test_split.txt"
 
 
-class COVID19Dataset(torch.utils.data.Dataset):
-    def __init__(
-        self,
-        classes: str = "binary",
-        transform: torchvision.transforms = None,
-        train: bool = True,
-    ):
-        """
-        Builds the preprocessed COVID19 dataset.
-
-        Parameters
-        ----------
-        classes: str
-            The dataset to load, either "binary" or "multi".
-        transform: torchvision.transforms
-            The transformation pipeline to use for image preprocessing.
-        train: bool
-            Whether to load the training set or not.
-        """
-        if classes == "binary":
-            self.classes = ["negative", "positive"]
-            if train:
-                dataset = torch.load(os.path.join(BINARY_COVID19_DIR, "train.pt"))
-            else:
-                dataset = torch.load(os.path.join(BINARY_COVID19_DIR, "test.pt"))
-        elif classes == "multi":
-            self.classes = ["normal", "pneumonia", "COVID-19"]
-            if train:
-                dataset = torch.load(os.path.join(MULTI_COVID19_DIR, "train.pt"))
-            else:
-                dataset = torch.load(os.path.join(MULTI_COVID19_DIR, "test.pt"))
-        self.data = dataset[0]
-        self.labels = dataset[1]
-        self.transform = transform
-
-    def __len__(self):
-        return len(self.data)
-
-    def __getitem__(self, idx) -> Tuple:
-        if torch.is_tensor(idx):
-            idx = idx.tolist()
-        image = self.data[idx]
-        if self.transform:
-            image = self.transform(image)
-        label = self.labels[idx].astype("int64")
-        return (image, label)
-
-
 class BinaryCOVID19Dataset(torch.utils.data.Dataset):
     """
     Dataset class for the COVID19 binary classification dataset.
