@@ -435,16 +435,10 @@ def load_binary_covid19(
     if not os.path.exists(os.path.join(dataset_path, "BinaryCOVID19Dataset")):
         download_binary_covid19_dataset()
         unzip_dataset(os.path.join(dataset_path, "BinaryCOVID19Dataset.tar.xz"))
-    if preprocessed:
-        train_data, test_data = (
-            COVID19Dataset(train=True, classes="binary"),
-            COVID19Dataset(train=False, classes="binary"),
-        )
-    else:
-        train_data, test_data = (
-            BinaryCOVID19Dataset(train=True, transform=transform),
-            BinaryCOVID19Dataset(train=False, transform=transform),
-        )
+    (train_data, test_data) = (
+        BinaryCOVID19Dataset(train=True, preprocessed=preprocessed, size=size),
+        BinaryCOVID19Dataset(train=False, preprocessed=preprocessed, size=size),
+    )
     return train_data, test_data
 
 
