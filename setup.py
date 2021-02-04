@@ -42,6 +42,7 @@ setup(
         "nltk==3.5",
         "cmake==3.18.0",
         "opencv-python==4.2.0.34",
+        "imbalanced_learn==0.7.0",
     ],
 )
 
