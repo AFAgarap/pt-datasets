@@ -9,3 +9,4 @@ torchvision==0.8.2
 MulticoreTSNE==0.1
 scikit_learn==0.23.2
 umap==0.1.1
+imbalanced_learn==0.7.0

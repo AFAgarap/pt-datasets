@@ -22,10 +22,14 @@ from typing import Dict, List, Tuple
 from zipfile import ZipFile
 
 import cv2
+from imblearn.over_sampling import SMOTE
 import nltk
 import numpy as np
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 import torch
+
+from . import create_dataset
+
 
 __author__ = "Abien Fred Agarap"
 
@@ -272,3 +276,17 @@ def load_image(filename: str, size: Tuple = 224) -> torch.Tensor:
     image = central_crop(image)
     image = cv2.resize(image, (size, size))
     return image
+
+
+def oversample_dataset(
+    features: torch.Tensor, labels: torch.Tensor, seed: int
+) -> torch.utils.data.Dataset:
+    oversampler = SMOTE(random_state=seed)
+    if len(features.shape) > 3:
+        input_shape = features.shape
+    if len(features.shape) > 2:
+        features = features.reshape(features.shape[0], -1)
+    features, labels = oversampler.fit_resample(features, labels)
+    features = np.reshape(features, (features.shape[0], *input_shape[1:]))
+    dataset = create_dataset(features=features, labels=labels)
+    return dataset
