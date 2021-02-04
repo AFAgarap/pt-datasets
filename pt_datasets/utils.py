@@ -287,6 +287,6 @@ def oversample_dataset(
     if len(features.shape) > 2:
         features = features.reshape(features.shape[0], -1)
     features, labels = oversampler.fit_resample(features, labels)
-    features = features.reshape(features.shape[0], input_shape[1:])
+    features = np.reshape(features, (features.shape[0], *input_shape[1:]))
     dataset = create_dataset(features=features, labels=labels)
     return dataset
