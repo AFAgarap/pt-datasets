@@ -281,6 +281,25 @@ def load_image(filename: str, size: Tuple = 224) -> torch.Tensor:
 def oversample_dataset(
     features: torch.Tensor, labels: torch.Tensor, seed: int = 42
 ) -> torch.utils.data.Dataset:
+    """
+    Oversamples the minority class in the given dataset
+    using synthetic minority oversampling technique.
+
+    Parameters
+    ----------
+    features: torch.Tensor
+        The dataset features.
+    labels: torch.Tensor
+        The dataset labels.
+    seed: int
+        The random seed to use for sampling.
+
+    Returns
+    -------
+    dataset: torch.utils.data.Dataset
+        The dataset that consists of the
+        oversampled minority class with other classes.
+    """
     oversampler = SMOTE(random_state=seed)
     if len(features.shape) > 3:
         input_shape = features.shape
