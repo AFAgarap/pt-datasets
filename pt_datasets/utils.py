@@ -284,6 +284,8 @@ def oversample_dataset(
     oversampler = SMOTE(random_state=seed)
     if len(features.shape) > 3:
         input_shape = features.shape
+    if len(features.shape) > 2:
+        features = features.reshape(features.shape[0], -1)
     features, labels = oversampler.fit_resample(features, labels)
     features = features.reshape(features.shape[0], input_shape[1:])
     dataset = create_dataset(features=features, labels=labels)
