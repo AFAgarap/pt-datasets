@@ -279,7 +279,7 @@ def load_image(filename: str, size: Tuple = 224) -> torch.Tensor:
 
 
 def oversample_dataset(
-    features: torch.Tensor, labels: torch.Tensor, seed: int
+    features: torch.Tensor, labels: torch.Tensor, seed: int = 42
 ) -> torch.utils.data.Dataset:
     oversampler = SMOTE(random_state=seed)
     if len(features.shape) > 3:
