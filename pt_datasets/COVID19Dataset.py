@@ -47,6 +47,7 @@ class BinaryCOVID19Dataset(torch.utils.data.Dataset):
         transform: torchvision.transforms = None,
         size: int = 64,
         preprocessed: bool = False,
+        preprocessing_bsize: int = 2048,
     ):
         """
         Builds the COVID19 binary classification dataset.
@@ -59,8 +60,10 @@ class BinaryCOVID19Dataset(torch.utils.data.Dataset):
             The transformation pipeline to use for image preprocessing.
         size: int
             The size to use for resizing images.
-        preproceseed: bool
+        preprocessed: bool
             Whether to load preprocessed dataset or not.
+        preprocessing_bsize: int
+            The mini-batch size to use preprocessing the dataset.
         """
         if preprocessed:
             if not os.path.isfile(os.path.join(BINARY_COVID19_DIR, f"train_{size}.pt")):
@@ -135,6 +138,7 @@ class MultiCOVID19Dataset(torch.utils.data.Dataset):
         transform: torchvision.transforms = None,
         size: int = 64,
         preprocessed: bool = False,
+        preprocessing_bsize: int = 2048,
     ):
         """
         Builds the COVID19 multi-classification dataset.
@@ -149,6 +153,8 @@ class MultiCOVID19Dataset(torch.utils.data.Dataset):
             The size to use for resizing images.
         preprocessed: bool
             Whether to load preprocessed dataset or not.
+        preprocessing_bsize: int
+            The mini-batch size to use preprocessing the dataset.
         """
         if preprocessed:
             if not os.path.isfile(os.path.join(MULTI_COVID19_DIR, f"train_{size}.pt")):
