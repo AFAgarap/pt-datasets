@@ -282,6 +282,9 @@ def oversample_dataset(
     features: torch.Tensor, labels: torch.Tensor, seed: int
 ) -> torch.utils.data.Dataset:
     oversampler = SMOTE(random_state=seed)
+    if len(features.shape) > 3:
+        input_shape = features.shape
     features, labels = oversampler.fit_resample(features, labels)
+    features = features.reshape(features.shape[0], input_shape[1:])
     dataset = create_dataset(features=features, labels=labels)
     return dataset
