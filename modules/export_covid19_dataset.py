@@ -29,12 +29,8 @@ from pt_datasets import load_dataset, create_dataloader
 __author__ = "Abien Fred Agarap"
 
 
-BINARY_COVID19_PATH = os.path.join(
-    str(Path.home()), "torch_datasets/BinaryCOVID19Dataset"
-)
-MULTI_COVID19_PATH = os.path.join(
-    str(Path.home()), "torch_datasets/MultiCOVID19Dataset"
-)
+BINARY_COVID19_PATH = os.path.join(str(Path.home()), "datasets/BinaryCOVID19Dataset")
+MULTI_COVID19_PATH = os.path.join(str(Path.home()), "datasets/MultiCOVID19Dataset")
 
 
 def parse_args():
