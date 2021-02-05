@@ -70,11 +70,19 @@ class BinaryCOVID19Dataset(torch.utils.data.Dataset):
                 print(
                     "[INFO] No preprocessed training dataset found. Preprocessing now..."
                 )
-                preprocess_dataset(train=True, size=size, export_dir=BINARY_COVID19_DIR)
+                preprocess_dataset(
+                    train=True,
+                    size=size,
+                    export_dir=BINARY_COVID19_DIR,
+                    batch_size=preprocessing_bsize,
+                )
             if not os.path.isfile(os.path.join(BINARY_COVID19_DIR, f"test_{size}.pt")):
                 print("[INFO] No preprocessed test dataset found. Preprocessing now...")
                 preprocess_dataset(
-                    train=False, size=size, export_dir=BINARY_COVID19_DIR
+                    train=False,
+                    size=size,
+                    export_dir=BINARY_COVID19_DIR,
+                    batch_size=preprocessing_bsize,
                 )
             if train:
                 dataset = torch.load(
@@ -161,10 +169,20 @@ class MultiCOVID19Dataset(torch.utils.data.Dataset):
                 print(
                     "[INFO] No preprocessed training dataset found. Preprocessing now..."
                 )
-                preprocess_dataset(train=True, size=size, export_dir=MULTI_COVID19_DIR)
+                preprocess_dataset(
+                    train=True,
+                    size=size,
+                    export_dir=MULTI_COVID19_DIR,
+                    batch_size=preprocessing_bsize,
+                )
             if not os.path.isfile(os.path.join(MULTI_COVID19_DIR, f"test_{size}.pt")):
                 print("[INFO] No preprocessed test dataset found. Preprocessing now...")
-                preprocess_dataset(train=False, size=size, export_dir=MULTI_COVID19_DIR)
+                preprocess_dataset(
+                    train=False,
+                    size=size,
+                    export_dir=MULTI_COVID19_DIR,
+                    batch_size=preprocessing_bsize,
+                )
             if train:
                 dataset = torch.load(
                     os.path.join(MULTI_COVID19_DIR, f"train_{size}.pt")
