@@ -106,8 +106,8 @@ def main(arguments):
     )
     assert arguments.dataset in ["binary_covid", "multi_covid"]
     train_data, test_data = load_dataset(arguments.dataset, image_size=arguments.size)
-    train_loader = create_dataloader(train_data, batch_size=batch_size)
-    test_loader = create_dataloader(test_data, batch_size=len(test_data))
+    train_loader = create_dataloader(train_data, batch_size=batch_size, num_workers=4)
+    test_loader = create_dataloader(test_data, batch_size=len(test_data), num_workers=4)
     train_features, train_labels = unpack_examples(train_loader)
     train_features, train_labels = vectorize_examples(
         train_features,
