@@ -116,13 +116,13 @@ def main(arguments):
         batch_size=batch_size,
     )
     train_dataset = (train_features, train_labels)
-    export_dataset(train_dataset, os.path.join(path, "train.pt"))
+    export_dataset(train_dataset, os.path.join(path, f"train_{arguments.size}.pt"))
     test_features, test_labels = unpack_examples(test_loader)
     test_features, test_labels = vectorize_examples(
         test_features, test_labels, dataset_size=len(test_data), batch_size=batch_size
     )
     test_dataset = (test_features, test_labels)
-    export_dataset(test_dataset, os.path.join(path, "test.pt"))
+    export_dataset(test_dataset, os.path.join(path, f"test_{arguments.size}.pt"))
 
 
 if __name__ == "__main__":
