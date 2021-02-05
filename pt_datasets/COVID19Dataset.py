@@ -16,6 +16,7 @@
 """COVID19 dataset classes"""
 import os
 from pathlib import Path
+import pickle
 import time
 from typing import Dict, List, Tuple
 
@@ -47,6 +48,7 @@ class BinaryCOVID19Dataset(torch.utils.data.Dataset):
         transform: torchvision.transforms = None,
         size: int = 64,
         preprocessed: bool = False,
+        preprocessing_bsize: int = 2048,
     ):
         """
         Builds the COVID19 binary classification dataset.
@@ -59,28 +61,48 @@ class BinaryCOVID19Dataset(torch.utils.data.Dataset):
             The transformation pipeline to use for image preprocessing.
         size: int
             The size to use for resizing images.
-        preproceseed: bool
+        preprocessed: bool
             Whether to load preprocessed dataset or not.
+        preprocessing_bsize: int
+            The mini-batch size to use preprocessing the dataset.
         """
         if preprocessed:
             if not os.path.isfile(os.path.join(BINARY_COVID19_DIR, f"train_{size}.pt")):
                 print(
                     "[INFO] No preprocessed training dataset found. Preprocessing now..."
                 )
-                preprocess_dataset(train=True, size=size, export_dir=BINARY_COVID19_DIR)
+                preprocess_dataset(
+                    train=True,
+                    size=size,
+                    export_dir=BINARY_COVID19_DIR,
+                    batch_size=preprocessing_bsize,
+                )
             if not os.path.isfile(os.path.join(BINARY_COVID19_DIR, f"test_{size}.pt")):
                 print("[INFO] No preprocessed test dataset found. Preprocessing now...")
                 preprocess_dataset(
-                    train=False, size=size, export_dir=BINARY_COVID19_DIR
+                    train=False,
+                    size=size,
+                    export_dir=BINARY_COVID19_DIR,
+                    batch_size=preprocessing_bsize,
                 )
             if train:
-                dataset = torch.load(
-                    os.path.join(BINARY_COVID19_DIR, f"train_{size}.pt")
-                )
+                if size > 64:
+                    dataset = load_pickle(
+                        os.path.join(BINARY_COVID19_DIR, f"train_{size}.pt")
+                    )
+                else:
+                    dataset = torch.load(
+                        os.path.join(BINARY_COVID19_DIR, f"train_{size}.pt")
+                    )
             else:
-                dataset = torch.load(
-                    os.path.join(BINARY_COVID19_DIR, f"test_{size}.pt")
-                )
+                if size > 64:
+                    dataset = load_pickle(
+                        os.path.join(BINARY_COVID19_DIR, f"test_{size}.pt")
+                    )
+                else:
+                    dataset = torch.load(
+                        os.path.join(BINARY_COVID19_DIR, f"test_{size}.pt")
+                    )
             self.data = dataset[0]
             self.labels = dataset[1]
         else:
@@ -135,6 +157,7 @@ class MultiCOVID19Dataset(torch.utils.data.Dataset):
         transform: torchvision.transforms = None,
         size: int = 64,
         preprocessed: bool = False,
+        preprocessing_bsize: int = 2048,
     ):
         """
         Builds the COVID19 multi-classification dataset.
@@ -149,22 +172,46 @@ class MultiCOVID19Dataset(torch.utils.data.Dataset):
             The size to use for resizing images.
         preprocessed: bool
             Whether to load preprocessed dataset or not.
+        preprocessing_bsize: int
+            The mini-batch size to use preprocessing the dataset.
         """
         if preprocessed:
             if not os.path.isfile(os.path.join(MULTI_COVID19_DIR, f"train_{size}.pt")):
                 print(
                     "[INFO] No preprocessed training dataset found. Preprocessing now..."
                 )
-                preprocess_dataset(train=True, size=size, export_dir=MULTI_COVID19_DIR)
+                preprocess_dataset(
+                    train=True,
+                    size=size,
+                    export_dir=MULTI_COVID19_DIR,
+                    batch_size=preprocessing_bsize,
+                )
             if not os.path.isfile(os.path.join(MULTI_COVID19_DIR, f"test_{size}.pt")):
                 print("[INFO] No preprocessed test dataset found. Preprocessing now...")
-                preprocess_dataset(train=False, size=size, export_dir=MULTI_COVID19_DIR)
-            if train:
-                dataset = torch.load(
-                    os.path.join(MULTI_COVID19_DIR, f"train_{size}.pt")
+                preprocess_dataset(
+                    train=False,
+                    size=size,
+                    export_dir=MULTI_COVID19_DIR,
+                    batch_size=preprocessing_bsize,
                 )
+            if train:
+                if size > 64:
+                    dataset = load_pickle(
+                        os.path.join(MULTI_COVID19_DIR, f"train_{size}.pt")
+                    )
+                else:
+                    dataset = torch.load(
+                        os.path.join(MULTI_COVID19_DIR, f"train_{size}.pt")
+                    )
             else:
-                dataset = torch.load(os.path.join(MULTI_COVID19_DIR, f"test_{size}.pt"))
+                if size > 64:
+                    dataset = load_pickle(
+                        os.path.join(MULTI_COVID19_DIR, f"test_{size}.pt")
+                    )
+                else:
+                    dataset = torch.load(
+                        os.path.join(MULTI_COVID19_DIR, f"test_{size}.pt")
+                    )
             self.data = dataset[0]
             self.labels = dataset[1]
         if train:
@@ -296,7 +343,11 @@ def export_dataset(dataset: Tuple[np.ndarray, np.ndarray], filename: str) -> Non
     """
     if not filename.endswith(".pt"):
         filename = f"{filename}.pt"
-    torch.save(dataset, filename)
+    if dataset[0].shape[2] > 64:
+        with open(filename, "wb") as tensor_file:
+            pickle.dump(dataset, tensor_file)
+    else:
+        torch.save(dataset, filename)
 
 
 def preprocess_dataset(
@@ -312,7 +363,9 @@ def preprocess_dataset(
         elif "MultiCOVID19Dataset" in export_dir:
             train_data = MultiCOVID19Dataset(train=True, size=size, transform=transform)
         print("[INFO] Creating data loader...")
-        train_loader = create_dataloader(train_data, batch_size=batch_size)
+        train_loader = create_dataloader(
+            train_data, batch_size=batch_size, num_workers=4
+        )
         print("[INFO] Unpacking examples...")
         train_features, train_labels = unpack_examples(train_loader)
         print("[INFO] Vectorizing examples...")
@@ -339,7 +392,7 @@ def preprocess_dataset(
         elif "MultiCOVID19Dataset" in export_dir:
             test_data = MultiCOVID19Dataset(train=False, size=size, transform=transform)
         print("[INFO] Creating data loader...")
-        test_loader = create_dataloader(test_data, batch_size=batch_size)
+        test_loader = create_dataloader(test_data, batch_size=batch_size, num_workers=4)
         print("[INFO] Unpacking examples...")
         test_features, test_labels = unpack_examples(test_loader)
         print("[INFO] Vectorizing examples...")
@@ -357,3 +410,25 @@ def preprocess_dataset(
             )
         )
         export_dataset(test_dataset, os.path.join(export_dir, f"test_{size}.pt"))
+
+
+def load_pickle(
+    filename: str
+) -> Tuple[np.ndarray or torch.Tensor, np.ndarray or torch.Tensor]:
+    """
+    Loads the pickled dataset.
+
+    Parameter
+    ---------
+    filename: str
+        The path to the pickled dataset.
+
+    Returns
+    -------
+    Tuple[np.ndarray or torch.Tensor, np.ndarray or torch.Tensor]
+        The first element is the features tensor.
+        The second element is the labels tensor.
+    """
+    with open(filename, "rb") as tensor_file:
+        dataset = pickle.load(tensor_file)
+    return dataset

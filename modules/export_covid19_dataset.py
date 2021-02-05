@@ -29,12 +29,8 @@ from pt_datasets import load_dataset, create_dataloader
 __author__ = "Abien Fred Agarap"
 
 
-BINARY_COVID19_PATH = os.path.join(
-    str(Path.home()), "torch_datasets/BinaryCOVID19Dataset"
-)
-MULTI_COVID19_PATH = os.path.join(
-    str(Path.home()), "torch_datasets/MultiCOVID19Dataset"
-)
+BINARY_COVID19_PATH = os.path.join(str(Path.home()), "datasets/BinaryCOVID19Dataset")
+MULTI_COVID19_PATH = os.path.join(str(Path.home()), "datasets/MultiCOVID19Dataset")
 
 
 def parse_args():
@@ -106,8 +102,8 @@ def main(arguments):
     )
     assert arguments.dataset in ["binary_covid", "multi_covid"]
     train_data, test_data = load_dataset(arguments.dataset, image_size=arguments.size)
-    train_loader = create_dataloader(train_data, batch_size=batch_size)
-    test_loader = create_dataloader(test_data, batch_size=len(test_data))
+    train_loader = create_dataloader(train_data, batch_size=batch_size, num_workers=4)
+    test_loader = create_dataloader(test_data, batch_size=len(test_data), num_workers=4)
     train_features, train_labels = unpack_examples(train_loader)
     train_features, train_labels = vectorize_examples(
         train_features,
@@ -116,13 +112,13 @@ def main(arguments):
         batch_size=batch_size,
     )
     train_dataset = (train_features, train_labels)
-    export_dataset(train_dataset, os.path.join(path, "train.pt"))
+    export_dataset(train_dataset, os.path.join(path, f"train_{arguments.size}.pt"))
     test_features, test_labels = unpack_examples(test_loader)
     test_features, test_labels = vectorize_examples(
         test_features, test_labels, dataset_size=len(test_data), batch_size=batch_size
     )
     test_dataset = (test_features, test_labels)
-    export_dataset(test_dataset, os.path.join(path, "test.pt"))
+    export_dataset(test_dataset, os.path.join(path, f"test_{arguments.size}.pt"))
 
 
 if __name__ == "__main__":
