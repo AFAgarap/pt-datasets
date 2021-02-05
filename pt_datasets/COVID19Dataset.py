@@ -341,7 +341,9 @@ def preprocess_dataset(
         elif "MultiCOVID19Dataset" in export_dir:
             train_data = MultiCOVID19Dataset(train=True, size=size, transform=transform)
         print("[INFO] Creating data loader...")
-        train_loader = create_dataloader(train_data, batch_size=batch_size)
+        train_loader = create_dataloader(
+            train_data, batch_size=batch_size, num_workers=4
+        )
         print("[INFO] Unpacking examples...")
         train_features, train_labels = unpack_examples(train_loader)
         print("[INFO] Vectorizing examples...")
@@ -368,7 +370,7 @@ def preprocess_dataset(
         elif "MultiCOVID19Dataset" in export_dir:
             test_data = MultiCOVID19Dataset(train=False, size=size, transform=transform)
         print("[INFO] Creating data loader...")
-        test_loader = create_dataloader(test_data, batch_size=batch_size)
+        test_loader = create_dataloader(test_data, batch_size=batch_size, num_workers=4)
         print("[INFO] Unpacking examples...")
         test_features, test_labels = unpack_examples(test_loader)
         print("[INFO] Vectorizing examples...")
