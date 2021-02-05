@@ -415,6 +415,20 @@ def preprocess_dataset(
 def load_pickle(
     filename: str
 ) -> Tuple[np.ndarray or torch.Tensor, np.ndarray or torch.Tensor]:
+    """
+    Loads the pickled dataset.
+
+    Parameter
+    ---------
+    filename: str
+        The path to the pickled dataset.
+
+    Returns
+    -------
+    Tuple[np.ndarray or torch.Tensor, np.ndarray or torch.Tensor]
+        The first element is the features tensor.
+        The second element is the labels tensor.
+    """
     with open(filename, "rb") as tensor_file:
         dataset = pickle.load(tensor_file)
     return dataset
