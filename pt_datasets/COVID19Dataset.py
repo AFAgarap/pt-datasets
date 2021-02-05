@@ -86,13 +86,23 @@ class BinaryCOVID19Dataset(torch.utils.data.Dataset):
                     batch_size=preprocessing_bsize,
                 )
             if train:
-                dataset = torch.load(
-                    os.path.join(BINARY_COVID19_DIR, f"train_{size}.pt")
-                )
+                if size > 64:
+                    dataset = load_pickle(
+                        os.path.join(BINARY_COVID19_DIR, f"train_{size}.pt")
+                    )
+                else:
+                    dataset = torch.load(
+                        os.path.join(BINARY_COVID19_DIR, f"train_{size}.pt")
+                    )
             else:
-                dataset = torch.load(
-                    os.path.join(BINARY_COVID19_DIR, f"test_{size}.pt")
-                )
+                if size > 64:
+                    dataset = load_pickle(
+                        os.path.join(BINARY_COVID19_DIR, f"test_{size}.pt")
+                    )
+                else:
+                    dataset = torch.load(
+                        os.path.join(BINARY_COVID19_DIR, f"test_{size}.pt")
+                    )
             self.data = dataset[0]
             self.labels = dataset[1]
         else:
@@ -185,11 +195,23 @@ class MultiCOVID19Dataset(torch.utils.data.Dataset):
                     batch_size=preprocessing_bsize,
                 )
             if train:
-                dataset = torch.load(
-                    os.path.join(MULTI_COVID19_DIR, f"train_{size}.pt")
-                )
+                if size > 64:
+                    dataset = load_pickle(
+                        os.path.join(MULTI_COVID19_DIR, f"train_{size}.pt")
+                    )
+                else:
+                    dataset = torch.load(
+                        os.path.join(MULTI_COVID19_DIR, f"train_{size}.pt")
+                    )
             else:
-                dataset = torch.load(os.path.join(MULTI_COVID19_DIR, f"test_{size}.pt"))
+                if size > 64:
+                    dataset = load_pickle(
+                        os.path.join(MULTI_COVID19_DIR, f"test_{size}.pt")
+                    )
+                else:
+                    dataset = torch.load(
+                        os.path.join(MULTI_COVID19_DIR, f"test_{size}.pt")
+                    )
             self.data = dataset[0]
             self.labels = dataset[1]
         if train:
@@ -388,3 +410,11 @@ def preprocess_dataset(
             )
         )
         export_dataset(test_dataset, os.path.join(export_dir, f"test_{size}.pt"))
+
+
+def load_pickle(
+    filename: str
+) -> Tuple[np.ndarray or torch.Tensor, np.ndarray or torch.Tensor]:
+    with open(filename, "rb") as tensor_file:
+        dataset = pickle.load(tensor_file)
+    return dataset
