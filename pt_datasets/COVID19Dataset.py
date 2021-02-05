@@ -16,6 +16,7 @@
 """COVID19 dataset classes"""
 import os
 from pathlib import Path
+import pickle
 import time
 from typing import Dict, List, Tuple
 
@@ -320,7 +321,11 @@ def export_dataset(dataset: Tuple[np.ndarray, np.ndarray], filename: str) -> Non
     """
     if not filename.endswith(".pt"):
         filename = f"{filename}.pt"
-    torch.save(dataset, filename)
+    if dataset[0].shape[2] > 64:
+        with open(filename, "wb") as tensor_file:
+            pickle.dump(dataset, tensor_file)
+    else:
+        torch.save(dataset, filename)
 
 
 def preprocess_dataset(
