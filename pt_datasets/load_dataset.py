@@ -45,6 +45,7 @@ def load_dataset(
     return_vectorizer: bool = False,
     image_size: int = 64,
     preprocessed_covidx: bool = False,
+    preprocessing_bsize: int = 2048,
 ) -> Tuple[object, object]:
     """
     Returns a tuple of torchvision dataset objects.
@@ -85,6 +86,8 @@ def load_dataset(
         Whether to use the preprocessed COVID19 datasets or not.
         This requires the use of `modules/export_covid19_dataset`
         in the package repository.
+    preprocessing_bsize: int
+        The batch size to use for preprocessing the COVID19 dataset.
 
     Returns
     -------
@@ -212,11 +215,17 @@ def load_dataset(
         train_dataset, test_dataset = load_wdbc()
     elif name == "binary_covid":
         train_dataset, test_dataset = load_binary_covid19(
-            transform=transform, size=image_size, preprocessed=preprocessed_covidx
+            transform=transform,
+            size=image_size,
+            preprocessed=preprocessed_covidx,
+            preprocessing_bsize=preprocessing_bsize,
         )
     elif name == "multi_covid":
         train_dataset, test_dataset = load_multi_covid19(
-            transform=transform, size=image_size, preprocessed=preprocessed_covidx
+            transform=transform,
+            size=image_size,
+            preprocessed=preprocessed_covidx,
+            preprocessing_bsize=preprocessing_bsize,
         )
     return (
         (train_dataset, test_dataset, vectorizer)
@@ -403,7 +412,10 @@ def load_wdbc(test_size: float = 3e-1, seed: int = 42):
 
 
 def load_binary_covid19(
-    transform: torchvision.transforms, size: int = 64, preprocessed: bool = False
+    transform: torchvision.transforms,
+    size: int = 64,
+    preprocessed: bool = False,
+    preprocessing_bsize: int = 2048,
 ) -> Tuple[torch.utils.data.Dataset, torch.utils.data.Dataset]:
     """
     Returns a tuple of the tensor datasets for the
@@ -417,6 +429,8 @@ def load_binary_covid19(
         The size to use for image resizing.
     preprocessed: bool
         Whether to load preprocessed dataset or not.
+    preprocessing_bsize: int
+        The batch size to use for preprocessing the dataset.
 
     Returns
     -------
@@ -432,14 +446,27 @@ def load_binary_covid19(
         download_binary_covid19_dataset()
         unzip_dataset(os.path.join(dataset_path, "BinaryCOVID19Dataset.tar.xz"))
     (train_data, test_data) = (
-        BinaryCOVID19Dataset(train=True, preprocessed=preprocessed, size=size),
-        BinaryCOVID19Dataset(train=False, preprocessed=preprocessed, size=size),
+        BinaryCOVID19Dataset(
+            train=True,
+            preprocessed=preprocessed,
+            size=size,
+            preprocessing_bsize=preprocessing_bsize,
+        ),
+        BinaryCOVID19Dataset(
+            train=False,
+            preprocessed=preprocessed,
+            size=size,
+            preprocessing_bsize=preprocessing_bsize,
+        ),
     )
     return train_data, test_data
 
 
 def load_multi_covid19(
-    transform: torchvision.transforms, size: int = 64, preprocessed: bool = False
+    transform: torchvision.transforms,
+    size: int = 64,
+    preprocessed: bool = False,
+    preprocessing_bsize: int = 2048,
 ) -> Tuple[torch.utils.data.Dataset, torch.utils.data.Dataset]:
     """
     Returns a tuple of the tensor datasets for the
@@ -453,6 +480,8 @@ def load_multi_covid19(
         The size to use for image resizing.
     preprocessed: bool
         Whether to load preprocessed dataset or not.
+    preprocessing_bsize: int
+        The batch size to use for preprocessing the dataset.
 
     Returns
     -------
@@ -468,7 +497,17 @@ def load_multi_covid19(
         download_covidx5_dataset()
         unzip_dataset(os.path.join(dataset_path, "MultiCOVID19Dataset.tar.xz"))
     (train_data, test_data) = (
-        MultiCOVID19Dataset(train=True, preprocessed=preprocessed, size=size),
-        MultiCOVID19Dataset(train=False, preprocessed=preprocessed, size=size),
+        MultiCOVID19Dataset(
+            train=True,
+            preprocessed=preprocessed,
+            size=size,
+            preprocessing_bsize=preprocessing_bsize,
+        ),
+        MultiCOVID19Dataset(
+            train=False,
+            preprocessed=preprocessed,
+            size=size,
+            preprocessing_bsize=preprocessing_bsize,
+        ),
     )
     return train_data, test_data
