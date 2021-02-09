@@ -215,11 +215,17 @@ def load_dataset(
         train_dataset, test_dataset = load_wdbc()
     elif name == "binary_covid":
         train_dataset, test_dataset = load_binary_covid19(
-            transform=transform, size=image_size, preprocessed=preprocessed_covidx
+            transform=transform,
+            size=image_size,
+            preprocessed=preprocessed_covidx,
+            preprocessing_bsize=preprocessing_bsize,
         )
     elif name == "multi_covid":
         train_dataset, test_dataset = load_multi_covid19(
-            transform=transform, size=image_size, preprocessed=preprocessed_covidx
+            transform=transform,
+            size=image_size,
+            preprocessed=preprocessed_covidx,
+            preprocessing_bsize=preprocessing_bsize,
         )
     return (
         (train_dataset, test_dataset, vectorizer)
@@ -440,8 +446,18 @@ def load_binary_covid19(
         download_binary_covid19_dataset()
         unzip_dataset(os.path.join(dataset_path, "BinaryCOVID19Dataset.tar.xz"))
     (train_data, test_data) = (
-        BinaryCOVID19Dataset(train=True, preprocessed=preprocessed, size=size),
-        BinaryCOVID19Dataset(train=False, preprocessed=preprocessed, size=size),
+        BinaryCOVID19Dataset(
+            train=True,
+            preprocessed=preprocessed,
+            size=size,
+            preprocessing_bsize=preprocessing_bsize,
+        ),
+        BinaryCOVID19Dataset(
+            train=False,
+            preprocessed=preprocessed,
+            size=size,
+            preprocessing_bsize=preprocessing_bsize,
+        ),
     )
     return train_data, test_data
 
@@ -481,7 +497,17 @@ def load_multi_covid19(
         download_covidx5_dataset()
         unzip_dataset(os.path.join(dataset_path, "MultiCOVID19Dataset.tar.xz"))
     (train_data, test_data) = (
-        MultiCOVID19Dataset(train=True, preprocessed=preprocessed, size=size),
-        MultiCOVID19Dataset(train=False, preprocessed=preprocessed, size=size),
+        MultiCOVID19Dataset(
+            train=True,
+            preprocessed=preprocessed,
+            size=size,
+            preprocessing_bsize=preprocessing_bsize,
+        ),
+        MultiCOVID19Dataset(
+            train=False,
+            preprocessed=preprocessed,
+            size=size,
+            preprocessing_bsize=preprocessing_bsize,
+        ),
     )
     return train_data, test_data
