@@ -406,7 +406,10 @@ def load_wdbc(test_size: float = 3e-1, seed: int = 42):
 
 
 def load_binary_covid19(
-    transform: torchvision.transforms, size: int = 64, preprocessed: bool = False
+    transform: torchvision.transforms,
+    size: int = 64,
+    preprocessed: bool = False,
+    preprocessing_bsize: int = 2048,
 ) -> Tuple[torch.utils.data.Dataset, torch.utils.data.Dataset]:
     """
     Returns a tuple of the tensor datasets for the
@@ -420,6 +423,8 @@ def load_binary_covid19(
         The size to use for image resizing.
     preprocessed: bool
         Whether to load preprocessed dataset or not.
+    preprocessing_bsize: int
+        The batch size to use for preprocessing the dataset.
 
     Returns
     -------
@@ -442,7 +447,10 @@ def load_binary_covid19(
 
 
 def load_multi_covid19(
-    transform: torchvision.transforms, size: int = 64, preprocessed: bool = False
+    transform: torchvision.transforms,
+    size: int = 64,
+    preprocessed: bool = False,
+    preprocessing_bsize: int = 2048,
 ) -> Tuple[torch.utils.data.Dataset, torch.utils.data.Dataset]:
     """
     Returns a tuple of the tensor datasets for the
@@ -456,6 +464,8 @@ def load_multi_covid19(
         The size to use for image resizing.
     preprocessed: bool
         Whether to load preprocessed dataset or not.
+    preprocessing_bsize: int
+        The batch size to use for preprocessing the dataset.
 
     Returns
     -------
