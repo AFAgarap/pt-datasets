@@ -45,6 +45,7 @@ def load_dataset(
     return_vectorizer: bool = False,
     image_size: int = 64,
     preprocessed_covidx: bool = False,
+    preprocessing_bsize: int = 2048,
 ) -> Tuple[object, object]:
     """
     Returns a tuple of torchvision dataset objects.
@@ -85,6 +86,8 @@ def load_dataset(
         Whether to use the preprocessed COVID19 datasets or not.
         This requires the use of `modules/export_covid19_dataset`
         in the package repository.
+    preprocessing_bsize: int
+        The batch size to use for preprocessing the COVID19 dataset.
 
     Returns
     -------
