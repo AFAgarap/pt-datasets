@@ -116,7 +116,10 @@ def load_dataset(
         name in supported_datasets
     ), f"[ERROR] Dataset {name} is not supported. {_supported}"
 
-    transform = torchvision.transforms.Compose([torchvision.transforms.ToTensor()])
+    train_transform = torchvision.transforms.Compose(
+        [torchvision.transforms.ToTensor()]
+    )
+    test_transform = torchvision.transforms.Compose([torchvision.transforms.ToTensor()])
     if augment and name in ["mnist", "fashion_mnist", "emnist", "kmnist"]:
         transform = torchvision.transforms.Compose(
             [
@@ -136,17 +139,17 @@ def load_dataset(
                 ]
             )
         train_dataset = torchvision.datasets.MNIST(
-            root=data_folder, train=True, download=True, transform=transform
+            root=data_folder, train=True, download=True, transform=train_transform
         )
         test_dataset = torchvision.datasets.MNIST(
-            root=data_folder, train=False, download=True, transform=transform
+            root=data_folder, train=False, download=True, transform=test_transform
         )
     elif name == "fashion_mnist":
         train_dataset = torchvision.datasets.FashionMNIST(
-            root=data_folder, train=True, download=True, transform=transform
+            root=data_folder, train=True, download=True, transform=train_transform
         )
         test_dataset = torchvision.datasets.FashionMNIST(
-            root=data_folder, train=False, download=True, transform=transform
+            root=data_folder, train=False, download=True, transform=test_transform
         )
     elif name == "emnist":
         train_dataset = torchvision.datasets.EMNIST(
@@ -154,14 +157,14 @@ def load_dataset(
             train=True,
             split="balanced",
             download=True,
-            transform=transform,
+            transform=train_transform,
         )
         test_dataset = torchvision.datasets.EMNIST(
             root=data_folder,
             train=False,
             split="balanced",
             download=True,
-            transform=transform,
+            transform=test_transform,
         )
     elif name == "cifar10":
         if normalize:
