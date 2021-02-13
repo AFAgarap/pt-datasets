@@ -123,10 +123,10 @@ def load_dataset(
     if augment and name in ["mnist", "fashion_mnist", "emnist", "kmnist"]:
         train_transform = torchvision.transforms.Compose(
             [
+                torchvision.transforms.ToTensor(),
                 torchvision.transforms.RandomHorizontalFlip(),
                 torchvision.transforms.RandomVerticalFlip(),
                 torchvision.transforms.Normalize((0.1307,), (0.3081,)),
-                torchvision.transforms.ToTensor(),
             ]
         )
     elif (
