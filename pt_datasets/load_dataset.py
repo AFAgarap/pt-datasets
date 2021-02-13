@@ -134,7 +134,7 @@ def load_dataset(
         and normalize
         and name in ["mnist", "fashion_mnist", "emnist", "kmnist"]
     ):
-        train_transform = torchvision.transform.Compose(
+        train_transform = torchvision.transforms.Compose(
             [
                 torchvision.transforms.ToTensor(),
                 torchvision.transforms.Normalize((0.1307,), (0.3081,)),
