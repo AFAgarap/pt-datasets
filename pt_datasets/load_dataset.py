@@ -129,15 +129,19 @@ def load_dataset(
                 torchvision.transforms.ToTensor(),
             ]
         )
+    elif (
+        not augment
+        and normalize
+        and name in ["mnist", "fashion_mnist", "emnist", "kmnist"]
+    ):
+        train_transform = torchvision.transform.Compose(
+            [
+                torchvision.transforms.ToTensor(),
+                torchvision.transforms.Normalize((0.1307,), (0.3081,)),
+            ]
+        )
 
     if name == "mnist":
-        if normalize:
-            transform = torchvision.transforms.Compose(
-                [
-                    torchvision.transforms.ToTensor(),
-                    torchvision.transforms.Normalize((0.1307,), (0.3081,)),
-                ]
-            )
         train_dataset = torchvision.datasets.MNIST(
             root=data_folder, train=True, download=True, transform=train_transform
         )
