@@ -213,10 +213,10 @@ def load_dataset(
             )
     elif name == "kmnist":
         train_dataset = torchvision.datasets.KMNIST(
-            root=data_folder, train=True, download=True, transform=transform
+            root=data_folder, train=True, download=True, transform=train_transform
         )
         test_dataset = torchvision.datasets.KMNIST(
-            root=data_folder, train=False, download=True, transform=transform
+            root=data_folder, train=False, download=True, transform=test_transform
         )
     elif name == "wdbc":
         train_dataset, test_dataset = load_wdbc()
