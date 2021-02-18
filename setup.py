@@ -12,9 +12,9 @@ with open(path.join(this_directory, "README.md"), encoding="utf-8") as f:
 def _post_install():
     ag_news_setup = """
         echo "[INFO] Downloading AG News Dataset..."
-        mkdir -p ~/torch_datasets
-        wget --no-clobber -O ~/torch_datasets/ag_news.train https://raw.githubusercontent.com/AnubhavGupta3377/Text-Classification-Models-Pytorch/master/data/ag_news.train
-        wget --no-clobber -O ~/torch_datasets/ag_news.test https://raw.githubusercontent.com/AnubhavGupta3377/Text-Classification-Models-Pytorch/master/data/ag_news.test
+        mkdir -p ~/datasets
+        wget --no-clobber -O ~/datasets/ag_news.train https://raw.githubusercontent.com/AnubhavGupta3377/Text-Classification-Models-Pytorch/master/data/ag_news.train
+        wget --no-clobber -O ~/datasets/ag_news.test https://raw.githubusercontent.com/AnubhavGupta3377/Text-Classification-Models-Pytorch/master/data/ag_news.test
         echo "[SUCCESS] Done downloading AG News Dataset."
         """
     os.system(ag_news_setup)
