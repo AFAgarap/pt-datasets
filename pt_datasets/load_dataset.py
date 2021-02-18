@@ -40,7 +40,7 @@ def load_dataset(
     name: str = "mnist",
     normalize: bool = True,
     augment: bool = False,
-    data_folder: str = "~/torch_datasets",
+    data_folder: str = "~/datasets",
     vectorizer: str = "tfidf",
     return_vectorizer: bool = False,
     image_size: int = 64,
@@ -310,7 +310,7 @@ def load_agnews(
         The text vectorizer object.
     """
     path = str(Path.home())
-    path = os.path.join(path, "torch_datasets")
+    path = os.path.join(path, "datasets")
     train_path = os.path.join(path, "ag_news.train")
     test_path = os.path.join(path, "ag_news.test")
     train_dataset, test_dataset = (read_data(train_path), read_data(test_path))
