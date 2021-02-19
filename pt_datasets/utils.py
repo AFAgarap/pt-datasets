@@ -22,7 +22,7 @@ from typing import Dict, List, Tuple
 from zipfile import ZipFile
 
 import cv2
-from imblearn.over_sampling import SMOTE
+from imblearn.over_sampling import RandomOverSampler, SMOTE
 import nltk
 import numpy as np
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
@@ -307,7 +307,11 @@ def oversample_dataset(
     assert (
         method in supported_modes
     ), f"Supported modes: {supported_modes}, but method = {method}"
-    oversampler = SMOTE(random_state=seed, n_jobs=-1)
+    oversampler = (
+        SMOTE(random_state=seed, n_jobs=-1)
+        if method == "smote"
+        else RandomOverSampler(random_state=seed)
+    )
     if len(features.shape) > 3:
         input_shape = features.shape
     if len(features.shape) > 2:
