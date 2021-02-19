@@ -304,6 +304,9 @@ def oversample_dataset(
         oversampled minority class with other classes.
     """
     supported_modes = ["random", "smote"]
+    assert (
+        method in supported_modes
+    ), f"Supported modes: {supported_modes}, but method = {method}"
     oversampler = SMOTE(random_state=seed, n_jobs=-1)
     if len(features.shape) > 3:
         input_shape = features.shape
