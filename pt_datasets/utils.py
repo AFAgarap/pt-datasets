@@ -279,7 +279,7 @@ def load_image(filename: str, size: Tuple = 224) -> torch.Tensor:
 
 
 def oversample_dataset(
-    features: torch.Tensor, labels: torch.Tensor, seed: int = 42
+    features: torch.Tensor, labels: torch.Tensor, seed: int = 42, method: str = "smote"
 ) -> torch.utils.data.Dataset:
     """
     Oversamples the minority class in the given dataset
