@@ -303,6 +303,7 @@ def oversample_dataset(
         The dataset that consists of the
         oversampled minority class with other classes.
     """
+    supported_modes = ["random", "smote"]
     oversampler = SMOTE(random_state=seed, n_jobs=-1)
     if len(features.shape) > 3:
         input_shape = features.shape
