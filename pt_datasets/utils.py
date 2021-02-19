@@ -293,6 +293,8 @@ def oversample_dataset(
         The dataset labels.
     seed: int
         The random seed to use for sampling.
+    method: str
+        The method of oversampling to use.
 
     Returns
     -------
