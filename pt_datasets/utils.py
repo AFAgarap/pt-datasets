@@ -22,7 +22,7 @@ from typing import Dict, List, Tuple
 from zipfile import ZipFile
 
 import cv2
-from imblearn.over_sampling import SMOTE
+from imblearn.over_sampling import RandomOverSampler, SMOTE
 import nltk
 import numpy as np
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
@@ -279,11 +279,12 @@ def load_image(filename: str, size: Tuple = 224) -> torch.Tensor:
 
 
 def oversample_dataset(
-    features: torch.Tensor, labels: torch.Tensor, seed: int = 42
+    features: torch.Tensor, labels: torch.Tensor, seed: int = 42, method: str = "smote"
 ) -> torch.utils.data.Dataset:
     """
     Oversamples the minority class in the given dataset
-    using synthetic minority oversampling technique.
+    using either synthetic minority oversampling technique
+    or random sampling technique
 
     Parameters
     ----------
@@ -293,6 +294,8 @@ def oversample_dataset(
         The dataset labels.
     seed: int
         The random seed to use for sampling.
+    method: str
+        The method of oversampling to use.
 
     Returns
     -------
@@ -300,7 +303,15 @@ def oversample_dataset(
         The dataset that consists of the
         oversampled minority class with other classes.
     """
-    oversampler = SMOTE(random_state=seed, n_jobs=-1)
+    supported_modes = ["random", "smote"]
+    assert (
+        method in supported_modes
+    ), f"Supported modes: {supported_modes}, but method = {method}"
+    oversampler = (
+        SMOTE(random_state=seed, n_jobs=-1)
+        if method == "smote"
+        else RandomOverSampler(random_state=seed)
+    )
     if len(features.shape) > 3:
         input_shape = features.shape
     if len(features.shape) > 2:
