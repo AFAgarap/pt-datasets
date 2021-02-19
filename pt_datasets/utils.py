@@ -283,7 +283,8 @@ def oversample_dataset(
 ) -> torch.utils.data.Dataset:
     """
     Oversamples the minority class in the given dataset
-    using synthetic minority oversampling technique.
+    using either synthetic minority oversampling technique
+    or random sampling technique
 
     Parameters
     ----------
