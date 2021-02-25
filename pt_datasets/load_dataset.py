@@ -241,6 +241,12 @@ def load_dataset(
     )
 
 
+def load_svhn(
+    data_folder: str = "~/datasets"
+) -> Tuple[torch.utils.data.Dataset, torch.utils.data.Dataset]:
+    pass
+
+
 def load_malimg(
     test_size: float = 0.3, seed: int = 42
 ) -> Tuple[torch.utils.data.DataLoader, torch.utils.data.DataLoader]:
