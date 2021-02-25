@@ -244,6 +244,20 @@ def load_dataset(
 def load_svhn(
     data_folder: str = "~/datasets"
 ) -> Tuple[torch.utils.data.Dataset, torch.utils.data.Dataset]:
+    """
+    Parameter
+    ---------
+    data_folder: str
+        Te path to the folder for the datasets.
+
+    Returns
+    -------
+    Tuple
+        train_dataset: torch.utils.data.Dataset
+            The training set.
+        test_dataset: torch.utils.data.Dataset
+            The test set.
+    """
     pass
 
 
