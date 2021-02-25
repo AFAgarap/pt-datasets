@@ -258,7 +258,17 @@ def load_svhn(
         test_dataset: torch.utils.data.Dataset
             The test set.
     """
-    pass
+    train_transform = torchvision.transforms.Compose(
+        [torchvision.transforms.ToTensor()]
+    )
+    test_transform = torchvision.transforms.Compose([torchvision.transforms.ToTensor()])
+    train_dataset = torchvision.datasets.SVHN(
+        root=data_folder, split="train", download=True, transform=train_transform
+    )
+    test_dataset = torchvision.datasets.SVHN(
+        root=data_folder, split="test", download=True, transform=test_transform
+    )
+    return train_dataset, test_dataset
 
 
 def load_malimg(
