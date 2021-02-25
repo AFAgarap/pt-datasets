@@ -36,6 +36,22 @@ from pt_datasets.utils import preprocess_data, read_data, vectorize_text, unzip_
 __author__ = "Abien Fred Agarap"
 
 
+SUPPORTED_DATASETS = [
+    "mnist",
+    "fashion_mnist",
+    "emnist",
+    "cifar10",
+    "svhn",
+    "malimg",
+    "ag_news",
+    "20newsgroups",
+    "kmnist",
+    "wdbc",
+    "binary_covid",
+    "multi_covid",
+]
+
+
 def load_dataset(
     name: str = "mnist",
     normalize: bool = True,
@@ -239,6 +255,36 @@ def load_dataset(
         if return_vectorizer
         else (train_dataset, test_dataset)
     )
+
+
+def load_svhn(
+    data_folder: str = "~/datasets"
+) -> Tuple[torch.utils.data.Dataset, torch.utils.data.Dataset]:
+    """
+    Parameter
+    ---------
+    data_folder: str
+        Te path to the folder for the datasets.
+
+    Returns
+    -------
+    Tuple
+        train_dataset: torch.utils.data.Dataset
+            The training set.
+        test_dataset: torch.utils.data.Dataset
+            The test set.
+    """
+    train_transform = torchvision.transforms.Compose(
+        [torchvision.transforms.ToTensor()]
+    )
+    test_transform = torchvision.transforms.Compose([torchvision.transforms.ToTensor()])
+    train_dataset = torchvision.datasets.SVHN(
+        root=data_folder, split="train", download=True, transform=train_transform
+    )
+    test_dataset = torchvision.datasets.SVHN(
+        root=data_folder, split="test", download=True, transform=test_transform
+    )
+    return train_dataset, test_dataset
 
 
 def load_malimg(
