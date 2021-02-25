@@ -36,6 +36,22 @@ from pt_datasets.utils import preprocess_data, read_data, vectorize_text, unzip_
 __author__ = "Abien Fred Agarap"
 
 
+SUPPORTED_DATASETS = [
+    "mnist",
+    "fashion_mnist",
+    "emnist",
+    "cifar10",
+    "svhn",
+    "malimg",
+    "ag_news",
+    "20newsgroups",
+    "kmnist",
+    "wdbc",
+    "binary_covid",
+    "multi_covid",
+]
+
+
 def load_dataset(
     name: str = "mnist",
     normalize: bool = True,
