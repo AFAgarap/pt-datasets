@@ -285,6 +285,13 @@ def load_mnist(
                 torchvision.transforms.Normalize((0.1307,), (0.3081,)),
             ]
         )
+    elif normalize:
+        train_transform = torchvision.transforms.Compose(
+            [
+                torchvision.transforms.ToTensor(),
+                torchvision.transforms.Normalize((0.1307,), (0.3081,)),
+            ]
+        )
 
 
 def load_svhn(
