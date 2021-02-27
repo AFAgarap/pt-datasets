@@ -292,6 +292,13 @@ def load_mnist(
                 torchvision.transforms.Normalize((0.1307,), (0.3081,)),
             ]
         )
+    train_dataset = torchvision.datasets.MNIST(
+        root=data_folder, train=True, download=True, transform=train_transform
+    )
+    test_dataset = torchvision.datasets.MNIST(
+        root=data_folder, train=False, download=True, transform=test_transform
+    )
+    return train_dataset, test_dataset
 
 
 def load_svhn(
