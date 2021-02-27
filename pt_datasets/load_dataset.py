@@ -264,7 +264,7 @@ def load_svhn(
     Parameter
     ---------
     data_folder: str
-        Te path to the folder for the datasets.
+        The path to the folder for the datasets.
 
     Returns
     -------
