@@ -260,7 +260,10 @@ def load_dataset(
 def load_mnist(
     data_folder: str = "~/datasets"
 ) -> Tuple[torch.utils.data.Dataset, torch.utils.data.Dataset]:
-    pass
+    train_transform = torchvision.transforms.Compose(
+        [torchvision.transforms.ToTensor()]
+    )
+    test_transform = torchvision.transforms.Compose([torchvision.transforms.ToTensor()])
 
 
 def load_svhn(
