@@ -258,7 +258,7 @@ def load_dataset(
 
 
 def load_mnist(
-    data_folder: str = "~/datasets"
+    data_folder: str = "~/datasets", augment: bool = False, normalize: bool = False
 ) -> Tuple[torch.utils.data.Dataset, torch.utils.data.Dataset]:
     train_transform = torchvision.transforms.Compose(
         [torchvision.transforms.ToTensor()]
