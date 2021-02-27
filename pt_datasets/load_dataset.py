@@ -257,6 +257,12 @@ def load_dataset(
     )
 
 
+def load_mnist(
+    data_folder: str = "~/datasets"
+) -> Tuple[torch.utils.data.Dataset, torch.utils.data.Dataset]:
+    pass
+
+
 def load_svhn(
     data_folder: str = "~/datasets"
 ) -> Tuple[torch.utils.data.Dataset, torch.utils.data.Dataset]:
