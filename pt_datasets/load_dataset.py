@@ -261,6 +261,8 @@ def load_svhn(
     data_folder: str = "~/datasets"
 ) -> Tuple[torch.utils.data.Dataset, torch.utils.data.Dataset]:
     """
+    Loads the SVHN training and test datasets.
+
     Parameter
     ---------
     data_folder: str
