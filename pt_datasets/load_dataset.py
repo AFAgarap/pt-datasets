@@ -321,7 +321,12 @@ def load_fashion_mnist(
     test_dataset: torch.utils.data.Dataset
         The test set.
     """
-    pass
+    train_transform = torchvision.transforms.Compose(
+        [torchvision.transforms.ToTensor()]
+    )
+    test_transform = torchvision.transforms.Compose(
+        [torchvision.transforms.ToTensor()]
+    )
 
 
 def load_svhn(
