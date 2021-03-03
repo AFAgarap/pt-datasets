@@ -301,8 +301,50 @@ def load_mnist(
     return train_dataset, test_dataset
 
 
+def load_fashion_mnist(
+    data_folder: str = "~/dataset", augment: bool = False
+) -> Tuple[torch.utils.data.Dataset, torch.utils.data.Dataset]:
+    """
+    Loads the Fashion-MNIST training and test datasets.
+
+    Parameters
+    ----------
+    data_folder: str
+        The path to the folder for the datasets.
+    augment: bool
+        Whether to perform data augmentation or not.
+
+    Returns
+    -------
+    train_dataset: torch.utils.data.Dataset
+        The training set.
+    test_dataset: torch.utils.data.Dataset
+        The test set.
+    """
+    train_transform = torchvision.transforms.Compose(
+        [torchvision.transforms.ToTensor()]
+    )
+    test_transform = torchvision.transforms.Compose([torchvision.transforms.ToTensor()])
+    if augment:
+        train_transform = torchvision.transforms.Compose(
+            [
+                torchvision.transforms.ToTensor(),
+                torchvision.transforms.RandomHorizontalFlip(),
+                torchvision.transforms.RandomVerticalFlip(),
+                torchvision.transforms.Normalize((0.1307,), (0.3081,)),
+            ]
+        )
+    train_dataset = torchvision.datasets.FashionMNIST(
+        root=data_folder, train=True, download=True, transform=train_transform
+    )
+    test_dataset = torchvision.datasets.FashionMNIST(
+        root=data_folder, train=False, download=True, transform=test_transform
+    )
+    return train_dataset, test_dataset
+
+
 def load_svhn(
-    data_folder: str = "~/datasets"
+    data_folder: str = "~/datasets",
 ) -> Tuple[torch.utils.data.Dataset, torch.utils.data.Dataset]:
     """
     Loads the SVHN training and test datasets.
