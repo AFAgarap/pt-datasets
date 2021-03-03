@@ -325,6 +325,15 @@ def load_fashion_mnist(
         [torchvision.transforms.ToTensor()]
     )
     test_transform = torchvision.transforms.Compose([torchvision.transforms.ToTensor()])
+    if augment:
+        train_transform = torchvision.transforms.Compose(
+            [
+                torchvision.transforms.ToTensor(),
+                torchvision.transforms.RandomHorizontalFlip(),
+                torchvision.transforms.RandomVerticalFlip(),
+                torchvision.transforms.Normalize((0.1307,), (0.3081,)),
+            ]
+        )
     train_dataset = torchvision.datasets.FashionMNIST(
         root=data_folder, train=True, download=True, transform=train_transform
     )
