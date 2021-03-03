@@ -301,6 +301,10 @@ def load_mnist(
     return train_dataset, test_dataset
 
 
+def load_fashion_mnist():
+    pass
+
+
 def load_svhn(
     data_folder: str = "~/datasets"
 ) -> Tuple[torch.utils.data.Dataset, torch.utils.data.Dataset]:
