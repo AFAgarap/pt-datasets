@@ -301,12 +301,14 @@ def load_mnist(
     return train_dataset, test_dataset
 
 
-def load_fashion_mnist():
+def load_fashion_mnist(
+    data_folder: str = "~/dataset", augment: bool = False
+) -> Tuple[torch.utils.data.Dataset, torch.utils.data.Dataset]:
     pass
 
 
 def load_svhn(
-    data_folder: str = "~/datasets"
+    data_folder: str = "~/datasets",
 ) -> Tuple[torch.utils.data.Dataset, torch.utils.data.Dataset]:
     """
     Loads the SVHN training and test datasets.
