@@ -343,7 +343,7 @@ def load_fashion_mnist(
     return train_dataset, test_dataset
 
 
-def load_cifar10():
+def load_cifar10(data_folder: str = "~/datasets"):
     pass
 
 
