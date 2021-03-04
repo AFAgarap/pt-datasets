@@ -359,7 +359,13 @@ def load_cifar10(data_folder: str = "~/datasets"):
     test_dataset: torch.utils.data.Dataset
         The test set.
     """
-    pass
+    train_dataset = torchvision.datasets.CIFAR10(
+        root=data_folder, train=True, download=True, transform=transform
+    )
+    test_dataset = torchvision.datasets.CIFAR10(
+        root=data_folder, train=False, download=True, transform=transform
+    )
+    return train_dataset, test_dataset
 
 
 def load_svhn(
