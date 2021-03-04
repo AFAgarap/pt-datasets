@@ -271,6 +271,13 @@ def load_mnist(
         Whether to perform data augmentation or not.
     normalize: bool
         Whether to normalize data or not.
+
+    Returns
+    -------
+    train_dataset: torch.utils.data.Dataset
+        The training set.
+    test_dataset: torch.utils.data.Dataset
+        The test set.
     """
     train_transform = torchvision.transforms.Compose(
         [torchvision.transforms.ToTensor()]
