@@ -359,6 +359,7 @@ def load_cifar10(data_folder: str = "~/datasets"):
     test_dataset: torch.utils.data.Dataset
         The test set.
     """
+    transform = torchvision.transforms.Compose([torchvision.transforms.ToTensor()])
     train_dataset = torchvision.datasets.CIFAR10(
         root=data_folder, train=True, download=True, transform=transform
     )
