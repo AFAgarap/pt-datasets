@@ -343,7 +343,7 @@ def load_fashion_mnist(
     return train_dataset, test_dataset
 
 
-def load_cifar10(data_folder: str = "~/datasets"):
+def load_cifar10(data_folder: str = "~/datasets", normalize: bool = False):
     """
     Loads the CIFAR10 training and test datasets.
 
