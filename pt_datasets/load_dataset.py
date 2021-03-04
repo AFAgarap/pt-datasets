@@ -344,6 +344,21 @@ def load_fashion_mnist(
 
 
 def load_cifar10(data_folder: str = "~/datasets"):
+    """
+    Loads the CIFAR10 training and test datasets.
+
+    Parameter
+    ---------
+    data_folder: str
+        The path to the folder for the datasets.
+
+    Returns
+    -------
+    train_dataset: torch.utils.data.Dataset
+        The training set.
+    test_dataset: torch.utils.data.Dataset
+        The test set.
+    """
     pass
 
 
