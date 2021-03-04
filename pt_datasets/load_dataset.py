@@ -343,6 +343,43 @@ def load_fashion_mnist(
     return train_dataset, test_dataset
 
 
+def load_cifar10(data_folder: str = "~/datasets", normalize: bool = False):
+    """
+    Loads the CIFAR10 training and test datasets.
+
+    Parameter
+    ---------
+    data_folder: str
+        The path to the folder for the datasets.
+    normalize: bool
+        Whether to normalize the dataset or not.
+
+    Returns
+    -------
+    train_dataset: torch.utils.data.Dataset
+        The training set.
+    test_dataset: torch.utils.data.Dataset
+        The test set.
+    """
+    transform = torchvision.transforms.Compose([torchvision.transforms.ToTensor()])
+    if normalize:
+        transform = torchvision.transforms.Compose(
+            [
+                torchvision.transforms.ToTensor(),
+                torchvision.transforms.Normalize(
+                    (0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010)
+                ),
+            ]
+        )
+    train_dataset = torchvision.datasets.CIFAR10(
+        root=data_folder, train=True, download=True, transform=transform
+    )
+    test_dataset = torchvision.datasets.CIFAR10(
+        root=data_folder, train=False, download=True, transform=transform
+    )
+    return train_dataset, test_dataset
+
+
 def load_svhn(
     data_folder: str = "~/datasets",
 ) -> Tuple[torch.utils.data.Dataset, torch.utils.data.Dataset]:
