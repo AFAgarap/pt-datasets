@@ -351,6 +351,8 @@ def load_cifar10(data_folder: str = "~/datasets", normalize: bool = False):
     ---------
     data_folder: str
         The path to the folder for the datasets.
+    normalize: bool
+        Whether to normalize the dataset or not.
 
     Returns
     -------
