@@ -43,3 +43,5 @@ class TwentyNewsgroups(torch.utils.data.Dataset):
             )
             features = vectorize_text(features, vectorizer=vectorizer)
         self.classes = self.train_set.target_names
+        self.data = features
+        self.targets = labels
