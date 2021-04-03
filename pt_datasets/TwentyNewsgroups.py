@@ -5,7 +5,12 @@ from pt_datasets.utils import preprocess_data, vectorize_text
 
 
 class TwentyNewsgroups(torch.utils.data.Dataset):
-    def __init__(self, vectorizer: str = "tfidf", return_vectorizer: bool = False):
+    def __init__(
+        self,
+        train: bool = True,
+        vectorizer: str = "tfidf",
+        return_vectorizer: bool = False,
+    ):
         """
         Loads the 20 Newsgroups dataset.
 
