@@ -1,3 +1,5 @@
+from typing import Any, Tuple
+
 from sklearn.datasets import fetch_20newsgroups
 import torch
 
@@ -45,3 +47,6 @@ class TwentyNewsgroups(torch.utils.data.Dataset):
         self.classes = self.train_set.target_names
         self.data = features
         self.targets = labels
+
+    def __getitem__(self, index: int) -> Tuple[Any, Any]:
+        pass
