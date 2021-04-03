@@ -49,4 +49,5 @@ class TwentyNewsgroups(torch.utils.data.Dataset):
         self.targets = labels
 
     def __getitem__(self, index: int) -> Tuple[Any, Any]:
-        pass
+        text, target = self.data[index], self.targets[index]
+        return (text, target)
