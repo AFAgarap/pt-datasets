@@ -1,7 +1,7 @@
 from sklearn.datasets import fetch_20newsgroups
 import torch
 
-from pt_datasets.utils import preprocess_data
+from pt_datasets.utils import preprocess_data, vectorize_text
 
 
 class TwentyNewsgroups(torch.utils.data.Dataset):
@@ -28,4 +28,10 @@ class TwentyNewsgroups(torch.utils.data.Dataset):
         (test_features, test_labels) = preprocess_data(
             self.test_set.data, self.test_set.target
         )
+        if return_vectorizer:
+            train_features, vectorizer = vectorize_text(
+                train_features, vectorizer=vectorizer
+            )
+        else:
+            train_features = vectorize_text(train_features, vectorizer=vectorizer)
         self.classes = self.train_set.target_names
