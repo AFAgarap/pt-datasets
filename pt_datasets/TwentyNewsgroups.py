@@ -27,21 +27,19 @@ class TwentyNewsgroups(torch.utils.data.Dataset):
             self.train_set = fetch_20newsgroups(
                 subset="train", remove=("headers", "foooters", "quotes")
             )
-            (train_features, train_labels) = preprocess_data(
+            (features, labels) = preprocess_data(
                 self.train_set.data, self.train_set.target
             )
             if return_vectorizer:
-                train_features, vectorizer = vectorize_text(
-                    train_features, vectorizer=vectorizer
-                )
+                features, vectorizer = vectorize_text(features, vectorizer=vectorizer)
             else:
-                train_features = vectorize_text(train_features, vectorizer=vectorizer)
+                features = vectorize_text(features, vectorizer=vectorizer)
         else:
             self.test_set = fetch_20newsgroups(
                 subset="test", remove=("headers", "footers", "quotes")
             )
-            (test_features, test_labels) = preprocess_data(
+            (features, labels) = preprocess_data(
                 self.test_set.data, self.test_set.target
             )
-            test_features = vectorize_text(test_features, vectorizer=vectorizer)
+            features = vectorize_text(features, vectorizer=vectorizer)
         self.classes = self.train_set.target_names
