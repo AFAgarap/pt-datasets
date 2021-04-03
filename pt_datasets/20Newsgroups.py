@@ -10,3 +10,4 @@ class TwentyNewsgroups(torch.utils.data.Dataset):
         self.test_set = fetch_20newsgroups(
             subset="test", remove=("headers", "footers", "quotes")
         )
+        self.classes = self.train_set.target_names
