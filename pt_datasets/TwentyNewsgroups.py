@@ -51,3 +51,6 @@ class TwentyNewsgroups(torch.utils.data.Dataset):
     def __getitem__(self, index: int) -> Tuple[Any, Any]:
         text, target = self.data[index], self.targets[index]
         return (text, target)
+
+    def __len__(self) -> int:
+        return len(self.data)
