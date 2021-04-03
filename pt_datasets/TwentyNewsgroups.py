@@ -16,6 +16,8 @@ class TwentyNewsgroups(torch.utils.data.Dataset):
 
         Parameters
         ----------
+        train: bool
+            Whether to load the training set or not.
         vectorizer: str
             The vectorizer to use, options: [tfidf (default) | ngrams]
         return_vectorizer: bool
