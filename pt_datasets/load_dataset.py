@@ -226,9 +226,7 @@ def load_dataset(
             )
             test_dataset = TwentyNewsgroups()
         else:
-            train_dataset, test_dataset = load_20newsgroups(
-                vectorizer, return_vectorizer
-            )
+            (train_dataset, test_dataset) = (TwentyNewsgroups(), TwentyNewsgroups())
     elif name == "kmnist":
         train_dataset = torchvision.datasets.KMNIST(
             root=data_folder, train=True, download=True, transform=train_transform
