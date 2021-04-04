@@ -13,6 +13,7 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
+"""Class for 20Newsgroups dataset"""
 from typing import Any, Tuple
 
 from sklearn.datasets import fetch_20newsgroups
