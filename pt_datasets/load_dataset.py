@@ -522,54 +522,6 @@ def load_agnews(
     )
 
 
-def load_20newsgroups(
-    vectorizer: str = "tfidf", return_vectorizer: bool = False
-) -> Tuple[torch.utils.data.TensorDataset, torch.utils.data.TensorDataset]:
-    """
-    Loads the 20 Newsgroups dataset.
-
-    Parameters
-    ----------
-    vectorizer: str
-        The vectorizer to use, options: [tfidf (default) | ngrams]
-    return_vectorizer: bool
-        Whether to return vectorizer object or not.
-
-    Returns
-    -------
-    train_dataset: torch.utils.data.TensorDataset
-        The training dataset object to be wrapped by a data loader.
-    test_dataset: torch.utils.data.TensorDataset
-        The test dataset object to be wrapped by a data loader.
-    vectorizer: object
-        The text vectorizer object.
-    """
-    train_texts, train_labels = fetch_20newsgroups(
-        return_X_y=True, subset="train", remove=("headers", "footers", "quotes")
-    )
-    train_texts, train_labels = preprocess_data(train_texts, train_labels)
-    if return_vectorizer:
-        train_features, vectorizer = vectorize_text(train_texts, vectorizer=vectorizer)
-    else:
-        train_features = vectorize_text(train_texts, vectorizer=vectorizer)
-    train_dataset = torch.utils.data.TensorDataset(
-        torch.from_numpy(train_features), torch.from_numpy(train_labels)
-    )
-    test_texts, test_labels = fetch_20newsgroups(
-        return_X_y=True, subset="test", remove=("headers", "footers", "quotes")
-    )
-    test_texts, test_labels = preprocess_data(test_texts, test_labels)
-    test_features = vectorize_text(test_texts, vectorizer=vectorizer)
-    test_dataset = torch.utils.data.TensorDataset(
-        torch.from_numpy(test_features), torch.from_numpy(test_labels)
-    )
-    return (
-        (train_dataset, test_dataset, vectorizer)
-        if return_vectorizer
-        else (train_dataset, test_dataset)
-    )
-
-
 def load_wdbc(test_size: float = 3e-1, seed: int = 42):
     """
     Loads the Wisconsin Diagnostic Breast Cancer dataset.
