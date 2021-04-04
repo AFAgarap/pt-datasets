@@ -21,6 +21,8 @@ import torch
 
 from pt_datasets.utils import preprocess_data, vectorize_text
 
+__author__ = "Abien Fred Agarap"
+
 
 class TwentyNewsgroups(torch.utils.data.Dataset):
     def __init__(
