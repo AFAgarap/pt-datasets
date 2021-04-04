@@ -44,25 +44,21 @@ class TwentyNewsgroups(torch.utils.data.Dataset):
             Whether to return the vectorizer object or not.
         """
         if train:
-            self.train_set = fetch_20newsgroups(
+            self.dataset = fetch_20newsgroups(
                 subset="train", remove=("headers", "foooters", "quotes")
             )
-            (features, labels) = preprocess_data(
-                self.train_set.data, self.train_set.target
-            )
+            (features, labels) = preprocess_data(self.dataset.data, self.dataset.target)
             if return_vectorizer:
                 features, vectorizer = vectorize_text(features, vectorizer=vectorizer)
             else:
                 features = vectorize_text(features, vectorizer=vectorizer)
         else:
-            self.test_set = fetch_20newsgroups(
+            self.dataset = fetch_20newsgroups(
                 subset="test", remove=("headers", "footers", "quotes")
             )
-            (features, labels) = preprocess_data(
-                self.test_set.data, self.test_set.target
-            )
+            (features, labels) = preprocess_data(self.dataset.data, self.dataset.target)
             features = vectorize_text(features, vectorizer=vectorizer)
-        self.classes = self.train_set.target_names
+        self.classes = self.dataset.target_names
         self.data = features
         self.targets = labels
 
