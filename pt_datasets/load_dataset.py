@@ -225,9 +225,6 @@ def load_dataset(
                 return_vectorizer=return_vectorizer
             )
             test_dataset = TwentyNewsgroups()
-            train_dataset, test_dataset, vectorizer = load_20newsgroups(
-                vectorizer, return_vectorizer
-            )
         else:
             train_dataset, test_dataset = load_20newsgroups(
                 vectorizer, return_vectorizer
