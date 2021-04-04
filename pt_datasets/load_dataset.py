@@ -31,6 +31,7 @@ from pt_datasets.download_covid_dataset import (
     download_binary_covid19_dataset,
     download_covidx5_dataset,
 )
+from pt_datasets.TwentyNewsgroups import TwentyNewsgroups
 from pt_datasets.utils import preprocess_data, read_data, vectorize_text, unzip_dataset
 
 __author__ = "Abien Fred Agarap"
@@ -220,6 +221,9 @@ def load_dataset(
             train_dataset, test_dataset = load_agnews(vectorizer, return_vectorizer)
     elif name == "20newsgroups":
         if return_vectorizer:
+            train_dataset, vectorizer = TwentyNewsgroups(
+                return_vectorizer=return_vectorizer
+            )
             train_dataset, test_dataset, vectorizer = load_20newsgroups(
                 vectorizer, return_vectorizer
             )
