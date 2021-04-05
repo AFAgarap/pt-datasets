@@ -3,7 +3,7 @@ from pathlib import Path
 
 import torch
 
-from pt_datasets.utils import read_data
+from pt_datasets.utils import read_data, preprocess_data
 
 
 class AGNews(torch.utils.data.Dataset):
@@ -31,7 +31,9 @@ class AGNews(torch.utils.data.Dataset):
             path = os.path.join(path, "ag_news.train")
             dataset = read_data(path)
             features, labels = (list(dataset.keys()), list(dataset.values()))
+            features, labels = preprocess_data(features, labels)
         else:
             path = os.path.join(path, "ag_news.test")
             dataset = read_data(path)
             features, labels = (list(dataset.keys()), list(dataset.values()))
+            features, labels = preprocess_data(features, labels)
