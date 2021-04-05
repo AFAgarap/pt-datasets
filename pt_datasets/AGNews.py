@@ -1,3 +1,6 @@
+import os
+from pathlib import Path
+
 import torch
 
 
@@ -20,4 +23,5 @@ class AGNews(torch.utils.data.Dataset):
         return_vectorizer: bool
             Whether to return the vectorizer object or not.
         """
-        pass
+        path = str(Path.home())
+        path = os.path.join(path, "datasets")
