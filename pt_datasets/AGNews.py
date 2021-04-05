@@ -25,3 +25,7 @@ class AGNews(torch.utils.data.Dataset):
         """
         path = str(Path.home())
         path = os.path.join(path, "datasets")
+        if train:
+            path = os.path.join(path, "ag_news.train")
+        else:
+            path = os.path.join(path, "ag_news.test")
