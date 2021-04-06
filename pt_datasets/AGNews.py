@@ -3,7 +3,7 @@ from pathlib import Path
 
 import torch
 
-from pt_datasets.utils import read_data, preprocess_data
+from pt_datasets.utils import read_data, preprocess_data, vectorize_text
 
 
 class AGNews(torch.utils.data.Dataset):
@@ -32,8 +32,15 @@ class AGNews(torch.utils.data.Dataset):
             dataset = read_data(path)
             features, labels = (list(dataset.keys()), list(dataset.values()))
             features, labels = preprocess_data(features, labels)
+            if return_vectorizer:
+                features, vectorizer = vectorize_text(
+                    features, vectorizer, return_vectorizer
+                )
+            else:
+                features = vectorize_text(features, vectorizer, return_vectorizer)
         else:
             path = os.path.join(path, "ag_news.test")
             dataset = read_data(path)
             features, labels = (list(dataset.keys()), list(dataset.values()))
             features, labels = preprocess_data(features, labels)
+            features = vectorize_text(features, vectorizer)
