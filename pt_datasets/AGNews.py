@@ -47,3 +47,6 @@ class AGNews(torch.utils.data.Dataset):
         self.data = features
         self.targets = labels
         self.classes = ["World", "Sports", "Business", "Sci/Tech"]
+
+    def __len__(self) -> int:
+        return len(self.data)
