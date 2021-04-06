@@ -26,6 +26,7 @@ from sklearn.preprocessing import StandardScaler
 import torch
 import torchvision
 
+from pt_datasets.AGNews import AGNews
 from pt_datasets.COVID19Dataset import BinaryCOVID19Dataset, MultiCOVID19Dataset
 from pt_datasets.download_covid_dataset import (
     download_binary_covid19_dataset,
@@ -214,11 +215,12 @@ def load_dataset(
         train_dataset, test_dataset = load_malimg()
     elif name == "ag_news":
         if return_vectorizer:
-            train_dataset, test_dataset, vectorizer = load_agnews(
-                vectorizer, return_vectorizer
+            train_dataset, vectorizer = AGNews(
+                train=True, return_vectorizer=return_vectorizer
             )
+            test_dataset = AGNews(train=False)
         else:
-            train_dataset, test_dataset = load_agnews(vectorizer, return_vectorizer)
+            (train_dataset, test_dataset) = (AGNews(train=True), AGNews(train=False))
     elif name == "20newsgroups":
         if return_vectorizer:
             train_dataset, vectorizer = TwentyNewsgroups(
@@ -466,60 +468,6 @@ def load_malimg(
         torch.from_numpy(test_features), torch.from_numpy(test_labels)
     )
     return train_dataset, test_dataset
-
-
-def load_agnews(
-    vectorization_mode: str = "tfidf", return_vectorizer: bool = False
-) -> Tuple[torch.utils.data.DataLoader, torch.utils.data.DataLoader]:
-    """
-    Loads the AG News dataset.
-
-    Parameters
-    ----------
-    vectorizer: str
-        The vectorizer to use, options: [tfidf (default) | ngrams]
-    return_vectorizer: bool
-        Whether to return vectorizer object or not.
-
-    Returns
-    -------
-    train_dataset: torch.utils.data.TensorDataset
-        The training dataset object to be wrapped by a data loader.
-    test_dataset: torch.utils.data.TensorDataset
-        The test dataset object to be wrapped by a data loader.
-    vectorizer: object
-        The text vectorizer object.
-    """
-    path = str(Path.home())
-    path = os.path.join(path, "datasets")
-    train_path = os.path.join(path, "ag_news.train")
-    test_path = os.path.join(path, "ag_news.test")
-    train_dataset, test_dataset = (read_data(train_path), read_data(test_path))
-    train_texts, train_labels = (
-        list(train_dataset.keys()),
-        list(train_dataset.values()),
-    )
-    test_texts, test_labels = (list(test_dataset.keys()), list(test_dataset.values()))
-    train_texts, train_labels = preprocess_data(train_texts, train_labels)
-    test_texts, test_labels = preprocess_data(test_texts, test_labels)
-    if return_vectorizer:
-        train_vectors, vectorizer = vectorize_text(
-            train_texts, vectorization_mode, return_vectorizer=return_vectorizer
-        )
-    else:
-        train_vectors = vectorize_text(train_texts, vectorization_mode)
-    test_vectors = vectorize_text(test_texts, vectorization_mode)
-    train_dataset = torch.utils.data.TensorDataset(
-        torch.from_numpy(train_vectors), torch.from_numpy(train_labels)
-    )
-    test_dataset = torch.utils.data.TensorDataset(
-        torch.from_numpy(test_vectors), torch.from_numpy(test_labels)
-    )
-    return (
-        (train_dataset, test_dataset, vectorizer)
-        if return_vectorizer
-        else (train_dataset, test_dataset)
-    )
 
 
 def load_wdbc(test_size: float = 3e-1, seed: int = 42):
