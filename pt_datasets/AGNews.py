@@ -46,3 +46,4 @@ class AGNews(torch.utils.data.Dataset):
             features = vectorize_text(features, vectorizer)
         self.data = features
         self.targets = labels
+        self.classes = ["World", "Sports", "Business", "Sci/Tech"]
