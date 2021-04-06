@@ -35,10 +35,12 @@ class AGNews(torch.utils.data.Dataset):
             features, labels = preprocess_data(features, labels)
             if return_vectorizer:
                 features, vectorizer = vectorize_text(
-                    features, vectorizer, return_vectorizer
+                    features, vectorizer, return_vectorizer=return_vectorizer
                 )
             else:
-                features = vectorize_text(features, vectorizer, return_vectorizer)
+                features = vectorize_text(
+                    features, vectorizer, return_vectorizer=return_vectorizer
+                )
         else:
             path = os.path.join(path, "ag_news.test")
             dataset = read_data(path)
