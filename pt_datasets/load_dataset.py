@@ -223,6 +223,7 @@ def load_dataset(
                 vectorizer, return_vectorizer
             )
         else:
+            (train_dataset, test_dataset) = (AGNews(train=True), AGNews(train=False))
             train_dataset, test_dataset = load_agnews(vectorizer, return_vectorizer)
     elif name == "20newsgroups":
         if return_vectorizer:
