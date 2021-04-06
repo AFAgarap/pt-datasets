@@ -26,6 +26,7 @@ from sklearn.preprocessing import StandardScaler
 import torch
 import torchvision
 
+from pt_datasets.AGNews import AGNews
 from pt_datasets.COVID19Dataset import BinaryCOVID19Dataset, MultiCOVID19Dataset
 from pt_datasets.download_covid_dataset import (
     download_binary_covid19_dataset,
@@ -214,6 +215,10 @@ def load_dataset(
         train_dataset, test_dataset = load_malimg()
     elif name == "ag_news":
         if return_vectorizer:
+            train_dataset, vectorizer = AGNews(
+                train=True, return_vectorizer=return_vectorizer
+            )
+            test_dataset = AGNews(train=False)
             train_dataset, test_dataset, vectorizer = load_agnews(
                 vectorizer, return_vectorizer
             )
