@@ -44,3 +44,5 @@ class AGNews(torch.utils.data.Dataset):
             features, labels = (list(dataset.keys()), list(dataset.values()))
             features, labels = preprocess_data(features, labels)
             features = vectorize_text(features, vectorizer)
+        self.data = features
+        self.targets = labels
