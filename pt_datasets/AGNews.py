@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+from typing import Any, Tuple
 
 import torch
 
@@ -47,6 +48,9 @@ class AGNews(torch.utils.data.Dataset):
         self.data = features
         self.targets = labels
         self.classes = ["World", "Sports", "Business", "Sci/Tech"]
+
+    def __getitem__(self, index: int) -> Tuple[Any, Any]:
+        pass
 
     def __len__(self) -> int:
         return len(self.data)
