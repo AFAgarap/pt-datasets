@@ -50,7 +50,8 @@ class AGNews(torch.utils.data.Dataset):
         self.classes = ["World", "Sports", "Business", "Sci/Tech"]
 
     def __getitem__(self, index: int) -> Tuple[Any, Any]:
-        pass
+        text, target = self.data[index], self.targets[index]
+        return (text, target)
 
     def __len__(self) -> int:
         return len(self.data)
