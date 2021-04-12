@@ -215,18 +215,16 @@ def load_dataset(
         train_dataset, test_dataset = load_malimg()
     elif name == "ag_news":
         if return_vectorizer:
-            train_dataset, vectorizer = AGNews(
-                train=True, return_vectorizer=return_vectorizer
-            )
+            train_dataset = AGNews(train=True, return_vectorizer=return_vectorizer)
             test_dataset = AGNews(train=False)
+            vectorizer = train_dataset.vectorizer
         else:
             (train_dataset, test_dataset) = (AGNews(train=True), AGNews(train=False))
     elif name == "20newsgroups":
         if return_vectorizer:
-            train_dataset, vectorizer = TwentyNewsgroups(
-                return_vectorizer=return_vectorizer
-            )
+            train_dataset = TwentyNewsgroups(return_vectorizer=return_vectorizer)
             test_dataset = TwentyNewsgroups(train=False)
+            vectorizer = train_dataset.vectorizer
         else:
             (train_dataset, test_dataset) = (
                 TwentyNewsgroups(),
