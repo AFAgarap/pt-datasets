@@ -50,6 +50,7 @@ class TwentyNewsgroups(torch.utils.data.Dataset):
             (features, labels) = preprocess_data(self.dataset.data, self.dataset.target)
             if return_vectorizer:
                 features, vectorizer = vectorize_text(features, vectorizer=vectorizer)
+                self.vectorizer = vectorizer
             else:
                 features = vectorize_text(features, vectorizer=vectorizer)
         else:

@@ -55,6 +55,7 @@ class AGNews(torch.utils.data.Dataset):
                 features, vectorizer = vectorize_text(
                     features, vectorizer, return_vectorizer=return_vectorizer
                 )
+                self.vectorizer = vectorizer
             else:
                 features = vectorize_text(
                     features, vectorizer, return_vectorizer=return_vectorizer
