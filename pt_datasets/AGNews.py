@@ -57,19 +57,25 @@ class AGNews(torch.utils.data.Dataset):
             features, labels = preprocess_data(features, labels)
             if return_vectorizer:
                 features, vectorizer = vectorize_text(
-                    features, vectorizer, return_vectorizer=return_vectorizer
+                    features,
+                    vectorizer,
+                    return_vectorizer=return_vectorizer,
+                    ngram_range=ngram_range,
                 )
                 self.vectorizer = vectorizer
             else:
                 features = vectorize_text(
-                    features, vectorizer, return_vectorizer=return_vectorizer
+                    features,
+                    vectorizer,
+                    return_vectorizer=return_vectorizer,
+                    ngram_range=ngram_range,
                 )
         else:
             path = os.path.join(path, "ag_news.test")
             dataset = read_data(path)
             features, labels = (list(dataset.keys()), list(dataset.values()))
             features, labels = preprocess_data(features, labels)
-            features = vectorize_text(features, vectorizer)
+            features = vectorize_text(features, vectorizer, ngram_range=ngram_range)
         self.data = features
         self.targets = labels
         self.classes = ["World", "Sports", "Business", "Sci/Tech"]
