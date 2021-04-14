@@ -30,6 +30,7 @@ class AGNews(torch.utils.data.Dataset):
         self,
         train: bool = True,
         vectorizer: str = "tfidf",
+        ngram_range: Tuple = (3, 3),
         return_vectorizer: bool = False,
     ):
         """
