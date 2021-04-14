@@ -60,6 +60,7 @@ def load_dataset(
     augment: bool = False,
     data_folder: str = "~/datasets",
     vectorizer: str = "tfidf",
+    ngram_range: Tuple = (1, 5),
     return_vectorizer: bool = False,
     image_size: int = 64,
     preprocessed_covidx: bool = False,
@@ -95,6 +96,9 @@ def load_dataset(
         The vectorization method to use.
         Options: [tfidf (default) | ngrams]
         This is only used for datasets [name = ag_news | 20newsgroups].
+    ngram_range: Tuple
+        The lower and upper bound of ngram range to use.
+        Default: [(3, 3)]
     return_vectorizer: bool
         Whether to return the vectorizer object or not.
         This is only used for datasets [name = ag_news | 20newsgroups].
@@ -215,15 +219,19 @@ def load_dataset(
         train_dataset, test_dataset = load_malimg()
     elif name == "ag_news":
         if return_vectorizer:
-            train_dataset = AGNews(train=True, return_vectorizer=return_vectorizer)
-            test_dataset = AGNews(train=False)
+            train_dataset = AGNews(
+                train=True, return_vectorizer=return_vectorizer, ngram_range=ngram_range
+            )
+            test_dataset = AGNews(train=False, ngram_range=ngram_range)
             vectorizer = train_dataset.vectorizer
         else:
             (train_dataset, test_dataset) = (AGNews(train=True), AGNews(train=False))
     elif name == "20newsgroups":
         if return_vectorizer:
-            train_dataset = TwentyNewsgroups(return_vectorizer=return_vectorizer)
-            test_dataset = TwentyNewsgroups(train=False)
+            train_dataset = TwentyNewsgroups(
+                return_vectorizer=return_vectorizer, ngram_range=ngram_range
+            )
+            test_dataset = TwentyNewsgroups(train=False, ngram_range=ngram_range)
             vectorizer = train_dataset.vectorizer
         else:
             (train_dataset, test_dataset) = (
