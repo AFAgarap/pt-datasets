@@ -41,6 +41,9 @@ class TwentyNewsgroups(torch.utils.data.Dataset):
             Whether to load the training set or not.
         vectorizer: str
             The vectorizer to use, options: [tfidf (default) | ngrams]
+        ngram_range: Tuple
+            The lower and upper bound of ngram range to use.
+            Default: [(3, 3)]
         return_vectorizer: bool
             Whether to return the vectorizer object or not.
         """
