@@ -60,6 +60,7 @@ def load_dataset(
     augment: bool = False,
     data_folder: str = "~/datasets",
     vectorizer: str = "tfidf",
+    ngram_range: Tuple = (1, 5),
     return_vectorizer: bool = False,
     image_size: int = 64,
     preprocessed_covidx: bool = False,
