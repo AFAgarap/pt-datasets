@@ -96,6 +96,9 @@ def load_dataset(
         The vectorization method to use.
         Options: [tfidf (default) | ngrams]
         This is only used for datasets [name = ag_news | 20newsgroups].
+    ngram_range: Tuple
+        The lower and upper bound of ngram range to use.
+        Default: [(3, 3)]
     return_vectorizer: bool
         Whether to return the vectorizer object or not.
         This is only used for datasets [name = ag_news | 20newsgroups].
