@@ -151,7 +151,7 @@ classification." arXiv preprint arXiv:1801.00318 (2017).
 
 ```
 PyTorch Datasets utility repository
-Copyright (C) 2020  Abien Fred Agarap
+Copyright (C) 2020-2021  Abien Fred Agarap
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as published
