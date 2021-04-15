@@ -225,7 +225,10 @@ def load_dataset(
             test_dataset = AGNews(train=False, ngram_range=ngram_range)
             vectorizer = train_dataset.vectorizer
         else:
-            (train_dataset, test_dataset) = (AGNews(train=True), AGNews(train=False))
+            (train_dataset, test_dataset) = (
+                AGNews(train=True, ngram_range=ngram_range),
+                AGNews(train=False, ngram_range=ngram_range),
+            )
     elif name == "20newsgroups":
         if return_vectorizer:
             train_dataset = TwentyNewsgroups(
@@ -235,8 +238,8 @@ def load_dataset(
             vectorizer = train_dataset.vectorizer
         else:
             (train_dataset, test_dataset) = (
-                TwentyNewsgroups(),
-                TwentyNewsgroups(train=False),
+                TwentyNewsgroups(ngram_range=ngram_range),
+                TwentyNewsgroups(train=False, ngram_range=ngram_range),
             )
     elif name == "kmnist":
         train_dataset = torchvision.datasets.KMNIST(
