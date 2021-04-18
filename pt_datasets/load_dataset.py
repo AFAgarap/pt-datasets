@@ -455,7 +455,7 @@ def load_malimg(
         test_dataset
             The test set of MalImg dataset.
     """
-    download_url = ("https://drive.google.com/uc?id=1Y6Ha5Jir8EI726KdwAKWHVU-oWmPqNDT",)
+    download_url = "https://drive.google.com/uc?id=1Y6Ha5Jir8EI726KdwAKWHVU-oWmPqNDT"
     malimg_filename = "malimg_dataset_32x32.npy"
     dataset_path = os.path.join(str(Path.home()), "datasets")
     if not os.path.exists(dataset_path):
