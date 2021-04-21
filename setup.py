@@ -22,7 +22,7 @@ def _post_install():
 
 setup(
     name="pt-datasets",
-    version="0.11.17",
+    version="0.11.18",
     packages=["pt_datasets"],
     url="https://github.com/AFAgarap/pt-datasets",
     license="AGPL-3.0 License",
@@ -33,9 +33,9 @@ setup(
     long_description_content_type="text/markdown",
     install_requires=[
         "numpy==1.20.0",
-        "torchvision==0.9.0",
+        "torchvision==0.9.1",
         "umap_learn==0.4.6",
-        "torch==1.8.0",
+        "torch==1.8.1",
         "MulticoreTSNE==0.1",
         "scikit_learn==0.23.2",
         "gdown==3.12.2",
