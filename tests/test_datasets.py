@@ -25,3 +25,20 @@ def test_load_mnist():
             break
     assert np.isclose(batch_features.numpy().min(), -0.42421296)
     assert np.isclose(batch_features.numpy().max(), 2.8214867)
+
+
+def test_load_fashion_mnist():
+    train_data, test_data = load_fashion_mnist()
+    assert (len(train_data), len(test_data)) == (60_000, 10_000)
+    assert train_data.data.numpy().min() == 0
+    assert train_data.data.numpy().max() == 255
+    assert test_data.data.numpy().min() == 0
+    assert test_data.data.numpy().max() == 255
+    train_loader = create_dataloader(train_data, batch_size=32)
+    for index, (batch_features, batch_labels) in enumerate(train_loader):
+        if index == 1:
+            break
+    assert batch_features.shape == (32, 1, 28, 28)
+    assert batch_labels.shape == (32,)
+    assert batch_features.numpy().min() == 0.0
+    assert batch_features.numpy().max() == 1.0
