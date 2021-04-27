@@ -202,6 +202,10 @@ def load_dataset(
                     ),
                 ]
             )
+        else:
+            transform = torchvision.transforms.Compose(
+                [torchvision.transforms.ToTensor()]
+            )
         train_dataset = torchvision.datasets.CIFAR10(
             root=data_folder, train=True, download=True, transform=transform
         )
