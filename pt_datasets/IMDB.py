@@ -40,5 +40,9 @@ class IMDB(torch.utils.data.Dataset):
                 if index == 0:
                     pass
                 else:
-                    dataset[row[0]] = row[1]
+                    if row[1] == "positive":
+                        label = 1
+                    elif row[1] == "negative":
+                        label = 0
+                    dataset[row[0]] = label
         return dataset
