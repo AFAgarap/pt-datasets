@@ -20,6 +20,8 @@ from typing import Tuple
 from sklearn.model_selection import train_test_split
 import torch
 
+from pt_datasets.utils import preprocess_data, vectorize_text
+
 __author__ = "Abien Fred Agarap"
 
 
@@ -38,6 +40,23 @@ class IMDB(torch.utils.data.Dataset):
         train_texts, test_texts, train_labels, test_labels = train_test_split(
             texts, labels, test_size=3e-1, random_state=42, shuffle=True
         )
+        if train:
+            features, labels = preprocess_data(train_texts, train_labels)
+            if return_vectorizer:
+                features, vectorizer = vectorize_text(
+                    features,
+                    vectorizer,
+                    return_vectorizer=return_vectorizer,
+                    ngram_range=ngram_range,
+                )
+                self.vectorizer = vectorizer
+            else:
+                features = vectorize_text(
+                    features,
+                    vectorizer,
+                    return_vectorizer=return_vectorizer,
+                    ngram_range=ngram_range,
+                )
 
     def __getitem__(self):
         pass
