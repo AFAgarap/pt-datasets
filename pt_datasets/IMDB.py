@@ -15,6 +15,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """Class for IMDB dataset"""
 import csv
+from typing import Tuple
 
 import torch
 
@@ -22,7 +23,13 @@ __author__ = "Abien Fred Agarap"
 
 
 class IMDB(torch.utils.data.Dataset):
-    def __init__(self):
+    def __init__(
+        self,
+        train: bool = True,
+        vectorizer: str = "tfidf",
+        ngram_range: Tuple = (3, 3),
+        return_vectorizer: bool = False,
+    ):
         super().__init__()
         self.classes = ["Negative", "Positive"]
 
