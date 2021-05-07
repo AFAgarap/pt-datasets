@@ -36,6 +36,8 @@ class IMDB(torch.utils.data.Dataset):
         dataset = {}
         with open(data, "r") as file:
             reader = csv.reader(file)
-            for row in reader:
+            for index, row in enumerate(reader):
+                if index == 0:
+                    pass
                 dataset[row[1]] = row[0]
         return dataset
