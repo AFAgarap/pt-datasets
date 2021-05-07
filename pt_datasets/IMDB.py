@@ -17,6 +17,7 @@
 import csv
 from typing import Tuple
 
+from sklearn.model_selection import train_test_split
 import torch
 
 __author__ = "Abien Fred Agarap"
@@ -32,6 +33,11 @@ class IMDB(torch.utils.data.Dataset):
     ):
         super().__init__()
         self.classes = ["Negative", "Positive"]
+        dataset = IMDB.load_data()
+        (texts, labels) = (list(dataset.keys()), list(dataset.values()))
+        train_texts, test_texts, train_labels, test_labels = train_test_split(
+            texts, labels, test_size=3e-1, random_state=42, shuffle=True
+        )
 
     def __getitem__(self):
         pass
