@@ -1,6 +1,9 @@
 import os
 from os import path
+from pathlib import Path
 from setuptools import setup
+
+import gdown
 
 
 this_directory = path.abspath(path.dirname(__file__))
@@ -18,6 +21,11 @@ def _post_install():
         echo "[SUCCESS] Done downloading AG News Dataset."
         """
     os.system(ag_news_setup)
+    imdb_dataset = "https://drive.google.com/uc?id=1VhjJUc6hlJfHmEln8b0xfxuzUC36bBHE"
+    imdb_path = os.path.join(str(Path.home()), "datasets")
+    filename = "IMDB Dataset.csv"
+    print("[INFO] Downloading the IMDB dataset...")
+    gdown.download(imdb_dataset, os.path.join(imdb_path, filename))
 
 
 setup(
