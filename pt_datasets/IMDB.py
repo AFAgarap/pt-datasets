@@ -39,5 +39,5 @@ class IMDB(torch.utils.data.Dataset):
             for index, row in enumerate(reader):
                 if index == 0:
                     pass
-                dataset[row[1]] = row[0]
+                dataset[row[0]] = row[1]
         return dataset
