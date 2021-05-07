@@ -68,7 +68,7 @@ class IMDB(torch.utils.data.Dataset):
         return (text, target)
 
     def __len__(self):
-        pass
+        return len(self.data)
 
     @staticmethod
     def load_data(data: str = "data/IMDB Dataset.csv"):
