@@ -32,7 +32,7 @@ class IMDB(torch.utils.data.Dataset):
         pass
 
     @staticmethod
-    def read_data(data: str = "data/IMDB Dataset.csv"):
+    def load_data(data: str = "data/IMDB Dataset.csv"):
         dataset = {}
         with open(data, "r") as file:
             reader = csv.reader(file)
