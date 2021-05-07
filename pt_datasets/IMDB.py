@@ -24,6 +24,7 @@ __author__ = "Abien Fred Agarap"
 class IMDB(torch.utils.data.Dataset):
     def __init__(self):
         super().__init__()
+        self.classes = ["Negative", "Positive"]
 
     def __getitem__(self):
         pass
