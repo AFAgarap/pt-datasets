@@ -15,7 +15,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """Class for IMDB dataset"""
 import csv
-from typing import Tuple
+from typing import Any, Tuple
 
 from sklearn.model_selection import train_test_split
 import torch
@@ -63,8 +63,9 @@ class IMDB(torch.utils.data.Dataset):
         self.data = features
         self.targets = labels
 
-    def __getitem__(self):
-        pass
+    def __getitem__(self, index: int) -> Tuple[Any, Any]:
+        text, target = self.data[index], self.targets[index]
+        return (text, target)
 
     def __len__(self):
         pass
