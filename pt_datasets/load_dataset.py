@@ -419,11 +419,20 @@ def load_emnist(
     return (train_dataset, test_dataset)
 
 
-def load_kmnist(data_folder: str = "~/datasets"):
+def load_kmnist(data_folder: str = "~/datasets", augment: bool = False):
     train_transform = torchvision.transforms.Compose(
         [torchvision.transforms.ToTensor()]
     )
     test_transform = torchvision.transforms.Compose([torchvision.transforms.ToTensor()])
+    if augment:
+        train_transform = torchvision.transforms.Compose(
+            [
+                torchvision.transforms.ToTensor(),
+                torchvision.transforms.RandomHorizontalFlip(),
+                torchvision.transforms.RandomVerticalFlip(),
+                torchvision.transforms.Normalize((0.1307,), (0.3081,)),
+            ]
+        )
     train_dataset = torchvision.datasets.KMNIST(
         root=data_folder, train=True, download=True, transform=train_transform
     )
