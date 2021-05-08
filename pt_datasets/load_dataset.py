@@ -553,6 +553,25 @@ def load_agnews(
 def load_20newsgroups(
     return_vectorizer: bool = False, ngram_range: Tuple = (3, 3)
 ) -> Tuple[torch.utils.data.Dataset, torch.utils.data.Dataset]:
+    """
+    Loads the 20newsgroups dataset.
+
+    Parameters
+    ----------
+    return_vectorizer: bool
+        Whether to return the vectorizer object or not.
+    ngram_range: Tuple
+        The n-gram range to use.
+
+    Returns
+    -------
+    train_dataset: torch.utils.data.Dataset
+        The training set.
+    test_dataset: torch.utils.data.Dataset
+        The test set
+    vectorizer: object[Optional]
+        The text vectorizer object.
+    """
     train_dataset = TwentyNewsgroups(
         return_vectorizer=return_vectorizer, ngram_range=ngram_range
     )
