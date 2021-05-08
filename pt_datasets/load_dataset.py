@@ -368,6 +368,99 @@ def load_fashion_mnist(
     return train_dataset, test_dataset
 
 
+def load_emnist(
+    data_folder: str = "~/dataset", augment: bool = False
+) -> Tuple[torch.utils.data.Dataset, torch.utils.data.Dataset]:
+    """
+    Loads the EMNIST training and test datasets.
+
+
+    Parameters
+    ----------
+    data_folder: str
+        The path to the folder for the datasets.
+    augment: bool
+        Whether to perform data augmentation or not.
+
+    Returns
+    -------
+    train_dataset: torch.utils.data.Dataset
+        The training set.
+    test_dataset: torch.utils.data.Dataset
+        The test set.
+    """
+    train_transform = torchvision.transforms.Compose(
+        [torchvision.transforms.ToTensor()]
+    )
+    test_transform = torchvision.transforms.Compose([torchvision.transforms.ToTensor()])
+    if augment:
+        train_transform = torchvision.transforms.Compose(
+            [
+                torchvision.transforms.ToTensor(),
+                torchvision.transforms.RandomHorizontalFlip(),
+                torchvision.transforms.RandomVerticalFlip(),
+                torchvision.transforms.Normalize((0.1307,), (0.3081,)),
+            ]
+        )
+    train_dataset = torchvision.datasets.EMNIST(
+        root=data_folder,
+        train=True,
+        split="balanced",
+        download=True,
+        transform=train_transform,
+    )
+    test_dataset = torchvision.datasets.EMNIST(
+        root=data_folder,
+        train=False,
+        split="balanced",
+        download=True,
+        transform=test_transform,
+    )
+    return (train_dataset, test_dataset)
+
+
+def load_kmnist(
+    data_folder: str = "~/datasets", augment: bool = False
+) -> Tuple[torch.utils.data.Dataset, torch.utils.data.Dataset]:
+    """
+    Loads the KMNIST training and test datasets.
+
+    Parameter
+    ---------
+    data_folder: str
+        The path to the folder for the datasets.
+    normalize: bool
+        Whether to normalize the dataset or not.
+
+    Returns
+    -------
+    train_dataset: torch.utils.data.Dataset
+        The training set.
+    test_dataset: torch.utils.data.Dataset
+        The test set.
+    """
+    train_transform = torchvision.transforms.Compose(
+        [torchvision.transforms.ToTensor()]
+    )
+    test_transform = torchvision.transforms.Compose([torchvision.transforms.ToTensor()])
+    if augment:
+        train_transform = torchvision.transforms.Compose(
+            [
+                torchvision.transforms.ToTensor(),
+                torchvision.transforms.RandomHorizontalFlip(),
+                torchvision.transforms.RandomVerticalFlip(),
+                torchvision.transforms.Normalize((0.1307,), (0.3081,)),
+            ]
+        )
+    train_dataset = torchvision.datasets.KMNIST(
+        root=data_folder, train=True, download=True, transform=train_transform
+    )
+    test_dataset = torchvision.datasets.KMNIST(
+        root=data_folder, train=False, download=True, transform=test_transform
+    )
+    return (train_dataset, test_dataset)
+
+
 def load_cifar10(data_folder: str = "~/datasets", normalize: bool = False):
     """
     Loads the CIFAR10 training and test datasets.
@@ -481,6 +574,74 @@ def load_malimg(
         torch.from_numpy(test_features), torch.from_numpy(test_labels)
     )
     return train_dataset, test_dataset
+
+
+def load_agnews(
+    return_vectorizer: bool = False, ngram_range: Tuple = (3, 3)
+) -> Tuple[torch.utils.data.Dataset, torch.utils.data.Dataset]:
+    """
+    Loads the AG News dataset.
+
+    Parameters
+    ----------
+    return_vectorizer: bool
+        Whether to return the vectorizer object or not.
+    ngram_range: Tuple
+        The n-gram range to use.
+
+    Returns
+    -------
+    train_dataset: torch.utils.data.Dataset
+        The training set.
+    test_dataset: torch.utils.data.Dataset
+        The test set
+    vectorizer: object[Optional]
+        The text vectorizer object.
+    """
+    train_dataset = AGNews(
+        train=True, return_vectorizer=return_vectorizer, ngram_range=ngram_range
+    )
+    test_dataset = AGNews(
+        train=False, return_vectorizer=return_vectorizer, ngram_range=ngram_range
+    )
+    if return_vectorizer:
+        vectorizer = train_dataset.vectorizer
+        return (train_dataset, test_dataset, vectorizer)
+    else:
+        return (train_dataset, test_dataset)
+
+
+def load_20newsgroups(
+    return_vectorizer: bool = False, ngram_range: Tuple = (3, 3)
+) -> Tuple[torch.utils.data.Dataset, torch.utils.data.Dataset]:
+    """
+    Loads the 20newsgroups dataset.
+
+    Parameters
+    ----------
+    return_vectorizer: bool
+        Whether to return the vectorizer object or not.
+    ngram_range: Tuple
+        The n-gram range to use.
+
+    Returns
+    -------
+    train_dataset: torch.utils.data.Dataset
+        The training set.
+    test_dataset: torch.utils.data.Dataset
+        The test set
+    vectorizer: object[Optional]
+        The text vectorizer object.
+    """
+    train_dataset = TwentyNewsgroups(
+        return_vectorizer=return_vectorizer, ngram_range=ngram_range
+    )
+    test_dataset = TwentyNewsgroups(train=False, ngram_range=ngram_range)
+    if return_vectorizer:
+        vectorizer = train_dataset.vectorizer
+        return (train_dataset, test_dataset, vectorizer)
+    else:
+        return (train_dataset, test_dataset)
 
 
 def load_wdbc(test_size: float = 3e-1, seed: int = 42):
