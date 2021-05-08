@@ -48,7 +48,7 @@ def _post_install():
 
 setup(
     name="pt-datasets",
-    version="0.11.19",
+    version="0.12.0",
     packages=["pt_datasets"],
     url="https://github.com/AFAgarap/pt-datasets",
     license="AGPL-3.0 License",
