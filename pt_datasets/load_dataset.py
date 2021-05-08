@@ -550,8 +550,14 @@ def load_agnews(
         return (train_dataset, test_dataset)
 
 
-def load_20newsgroups():
-    pass
+def load_20newsgroups(
+    return_vectorizer: bool = False, ngram_range: Tuple = (3, 3)
+) -> Tuple[torch.utils.data.Dataset, torch.utils.data.Dataset]:
+    train_dataset = TwentyNewsgroups(
+        return_vectorizer=return_vectorizer, ngram_range=ngram_range
+    )
+    test_dataset = TwentyNewsgroups(train=False, ngram_range=ngram_range)
+    return (train_dataset, test_dataset)
 
 
 def load_wdbc(test_size: float = 3e-1, seed: int = 42):
