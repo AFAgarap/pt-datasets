@@ -419,7 +419,9 @@ def load_emnist(
     return (train_dataset, test_dataset)
 
 
-def load_kmnist(data_folder: str = "~/datasets", augment: bool = False):
+def load_kmnist(
+    data_folder: str = "~/datasets", augment: bool = False
+) -> Tuple[torch.utils.data.Dataset, torch.utils.data.Dataset]:
     """
     Loads the KMNIST training and test datasets.
 
