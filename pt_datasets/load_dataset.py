@@ -543,7 +543,11 @@ def load_agnews(
     test_dataset = AGNews(
         train=False, return_vectorizer=return_vectorizer, ngram_range=ngram_range
     )
-    return (train_dataset, test_dataset)
+    if return_vectorizer:
+        vectorizer = train_dataset.vectorizer
+        return (train_dataset, test_dataset, vectorizer)
+    else:
+        return (train_dataset, test_dataset)
 
 
 def load_20newsgroups():
