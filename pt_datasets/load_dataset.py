@@ -368,6 +368,30 @@ def load_fashion_mnist(
     return train_dataset, test_dataset
 
 
+def load_emnist(
+    data_folder: str = "~/dataset", augment: bool = False
+) -> Tuple[torch.utils.data.Dataset, torch.utils.data.Dataset]:
+    train_transform = torchvision.transforms.Compose(
+        [torchvision.transforms.ToTensor()]
+    )
+    test_transform = torchvision.transforms.Compose([torchvision.transforms.ToTensor()])
+    train_dataset = torchvision.datasets.EMNIST(
+        root=data_folder,
+        train=True,
+        split="balanced",
+        download=True,
+        transform=train_transform,
+    )
+    test_dataset = torchvision.datasets.EMNIST(
+        root=data_folder,
+        train=False,
+        split="balanced",
+        download=True,
+        transform=test_transform,
+    )
+    return (train_dataset, test_dataset)
+
+
 def load_cifar10(data_folder: str = "~/datasets", normalize: bool = False):
     """
     Loads the CIFAR10 training and test datasets.
