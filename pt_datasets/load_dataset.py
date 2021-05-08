@@ -534,6 +534,14 @@ def load_malimg(
     return train_dataset, test_dataset
 
 
+def load_agnews():
+    pass
+
+
+def load_20newsgroups():
+    pass
+
+
 def load_wdbc(test_size: float = 3e-1, seed: int = 42):
     """
     Loads the Wisconsin Diagnostic Breast Cancer dataset.
