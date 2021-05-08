@@ -419,6 +419,10 @@ def load_emnist(
     return (train_dataset, test_dataset)
 
 
+def load_kmnist():
+    pass
+
+
 def load_cifar10(data_folder: str = "~/datasets", normalize: bool = False):
     """
     Loads the CIFAR10 training and test datasets.
