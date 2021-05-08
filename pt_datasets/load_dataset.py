@@ -420,6 +420,23 @@ def load_emnist(
 
 
 def load_kmnist(data_folder: str = "~/datasets", augment: bool = False):
+    """
+    Loads the KMNIST training and test datasets.
+
+    Parameter
+    ---------
+    data_folder: str
+        The path to the folder for the datasets.
+    normalize: bool
+        Whether to normalize the dataset or not.
+
+    Returns
+    -------
+    train_dataset: torch.utils.data.Dataset
+        The training set.
+    test_dataset: torch.utils.data.Dataset
+        The test set.
+    """
     train_transform = torchvision.transforms.Compose(
         [torchvision.transforms.ToTensor()]
     )
