@@ -419,8 +419,18 @@ def load_emnist(
     return (train_dataset, test_dataset)
 
 
-def load_kmnist():
-    pass
+def load_kmnist(data_folder: str = "~/datasets"):
+    train_transform = torchvision.transforms.Compose(
+        [torchvision.transforms.ToTensor()]
+    )
+    test_transform = torchvision.transforms.Compose([torchvision.transforms.ToTensor()])
+    train_dataset = torchvision.datasets.KMNIST(
+        root=data_folder, train=True, download=True, transform=train_transform
+    )
+    test_dataset = torchvision.datasets.KMNIST(
+        root=data_folder, train=False, download=True, transform=test_transform
+    )
+    return (train_dataset, test_dataset)
 
 
 def load_cifar10(data_folder: str = "~/datasets", normalize: bool = False):
