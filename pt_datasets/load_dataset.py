@@ -534,8 +534,16 @@ def load_malimg(
     return train_dataset, test_dataset
 
 
-def load_agnews():
-    pass
+def load_agnews(
+    return_vectorizer: bool = False, ngram_range: Tuple = (3, 3)
+) -> Tuple[torch.utils.data.Dataset, torch.utils.data.Dataset]:
+    train_dataset = AGNews(
+        train=True, return_vectorizer=return_vectorizer, ngram_range=ngram_range
+    )
+    test_dataset = AGNews(
+        train=False, return_vectorizer=return_vectorizer, ngram_range=ngram_range
+    )
+    return (train_dataset, test_dataset)
 
 
 def load_20newsgroups():
