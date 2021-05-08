@@ -371,6 +371,24 @@ def load_fashion_mnist(
 def load_emnist(
     data_folder: str = "~/dataset", augment: bool = False
 ) -> Tuple[torch.utils.data.Dataset, torch.utils.data.Dataset]:
+    """
+    Loads the EMNIST training and test datasets.
+
+
+    Parameters
+    ----------
+    data_folder: str
+        The path to the folder for the datasets.
+    augment: bool
+        Whether to perform data augmentation or not.
+
+    Returns
+    -------
+    train_dataset: torch.utils.data.Dataset
+        The training set.
+    test_dataset: torch.utils.data.Dataset
+        The test set.
+    """
     train_transform = torchvision.transforms.Compose(
         [torchvision.transforms.ToTensor()]
     )
