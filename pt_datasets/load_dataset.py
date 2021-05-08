@@ -557,7 +557,11 @@ def load_20newsgroups(
         return_vectorizer=return_vectorizer, ngram_range=ngram_range
     )
     test_dataset = TwentyNewsgroups(train=False, ngram_range=ngram_range)
-    return (train_dataset, test_dataset)
+    if return_vectorizer:
+        vectorizer = train_dataset.vectorizer
+        return (train_dataset, test_dataset, vectorizer)
+    else:
+        return (train_dataset, test_dataset)
 
 
 def load_wdbc(test_size: float = 3e-1, seed: int = 42):
