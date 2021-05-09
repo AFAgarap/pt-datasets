@@ -644,6 +644,10 @@ def load_20newsgroups(
         return (train_dataset, test_dataset)
 
 
+def load_imdb():
+    pass
+
+
 def load_wdbc(test_size: float = 3e-1, seed: int = 42):
     """
     Loads the Wisconsin Diagnostic Breast Cancer dataset.
