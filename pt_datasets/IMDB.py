@@ -15,6 +15,8 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """Class for IMDB dataset"""
 import csv
+import os
+from pathlib import Path
 from typing import Any, Tuple
 
 from sklearn.model_selection import train_test_split
@@ -50,7 +52,9 @@ class IMDB(torch.utils.data.Dataset):
         """
         super().__init__()
         self.classes = ["Negative", "Positive"]
-        dataset = IMDB.load_data()
+        path = str(Path.home())
+        path = os.path.join(path, "datasets/IMDB Dataset.csv")
+        dataset = IMDB.load_data(path)
         (texts, labels) = (list(dataset.keys()), list(dataset.values()))
         train_texts, test_texts, train_labels, test_labels = train_test_split(
             texts, labels, test_size=3e-1, random_state=42, shuffle=True
