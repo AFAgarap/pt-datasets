@@ -17,7 +17,21 @@
 from .create_dataloader import create_dataloader
 from .create_dataset import create_dataset
 from .encode_features import encode_features
-from .load_dataset import load_dataset
+from .load_dataset import (
+    load_dataset,
+    load_mnist,
+    load_fashion_mnist,
+    load_emnist,
+    load_kmnist,
+    load_cifar10,
+    load_svhn,
+    load_malimg,
+    load_agnews,
+    load_20newsgroups,
+    load_wdbc,
+    load_binary_covid19,
+    load_multi_covid19,
+)
 
 __author__ = "Abien Fred Agarap"
 __version__ = "0.12.1"

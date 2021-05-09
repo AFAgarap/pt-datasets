@@ -28,6 +28,7 @@ import torchvision
 
 from pt_datasets.AGNews import AGNews
 from pt_datasets.COVID19Dataset import BinaryCOVID19Dataset, MultiCOVID19Dataset
+from pt_datasets.IMDB import IMDB
 from pt_datasets.download_covid_dataset import (
     download_binary_covid19_dataset,
     download_covidx5_dataset,
@@ -637,6 +638,45 @@ def load_20newsgroups(
         return_vectorizer=return_vectorizer, ngram_range=ngram_range
     )
     test_dataset = TwentyNewsgroups(train=False, ngram_range=ngram_range)
+    if return_vectorizer:
+        vectorizer = train_dataset.vectorizer
+        return (train_dataset, test_dataset, vectorizer)
+    else:
+        return (train_dataset, test_dataset)
+
+
+def load_imdb(
+    vectorizer: str = "tfidf",
+    return_vectorizer: bool = False,
+    ngram_range: Tuple = (3, 3),
+) -> Tuple[torch.utils.data.Dataset, torch.utils.data.Dataset]:
+    """
+    Loads the IMDB dataset.
+
+    Parameters
+    ----------
+    vectorizer: str
+        The vectorizer to use, options: [ngrams | tfidf (default)]
+    return_vectorizer: bool
+        Whether to return the vectorizer object or not.
+    ngram_range: Tuple
+        The n-gram range to use.
+
+    Returns
+    -------
+    train_dataset: torch.utils.data.Dataset
+        The training set.
+    test_dataset: torch.utils.data.Dataset
+        The test set
+    vectorizer: object[Optional]
+        The text vectorizer object.
+    """
+    train_dataset = IMDB(
+        vectorizer=vectorizer,
+        return_vectorizer=return_vectorizer,
+        ngram_range=ngram_range,
+    )
+    test_dataset = IMDB(vectorizer=vectorizer, train=False, ngram_range=ngram_range)
     if return_vectorizer:
         vectorizer = train_dataset.vectorizer
         return (train_dataset, test_dataset, vectorizer)
