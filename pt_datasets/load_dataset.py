@@ -645,7 +645,9 @@ def load_20newsgroups(
 
 
 def load_imdb(
-    return_vectorizer: bool = False, ngram_range: Tuple = (3, 3)
+    vectorizer: str = "tfidf",
+    return_vectorizer: bool = False,
+    ngram_range: Tuple = (3, 3),
 ) -> Tuple[torch.utils.data.Dataset, torch.utils.data.Dataset]:
     pass
 
