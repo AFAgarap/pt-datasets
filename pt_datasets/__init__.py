@@ -20,7 +20,7 @@ from .encode_features import encode_features
 from .load_dataset import load_dataset
 
 __author__ = "Abien Fred Agarap"
-__version__ = "0.12.0"
+__version__ = "0.12.1"
 
 
 def list_datasets() -> str:
