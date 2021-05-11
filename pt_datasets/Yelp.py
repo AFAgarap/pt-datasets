@@ -31,6 +31,7 @@ class Yelp(torch.utils.data.Dataset):
         return_vectorizer: bool = False,
     ):
         super().__init__()
+        self.classes = ["Negative", "Positive"]
 
     def __getitem__(self):
         pass
