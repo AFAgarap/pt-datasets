@@ -14,6 +14,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """Class for Yelp dataset"""
+import csv
 from typing import Tuple
 
 import torch
@@ -36,3 +37,15 @@ class Yelp(torch.utils.data.Dataset):
 
     def __len__(self):
         pass
+
+    @staticmethod
+    def load_data(data: str = "~/datasets/yelp.csv"):
+        dataset = {}
+        with open(data, "r") as file:
+            reader = csv.reader(file)
+            for index, row in enumerate(reader):
+                if index == 0:
+                    pass
+                else:
+                    dataset[row[0]] = int(row[1])
+        return dataset
