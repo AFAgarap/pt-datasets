@@ -47,6 +47,8 @@ def _post_install():
     yelp_dataset = "https://drive.google.com/uc?id=1-RG97iRFppt3zK939cijAH8JQIhOyqu8"
     yelp_path = os.path.join(str(Path.home()), "datasets")
     filename = "yelp.csv"
+    print("[INFO] Downloading the Yelp dataset...")
+    gdown.download(yelp_dataset, os.path.join(yelp_path, filename))
 
 
 setup(
