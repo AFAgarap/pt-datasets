@@ -14,5 +14,17 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """Class for Yelp dataset"""
+import torch
 
 __author__ = "Abien Fred Agarap"
+
+
+class Yelp(torch.utils.data.Dataset):
+    def __init__(self):
+        super().__init__()
+
+    def __getitem__(self):
+        pass
+
+    def __len__(self):
+        pass
