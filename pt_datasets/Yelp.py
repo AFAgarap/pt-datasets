@@ -14,13 +14,21 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """Class for Yelp dataset"""
+from typing import Tuple
+
 import torch
 
 __author__ = "Abien Fred Agarap"
 
 
 class Yelp(torch.utils.data.Dataset):
-    def __init__(self):
+    def __init__(
+        self,
+        train: bool = True,
+        vectorizer: str = "tfidf",
+        ngram_range: Tuple = (3, 3),
+        return_vectorizer: bool = False,
+    ):
         super().__init__()
 
     def __getitem__(self):
