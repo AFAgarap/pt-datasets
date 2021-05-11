@@ -44,6 +44,7 @@ def _post_install():
     filename = "IMDB Dataset.csv"
     print("[INFO] Downloading the IMDB dataset...")
     gdown.download(imdb_dataset, os.path.join(imdb_path, filename))
+    yelp_dataset = "https://drive.google.com/uc?id=1-RG97iRFppt3zK939cijAH8JQIhOyqu8"
 
 
 setup(
