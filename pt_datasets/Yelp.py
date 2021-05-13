@@ -80,6 +80,8 @@ class Yelp(torch.utils.data.Dataset):
         else:
             features, labels = preprocess_data(test_texts, test_labels)
             features = vectorize_text(features, vectorizer, ngram_range=ngram_range)
+        self.data = features
+        self.targets = labels
 
     def __getitem__(self):
         pass
