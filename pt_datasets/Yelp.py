@@ -30,6 +30,21 @@ class Yelp(torch.utils.data.Dataset):
         ngram_range: Tuple = (3, 3),
         return_vectorizer: bool = False,
     ):
+        """
+        Loads the Yelp dataset.
+
+        Parameters
+        ----------
+        train: bool
+            Whether to load the training set or not.
+        vectorizer: str
+            The vectorizer to use, options: [tfidf (default) | ngrams]
+        ngram_range: Tuple
+            The lower and upper bound of ngram range to use.
+            Default: [(3, 3)]
+        return_vectorizer: bool
+            Whether to return the vectorizer object or not.
+        """
         super().__init__()
         self.classes = ["Negative", "Positive"]
 
