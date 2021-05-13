@@ -15,6 +15,8 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """Class for Yelp dataset"""
 import csv
+import os
+from pathlib import Path
 from typing import Tuple
 
 import torch
@@ -47,6 +49,8 @@ class Yelp(torch.utils.data.Dataset):
         """
         super().__init__()
         self.classes = ["Negative", "Positive"]
+        path = str(Path.home())
+        path = os.path.join(path, "datasets/yelp.csv")
 
     def __getitem__(self):
         pass
