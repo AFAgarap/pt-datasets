@@ -19,6 +19,7 @@ import os
 from pathlib import Path
 from typing import Tuple
 
+from sklearn.model_selection import train_test_split
 import torch
 
 __author__ = "Abien Fred Agarap"
@@ -53,6 +54,9 @@ class Yelp(torch.utils.data.Dataset):
         path = os.path.join(path, "datasets/yelp.csv")
         dataset = Yelp.load_data(path)
         (texts, labels) = (list(dataset.keys()), list(dataset.values()))
+        train_text, test_text, train_labels, test_labels = train_test_split(
+            texts, labels, test_size=0.30, random_state=42, shuffle=True
+        )
 
     def __getitem__(self):
         pass
