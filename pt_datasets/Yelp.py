@@ -51,6 +51,8 @@ class Yelp(torch.utils.data.Dataset):
         self.classes = ["Negative", "Positive"]
         path = str(Path.home())
         path = os.path.join(path, "datasets/yelp.csv")
+        dataset = Yelp.load_data(path)
+        (texts, labels) = (list(dataset.keys()), list(dataset.values()))
 
     def __getitem__(self):
         pass
