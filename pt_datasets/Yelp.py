@@ -17,7 +17,7 @@
 import csv
 import os
 from pathlib import Path
-from typing import Tuple
+from typing import Any, Tuple
 
 from sklearn.model_selection import train_test_split
 import torch
@@ -83,8 +83,9 @@ class Yelp(torch.utils.data.Dataset):
         self.data = features
         self.targets = labels
 
-    def __getitem__(self):
-        pass
+    def __getitem__(self, index: int) -> Tuple[Any, Any]:
+        (text, target) = (self.data[index], self.targets[index])
+        return (text, target)
 
     def __len__(self):
         pass
