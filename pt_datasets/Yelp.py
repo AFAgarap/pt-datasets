@@ -87,7 +87,7 @@ class Yelp(torch.utils.data.Dataset):
         (text, target) = (self.data[index], self.targets[index])
         return (text, target)
 
-    def __len__(self):
+    def __len__(self) -> int:
         return len(self.data)
 
     @staticmethod
