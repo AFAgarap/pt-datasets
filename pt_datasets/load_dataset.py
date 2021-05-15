@@ -717,7 +717,8 @@ def load_yelp(
         return_vectorizer=return_vectorizer,
         ngram_range=ngram_range,
     )
-    return train_dataset
+    test_dataset = Yelp(vectorizer=vectorizer, train=False, ngram_range=ngram_range)
+    return train_dataset, test_dataset
 
 
 def load_wdbc(test_size: float = 3e-1, seed: int = 42):
