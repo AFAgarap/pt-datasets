@@ -35,6 +35,8 @@ from pt_datasets.download_covid_dataset import (
 )
 from pt_datasets.TwentyNewsgroups import TwentyNewsgroups
 from pt_datasets.utils import preprocess_data, read_data, vectorize_text, unzip_dataset
+from pt_datasets.Yelp import Yelp
+
 
 __author__ = "Abien Fred Agarap"
 
@@ -682,6 +684,10 @@ def load_imdb(
         return (train_dataset, test_dataset, vectorizer)
     else:
         return (train_dataset, test_dataset)
+
+
+def load_yelp():
+    pass
 
 
 def load_wdbc(test_size: float = 3e-1, seed: int = 42):
