@@ -51,6 +51,7 @@ SUPPORTED_DATASETS = [
     "ag_news",
     "20newsgroups",
     "kmnist",
+    "imdb",
     "wdbc",
     "binary_covid",
     "multi_covid",
