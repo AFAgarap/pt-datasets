@@ -687,6 +687,27 @@ def load_imdb(
 
 
 def load_yelp():
+    """
+    Loads the Yelp dataset.
+
+    Parameters
+    ----------
+    vectorizer: str
+        The vectorizer to use, options: [ngrams | tfidf (default)]
+    return_vectorizer: bool
+        Whether to return the vectorizer object or not.
+    ngram_range: Tuple
+        The n-gram range to use.
+
+    Returns
+    -------
+    train_dataset: torch.utils.data.Dataset
+        The training set.
+    test_dataset: torch.utils.data.Dataset
+        The test set
+    vectorizer: object[Optional]
+        The text vectorizer object.
+    """
     pass
 
 
