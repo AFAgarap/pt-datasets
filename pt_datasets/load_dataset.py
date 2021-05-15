@@ -712,7 +712,12 @@ def load_yelp(
     vectorizer: object[Optional]
         The text vectorizer object.
     """
-    pass
+    train_dataset = Yelp(
+        vectorizer=vectorizer,
+        return_vectorizer=return_vectorizer,
+        ngram_range=ngram_range,
+    )
+    return train_dataset
 
 
 def load_wdbc(test_size: float = 3e-1, seed: int = 42):
