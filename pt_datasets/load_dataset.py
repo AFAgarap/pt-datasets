@@ -686,7 +686,11 @@ def load_imdb(
         return (train_dataset, test_dataset)
 
 
-def load_yelp():
+def load_yelp(
+    vectorizer: str = "tfidf",
+    return_vectorizer: bool = False,
+    ngram_range: Tuple = (3, 3),
+):
     """
     Loads the Yelp dataset.
 
