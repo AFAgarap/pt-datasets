@@ -52,6 +52,7 @@ SUPPORTED_DATASETS = [
     "20newsgroups",
     "kmnist",
     "imdb",
+    "yelp",
     "wdbc",
     "binary_covid",
     "multi_covid",
