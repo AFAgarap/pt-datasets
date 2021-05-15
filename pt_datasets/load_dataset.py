@@ -690,7 +690,7 @@ def load_yelp(
     vectorizer: str = "tfidf",
     return_vectorizer: bool = False,
     ngram_range: Tuple = (3, 3),
-):
+) -> Tuple[torch.utils.data.Dataset, torch.utils.data.Dataset]:
     """
     Loads the Yelp dataset.
 
