@@ -28,6 +28,7 @@ from .load_dataset import (
     load_malimg,
     load_agnews,
     load_20newsgroups,
+    load_imdb,
     load_wdbc,
     load_binary_covid19,
     load_multi_covid19,
