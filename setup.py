@@ -39,6 +39,9 @@ def _post_install():
         echo "[SUCCESS] Done downloading AG News Dataset."
         """
     os.system(ag_news_setup)
+
+
+def _download_imdb():
     imdb_dataset = "https://drive.google.com/uc?id=1VhjJUc6hlJfHmEln8b0xfxuzUC36bBHE"
     imdb_path = os.path.join(str(Path.home()), "datasets")
     filename = "IMDB Dataset.csv"
@@ -82,4 +85,5 @@ setup(
 
 
 _post_install()
+_download_imdb()
 _download_yelp()
