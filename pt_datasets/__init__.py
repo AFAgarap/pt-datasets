@@ -48,6 +48,7 @@ def list_datasets() -> str:
         "SVHN",
         "CIFAR10",
         "AG News" "20 Newsgroups",
+        "IMDB",
         "Malware Image",
         "Wisconsin Diagnostic Breast Cancer",
         "Binary COVID19",
