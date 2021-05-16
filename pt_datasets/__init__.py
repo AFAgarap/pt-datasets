@@ -28,13 +28,15 @@ from .load_dataset import (
     load_malimg,
     load_agnews,
     load_20newsgroups,
+    load_imdb,
+    load_yelp,
     load_wdbc,
     load_binary_covid19,
     load_multi_covid19,
 )
 
 __author__ = "Abien Fred Agarap"
-__version__ = "0.12.2"
+__version__ = "0.13.0"
 
 
 def list_datasets() -> str:
@@ -45,7 +47,10 @@ def list_datasets() -> str:
         "KMNIST",
         "SVHN",
         "CIFAR10",
-        "AG News" "20 Newsgroups",
+        "AG News",
+        "20 Newsgroups",
+        "IMDB",
+        "Yelp",
         "Malware Image",
         "Wisconsin Diagnostic Breast Cancer",
         "Binary COVID19",

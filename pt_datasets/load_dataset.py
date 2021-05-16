@@ -35,6 +35,8 @@ from pt_datasets.download_covid_dataset import (
 )
 from pt_datasets.TwentyNewsgroups import TwentyNewsgroups
 from pt_datasets.utils import preprocess_data, read_data, vectorize_text, unzip_dataset
+from pt_datasets.Yelp import Yelp
+
 
 __author__ = "Abien Fred Agarap"
 
@@ -49,6 +51,8 @@ SUPPORTED_DATASETS = [
     "ag_news",
     "20newsgroups",
     "kmnist",
+    "imdb",
+    "yelp",
     "wdbc",
     "binary_covid",
     "multi_covid",
@@ -677,6 +681,45 @@ def load_imdb(
         ngram_range=ngram_range,
     )
     test_dataset = IMDB(vectorizer=vectorizer, train=False, ngram_range=ngram_range)
+    if return_vectorizer:
+        vectorizer = train_dataset.vectorizer
+        return (train_dataset, test_dataset, vectorizer)
+    else:
+        return (train_dataset, test_dataset)
+
+
+def load_yelp(
+    vectorizer: str = "tfidf",
+    return_vectorizer: bool = False,
+    ngram_range: Tuple = (3, 3),
+) -> Tuple[torch.utils.data.Dataset, torch.utils.data.Dataset]:
+    """
+    Loads the Yelp dataset.
+
+    Parameters
+    ----------
+    vectorizer: str
+        The vectorizer to use, options: [ngrams | tfidf (default)]
+    return_vectorizer: bool
+        Whether to return the vectorizer object or not.
+    ngram_range: Tuple
+        The n-gram range to use.
+
+    Returns
+    -------
+    train_dataset: torch.utils.data.Dataset
+        The training set.
+    test_dataset: torch.utils.data.Dataset
+        The test set
+    vectorizer: object[Optional]
+        The text vectorizer object.
+    """
+    train_dataset = Yelp(
+        vectorizer=vectorizer,
+        return_vectorizer=return_vectorizer,
+        ngram_range=ngram_range,
+    )
+    test_dataset = Yelp(vectorizer=vectorizer, train=False, ngram_range=ngram_range)
     if return_vectorizer:
         vectorizer = train_dataset.vectorizer
         return (train_dataset, test_dataset, vectorizer)

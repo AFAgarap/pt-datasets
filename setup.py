@@ -39,6 +39,9 @@ def _post_install():
         echo "[SUCCESS] Done downloading AG News Dataset."
         """
     os.system(ag_news_setup)
+
+
+def _download_imdb():
     imdb_dataset = "https://drive.google.com/uc?id=1VhjJUc6hlJfHmEln8b0xfxuzUC36bBHE"
     imdb_path = os.path.join(str(Path.home()), "datasets")
     filename = "IMDB Dataset.csv"
@@ -46,9 +49,17 @@ def _post_install():
     gdown.download(imdb_dataset, os.path.join(imdb_path, filename))
 
 
+def _download_yelp():
+    yelp_dataset = "https://drive.google.com/uc?id=1-RG97iRFppt3zK939cijAH8JQIhOyqu8"
+    yelp_path = os.path.join(str(Path.home()), "datasets")
+    filename = "yelp.csv"
+    print("[INFO] Downloading the Yelp dataset...")
+    gdown.download(yelp_dataset, os.path.join(yelp_path, filename))
+
+
 setup(
     name="pt-datasets",
-    version="0.12.2",
+    version="0.13.0",
     packages=["pt_datasets"],
     url="https://github.com/AFAgarap/pt-datasets",
     license="AGPL-3.0 License",
@@ -74,3 +85,5 @@ setup(
 
 
 _post_install()
+_download_imdb()
+_download_yelp()
