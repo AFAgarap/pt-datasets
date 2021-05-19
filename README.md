@@ -24,6 +24,8 @@ t-SNE, or UMAP.
 - SVHN
 - MalImg
 - AG News
+- IMDB
+- Yelp
 - 20 Newsgroups
 - KMNIST
 - Wisconsin Diagnostic Breast Cancer
