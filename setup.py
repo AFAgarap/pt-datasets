@@ -19,7 +19,6 @@ from os import path
 from pathlib import Path
 from setuptools import setup
 
-import gdown
 
 __author__ = "Abien Fred Agarap"
 
@@ -46,7 +45,10 @@ def _download_imdb():
     imdb_path = os.path.join(str(Path.home()), "datasets")
     filename = "IMDB Dataset.csv"
     print("[INFO] Downloading the IMDB dataset...")
-    gdown.download(imdb_dataset, os.path.join(imdb_path, filename))
+    imdb_download_script = f"""
+    gdown {imdb_dataset} -O {os.path.join(imdb_path, filename)}
+    """
+    os.system(imdb_download_script)
 
 
 def _download_yelp():
@@ -54,7 +56,10 @@ def _download_yelp():
     yelp_path = os.path.join(str(Path.home()), "datasets")
     filename = "yelp.csv"
     print("[INFO] Downloading the Yelp dataset...")
-    gdown.download(yelp_dataset, os.path.join(yelp_path, filename))
+    yelp_download_script = f"""
+    gdown {yelp_dataset} -P {os.path.join(yelp_path, filename)}
+    """
+    os.system(yelp_download_script)
 
 
 setup(
