@@ -2,6 +2,8 @@ opencv-python==4.2.0.34
 cmake==3.18.0
 nltk==3.5
 numpy==1.20.0
+numba==0.47.0
+llvmlite=0.32.1
 umap_learn==0.4.6
 torch==1.8.1
 gdown==3.12.2
