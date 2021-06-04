@@ -1,6 +1,7 @@
 from typing import Any, Tuple
 
 from sklearn.datasets import load_breast_cancer
+from sklearn.model_selection import train_test_split
 import torch
 
 
@@ -17,6 +18,10 @@ class WDBC(torch.utils.data.Dataset):
         super().__init__()
         data = load_breast_cancer()
         self.classes = data.target_names
+        features, labels = data.data, data.target
+        train_features, test_features, train_labels, test_labels = train_test_split(
+            features, labels, random_state=42, test_size=3e-1, shuffle=True
+        )
 
     def __getitem__(self, index: int) -> Tuple[Any, Any]:
         pass
