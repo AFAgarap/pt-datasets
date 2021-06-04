@@ -57,14 +57,14 @@ def _download_yelp():
     filename = "yelp.csv"
     print("[INFO] Downloading the Yelp dataset...")
     yelp_download_script = f"""
-    gdown {yelp_dataset} -P {os.path.join(yelp_path, filename)}
+    gdown {yelp_dataset} -O {os.path.join(yelp_path, filename)}
     """
     os.system(yelp_download_script)
 
 
 setup(
     name="pt-datasets",
-    version="0.14.1",
+    version="0.14.2",
     packages=["pt_datasets"],
     url="https://github.com/AFAgarap/pt-datasets",
     license="AGPL-3.0 License",
