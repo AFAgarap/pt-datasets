@@ -40,4 +40,4 @@ class WDBC(torch.utils.data.Dataset):
         return (features, labels)
 
     def __len__(self):
-        pass
+        return len(self.data)
