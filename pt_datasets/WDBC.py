@@ -1,5 +1,6 @@
 from typing import Any, Tuple
 
+from sklearn.datasets import load_breast_cancer
 import torch
 
 
@@ -14,6 +15,8 @@ class WDBC(torch.utils.data.Dataset):
             Whether to load the training set or not.
         """
         super().__init__()
+        data = load_breast_cancer()
+        self.classes = data.target_names
 
     def __getitem__(self, index: int) -> Tuple[Any, Any]:
         pass
