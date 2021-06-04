@@ -74,9 +74,9 @@ setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     install_requires=[
-        "numpy==1.20.0",
+        "numpy==1.20.3",
         "torchvision==0.9.1",
-        "umap_learn==0.4.6",
+        "umap_learn==0.5.1",
         "torch==1.8.1",
         "MulticoreTSNE==0.1",
         "scikit_learn==0.23.2",
@@ -85,8 +85,8 @@ setup(
         "cmake==3.18.0",
         "opencv-python==4.2.0.34",
         "imbalanced_learn==0.7.0",
-        "numba==0.47",
-        "llvmlite==0.32.1",
+        "numba==0.53.1",
+        "llvmlite==0.36.0",
     ],
 )
 
