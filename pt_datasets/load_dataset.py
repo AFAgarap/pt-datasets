@@ -35,6 +35,7 @@ from pt_datasets.download_covid_dataset import (
 )
 from pt_datasets.TwentyNewsgroups import TwentyNewsgroups
 from pt_datasets.utils import preprocess_data, read_data, vectorize_text, unzip_dataset
+from pt_datasets.WDBC import WDBC
 from pt_datasets.Yelp import Yelp
 
 
@@ -727,32 +728,18 @@ def load_yelp(
         return (train_dataset, test_dataset)
 
 
-def load_wdbc(test_size: float = 3e-1, seed: int = 42):
+def load_wdbc():
     """
     Loads the Wisconsin Diagnostic Breast Cancer dataset.
 
-    Parameters
-    ----------
-    test_size: float
-        The size of the test set.
-    seed: int
-        The random seed to use for reproducibility.
+    Returns
+    -------
+    train_dataset: torch.utils.data.Dataset
+        The training set for WDBC.
+    test_dataset: torch.utils.data.Dataset
+        The test set for WDBC.
     """
-    features, labels = load_breast_cancer(return_X_y=True)
-    train_features, test_features, train_labels, test_labels = train_test_split(
-        features, labels, test_size=test_size, random_state=seed, shuffle=True
-    )
-    scaler = StandardScaler()
-    train_features = scaler.fit_transform(train_features)
-    test_features = scaler.fit_transform(test_features)
-    train_features = train_features.astype("float32")
-    test_features = test_features.astype("float32")
-    train_dataset = torch.utils.data.TensorDataset(
-        torch.from_numpy(train_features), torch.from_numpy(train_labels)
-    )
-    test_dataset = torch.utils.data.TensorDataset(
-        torch.from_numpy(test_features), torch.from_numpy(test_labels)
-    )
+    train_dataset, test_dataset = WDBC(train=True), WDBC(train=False)
     return train_dataset, test_dataset
 
 
