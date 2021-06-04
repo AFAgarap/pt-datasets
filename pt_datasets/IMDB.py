@@ -53,7 +53,7 @@ class IMDB(torch.utils.data.Dataset):
         super().__init__()
         self.classes = ["Negative", "Positive"]
         path = str(Path.home())
-        path = os.path.join(path, "datasets/IMDB Dataset.csv")
+        path = os.path.join(path, "datasets/imdb.csv")
         dataset = IMDB.load_data(path)
         (texts, labels) = (list(dataset.keys()), list(dataset.values()))
         train_texts, test_texts, train_labels, test_labels = train_test_split(
@@ -90,7 +90,7 @@ class IMDB(torch.utils.data.Dataset):
         return len(self.data)
 
     @staticmethod
-    def load_data(data: str = "data/IMDB Dataset.csv"):
+    def load_data(data: str = "data/imdb.csv"):
         dataset = {}
         with open(data, "r") as file:
             reader = csv.reader(file)

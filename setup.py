@@ -43,7 +43,7 @@ def _post_install():
 def _download_imdb():
     imdb_dataset = "https://drive.google.com/uc?id=1VhjJUc6hlJfHmEln8b0xfxuzUC36bBHE"
     imdb_path = os.path.join(str(Path.home()), "datasets")
-    filename = "IMDB Dataset.csv"
+    filename = "imdb.csv"
     print("[INFO] Downloading the IMDB dataset...")
     imdb_download_script = f"""
     gdown {imdb_dataset} -O {os.path.join(imdb_path, filename)}
@@ -64,7 +64,7 @@ def _download_yelp():
 
 setup(
     name="pt-datasets",
-    version="0.14.2",
+    version="0.14.3",
     packages=["pt_datasets"],
     url="https://github.com/AFAgarap/pt-datasets",
     license="AGPL-3.0 License",
