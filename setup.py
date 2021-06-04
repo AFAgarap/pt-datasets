@@ -64,7 +64,7 @@ def _download_yelp():
 
 setup(
     name="pt-datasets",
-    version="0.13.2",
+    version="0.14.0",
     packages=["pt_datasets"],
     url="https://github.com/AFAgarap/pt-datasets",
     license="AGPL-3.0 License",
