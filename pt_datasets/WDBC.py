@@ -2,6 +2,7 @@ from typing import Any, Tuple
 
 from sklearn.datasets import load_breast_cancer
 from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
 import torch
 
 
@@ -22,6 +23,13 @@ class WDBC(torch.utils.data.Dataset):
         train_features, test_features, train_labels, test_labels = train_test_split(
             features, labels, random_state=42, test_size=3e-1, shuffle=True
         )
+        scaler = StandardScaler()
+        if train:
+            train_features = scaler.fit_transform(train_features)
+            train_features = train_features.astype("float32")
+        else:
+            test_features = scaler.fit_transform(test_features)
+            test_features = test_features.astype("float32")
 
     def __getitem__(self, index: int) -> Tuple[Any, Any]:
         pass
