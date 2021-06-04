@@ -36,7 +36,7 @@ from .load_dataset import (
 )
 
 __author__ = "Abien Fred Agarap"
-__version__ = "0.14.0"
+__version__ = "0.14.1"
 
 
 def list_datasets() -> str:
