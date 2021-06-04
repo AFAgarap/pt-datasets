@@ -35,6 +35,7 @@ from pt_datasets.download_covid_dataset import (
 )
 from pt_datasets.TwentyNewsgroups import TwentyNewsgroups
 from pt_datasets.utils import preprocess_data, read_data, vectorize_text, unzip_dataset
+from pt_datasets.WDBC import WDBC
 from pt_datasets.Yelp import Yelp
 
 
@@ -727,16 +728,16 @@ def load_yelp(
         return (train_dataset, test_dataset)
 
 
-def load_wdbc(test_size: float = 3e-1, seed: int = 42):
+def load_wdbc():
     """
     Loads the Wisconsin Diagnostic Breast Cancer dataset.
 
-    Parameters
-    ----------
-    test_size: float
-        The size of the test set.
-    seed: int
-        The random seed to use for reproducibility.
+    Returns
+    -------
+    train_dataset: torch.utils.data.Dataset
+        The training set for WDBC.
+    test_dataset: torch.utils.data.Dataset
+        The test set for WDBC.
     """
     features, labels = load_breast_cancer(return_X_y=True)
     train_features, test_features, train_labels, test_labels = train_test_split(
