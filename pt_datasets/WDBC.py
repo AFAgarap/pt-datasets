@@ -27,9 +27,13 @@ class WDBC(torch.utils.data.Dataset):
         if train:
             train_features = scaler.fit_transform(train_features)
             train_features = train_features.astype("float32")
+            self.data = train_features
+            self.targets = train_labels
         else:
             test_features = scaler.fit_transform(test_features)
             test_features = test_features.astype("float32")
+            self.data = test_features
+            self.targets = test_labels
 
     def __getitem__(self, index: int) -> Tuple[Any, Any]:
         pass
