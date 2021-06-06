@@ -17,7 +17,6 @@
 import MulticoreTSNE
 import numpy as np
 from sklearn.decomposition import PCA
-from umap import UMAP
 
 __author__ = "Abien Fred Agarap"
 
@@ -65,6 +64,8 @@ def encode_features(
             n_jobs=4, random_state=seed, n_components=dim
         )
     elif encoder == "umap":
+        from umap import UMAP
+
         encoder = UMAP(n_components=dim, random_state=seed)
     encoded_features = encoder.fit_transform(features)
     return encoded_features
