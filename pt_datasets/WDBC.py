@@ -21,7 +21,11 @@ class WDBC(torch.utils.data.Dataset):
         self.classes = data.target_names
         features, labels = data.data, data.target
         train_features, test_features, train_labels, test_labels = train_test_split(
-            features, labels, random_state=42, test_size=3e-1, shuffle=True
+            features,
+            labels,
+            random_state=torch.random.initial_seed(),
+            test_size=3e-1,
+            shuffle=True,
         )
         scaler = StandardScaler()
         if train:

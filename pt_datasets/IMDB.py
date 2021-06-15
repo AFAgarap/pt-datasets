@@ -57,7 +57,11 @@ class IMDB(torch.utils.data.Dataset):
         dataset = IMDB.load_data(path)
         (texts, labels) = (list(dataset.keys()), list(dataset.values()))
         train_texts, test_texts, train_labels, test_labels = train_test_split(
-            texts, labels, test_size=3e-1, random_state=42, shuffle=True
+            texts,
+            labels,
+            test_size=3e-1,
+            random_state=torch.random.initial_state(),
+            shuffle=True,
         )
         if train:
             features, labels = preprocess_data(train_texts, train_labels)
