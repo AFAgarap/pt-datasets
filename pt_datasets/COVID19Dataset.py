@@ -413,7 +413,7 @@ def preprocess_dataset(
 
 
 def load_pickle(
-    filename: str
+    filename: str,
 ) -> Tuple[np.ndarray or torch.Tensor, np.ndarray or torch.Tensor]:
     """
     Loads the pickled dataset.
