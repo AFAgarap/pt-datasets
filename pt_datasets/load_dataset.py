@@ -20,9 +20,7 @@ from typing import Tuple
 
 import gdown
 import numpy as np
-from sklearn.datasets import fetch_20newsgroups, load_breast_cancer
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler
 import torch
 import torchvision
 
