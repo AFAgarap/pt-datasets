@@ -24,7 +24,7 @@ import numpy as np
 import torch
 import torchvision
 
-from . import create_dataloader
+from pt_datasets import create_dataloader
 from pt_datasets.utils import read_metadata, load_image
 
 __author__ = "Abien Fred Agarap"

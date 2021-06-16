@@ -20,23 +20,24 @@ from typing import Tuple
 
 import gdown
 import numpy as np
-from sklearn.datasets import fetch_20newsgroups, load_breast_cancer
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler
 import torch
 import torchvision
 
-from pt_datasets.AGNews import AGNews
-from pt_datasets.COVID19Dataset import BinaryCOVID19Dataset, MultiCOVID19Dataset
-from pt_datasets.IMDB import IMDB
+from pt_datasets.datasets.AGNews import AGNews
+from pt_datasets.datasets.COVID19Dataset import (
+    BinaryCOVID19Dataset,
+    MultiCOVID19Dataset,
+)
+from pt_datasets.datasets.IMDB import IMDB
 from pt_datasets.download_covid_dataset import (
     download_binary_covid19_dataset,
     download_covidx5_dataset,
 )
-from pt_datasets.TwentyNewsgroups import TwentyNewsgroups
-from pt_datasets.utils import preprocess_data, read_data, vectorize_text, unzip_dataset
-from pt_datasets.WDBC import WDBC
-from pt_datasets.Yelp import Yelp
+from pt_datasets.datasets.TwentyNewsgroups import TwentyNewsgroups
+from pt_datasets.utils import unzip_dataset
+from pt_datasets.datasets.WDBC import WDBC
+from pt_datasets.datasets.Yelp import Yelp
 
 
 __author__ = "Abien Fred Agarap"
