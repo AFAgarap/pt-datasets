@@ -1,0 +1,22 @@
+repos:
+  - repo: https://github.com/psf/black
+    rev: 19.3b0
+    hooks:
+      - id: black
+  - repo: https://github.com/prettier/prettier
+    rev: 2.0.5
+    hooks:
+      - id: prettier
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v2.3.0
+    hooks:
+      - id: check-yaml
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: check-merge-conflict
+      - id: flake8
+  - repo: https://github.com/homebysix/pre-commit-macadmin
+    rev: v1.6.2
+    hooks:
+      - id: check-git-config-email
+        args: ["--domains", "gmail.com", "dlsu.edu.ph", "yahoo.com"]
