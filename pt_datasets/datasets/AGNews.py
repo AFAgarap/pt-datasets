@@ -82,6 +82,7 @@ class AGNews(torch.utils.data.Dataset):
 
     def __getitem__(self, index: int) -> Tuple[Any, Any]:
         text, target = self.data[index], self.targets[index]
+        target = target.astype("int64")
         return (text, target)
 
     def __len__(self) -> int:
