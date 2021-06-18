@@ -231,26 +231,37 @@ def load_dataset(
     elif name == "ag_news":
         if return_vectorizer:
             train_dataset = AGNews(
-                train=True, return_vectorizer=return_vectorizer, ngram_range=ngram_range
+                train=True,
+                return_vectorizer=return_vectorizer,
+                ngram_range=ngram_range,
+                vectorizer=vectorizer,
             )
-            test_dataset = AGNews(train=False, ngram_range=ngram_range)
+            test_dataset = AGNews(
+                train=False, ngram_range=ngram_range, vectorizer=vectorizer
+            )
             vectorizer = train_dataset.vectorizer
         else:
             (train_dataset, test_dataset) = (
-                AGNews(train=True, ngram_range=ngram_range),
-                AGNews(train=False, ngram_range=ngram_range),
+                AGNews(train=True, ngram_range=ngram_range, vectorizer=vectorizer),
+                AGNews(train=False, ngram_range=ngram_range, vectorizer=vectorizer),
             )
     elif name == "20newsgroups":
         if return_vectorizer:
             train_dataset = TwentyNewsgroups(
-                return_vectorizer=return_vectorizer, ngram_range=ngram_range
+                vectorizer=vectorizer,
+                return_vectorizer=return_vectorizer,
+                ngram_range=ngram_range,
             )
-            test_dataset = TwentyNewsgroups(train=False, ngram_range=ngram_range)
+            test_dataset = TwentyNewsgroups(
+                vectorizer=vectorizer, train=False, ngram_range=ngram_range
+            )
             vectorizer = train_dataset.vectorizer
         else:
             (train_dataset, test_dataset) = (
-                TwentyNewsgroups(ngram_range=ngram_range),
-                TwentyNewsgroups(train=False, ngram_range=ngram_range),
+                TwentyNewsgroups(ngram_range=ngram_range, vectorizer=vectorizer),
+                TwentyNewsgroups(
+                    train=False, ngram_range=ngram_range, vectorizer=vectorizer
+                ),
             )
     elif name == "kmnist":
         train_dataset = torchvision.datasets.KMNIST(
