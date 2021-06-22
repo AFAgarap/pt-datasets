@@ -95,4 +95,4 @@ class MalImg(torch.utils.data.Dataset):
         return (features, labels)
 
     def __len__(self) -> int:
-        pass
+        return len(self.features)
