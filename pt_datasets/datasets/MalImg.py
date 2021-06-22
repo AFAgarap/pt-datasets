@@ -20,6 +20,8 @@ import torch
 
 
 class MalImg(torch.utils.data.Dataset):
+    _download_url = "https://drive.google.com/uc?id=1Y6Ha5Jir8EI726KdwAKWHVU-oWmPqNDT"
+
     def __init__(self, train: bool = True, download: bool = True):
         """
         Loads the Malware Image dataset.
