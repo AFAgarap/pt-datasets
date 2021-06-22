@@ -55,6 +55,11 @@ class MalImg(torch.utils.data.Dataset):
                 dataset, test_size=3e-1, random_state=torch.random.initial_seed()
             )
             features, labels = train_data[:, : (32 ** 2)], train_data[:, -1]
+        else:
+            _, test_data = train_test_split(
+                dataset, test_size=3e-1, random_state=torch.random.initial_seed()
+            )
+            features, labels = test_data[:, : (32 ** 2)], test_data[:, -1]
         self.features = features
         self.labels = labels
 
