@@ -76,7 +76,9 @@ class MalImg(torch.utils.data.Dataset):
                 os.path.join(dataset_path, MalImg._filename),
                 quiet=True,
             )
-        dataset = np.load(os.path.join(dataset_path, MalImg._filename))
+        dataset = np.load(
+            os.path.join(dataset_path, MalImg._filename), allow_pickle=True
+        )
         if train:
             train_data, _ = train_test_split(
                 dataset, test_size=3e-1, random_state=torch.random.initial_seed()
