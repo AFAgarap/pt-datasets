@@ -20,7 +20,7 @@ import torch
 
 
 class MalImg(torch.utils.data.Dataset):
-    def __init__(self):
+    def __init__(self, train: bool = True, download: bool = True):
         super().__init__()
 
     def __getitem__(self, index: int) -> Tuple[Any, Any]:
