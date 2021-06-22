@@ -19,6 +19,8 @@ from pathlib import Path
 from typing import Any, Tuple
 
 import gdown
+import numpy as np
+from sklearn.model_selection import train_test_split
 import torch
 
 
@@ -47,6 +49,14 @@ class MalImg(torch.utils.data.Dataset):
                 os.path.join(dataset_path, MalImg._filename),
                 quiet=True,
             )
+        dataset = np.load(os.path.join(dataset_path, MalImg._filename))
+        if train:
+            train_data, _ = train_test_split(
+                dataset, test_size=3e-1, random_state=torch.random.initial_seed()
+            )
+            features, labels = train_data[:, : (32 ** 2)], train_data[:, -1]
+        self.features = features
+        self.labels = labels
 
     def __getitem__(self, index: int) -> Tuple[Any, Any]:
         pass
