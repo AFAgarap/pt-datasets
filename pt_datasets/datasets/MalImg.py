@@ -18,6 +18,7 @@ import os
 from pathlib import Path
 from typing import Any, Tuple
 
+import gdown
 import torch
 
 
@@ -40,6 +41,12 @@ class MalImg(torch.utils.data.Dataset):
         dataset_path = os.path.join(str(Path.home()), "datasets")
         if not os.path.exists(dataset_path):
             os.mkdir(dataset_path)
+        if download or not os.path.isfile(os.path.join(dataset_path, MalImg._filename)):
+            gdown.download(
+                MalImg._download_url,
+                os.path.join(dataset_path, MalImg._filename),
+                quiet=True,
+            )
 
     def __getitem__(self, index: int) -> Tuple[Any, Any]:
         pass
