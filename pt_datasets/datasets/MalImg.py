@@ -22,13 +22,19 @@ import gdown
 import numpy as np
 from sklearn.model_selection import train_test_split
 import torch
+import torchvision
 
 
 class MalImg(torch.utils.data.Dataset):
     _download_url = "https://drive.google.com/uc?id=1ljOv9NnEsyOPTVC4RFgUGYDy189pNl2S"
     _filename = "malimg_dataset_32x32.npy"
 
-    def __init__(self, train: bool = True, download: bool = True):
+    def __init__(
+        self,
+        train: bool = True,
+        download: bool = True,
+        transform: torchvision.transforms = None,
+    ):
         """
         Loads the Malware Image dataset.
 
