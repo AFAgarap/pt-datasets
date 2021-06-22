@@ -14,6 +14,8 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """Class for Malware Image dataset"""
+import os
+from pathlib import Path
 from typing import Any, Tuple
 
 import torch
@@ -35,6 +37,9 @@ class MalImg(torch.utils.data.Dataset):
             Whether to download the dataset or not.
         """
         super().__init__()
+        dataset_path = os.path.join(str(Path.home()), "datasets")
+        if not os.path.exists(dataset_path):
+            os.mkdir(dataset_path)
 
     def __getitem__(self, index: int) -> Tuple[Any, Any]:
         pass
