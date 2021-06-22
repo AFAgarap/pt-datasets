@@ -44,6 +44,8 @@ class MalImg(torch.utils.data.Dataset):
             Whether to load the training split or not.
         download: bool
             Whether to download the dataset or not.
+        transform: torchvision.transform
+            The transformation pipeline to use for image preprocessing.
         """
         super().__init__()
         self.classes = (
