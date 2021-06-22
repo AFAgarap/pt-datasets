@@ -21,6 +21,16 @@ import torch
 
 class MalImg(torch.utils.data.Dataset):
     def __init__(self, train: bool = True, download: bool = True):
+        """
+        Loads the Malware Image dataset.
+
+        Parameters
+        ----------
+        train: bool
+            Whether to load the training split or not.
+        download: bool
+            Whether to download the dataset or not.
+        """
         super().__init__()
 
     def __getitem__(self, index: int) -> Tuple[Any, Any]:
