@@ -40,6 +40,33 @@ class MalImg(torch.utils.data.Dataset):
             Whether to download the dataset or not.
         """
         super().__init__()
+        self.classes = (
+            "Adialer.C",
+            "Adialer.C",
+            "Adialer.C",
+            "Allaple.L",
+            "Alueron.gen!J",
+            "Autorun.K",
+            "C2Lop.P",
+            "C2Lop.gen!G",
+            "Dialplatform.B",
+            "Dontovo.A",
+            "Fakerean",
+            "Instantaccess",
+            "Lolyda.AA 1",
+            "Lolyda.AA 2",
+            "Lolyda.AA 3",
+            "Lolyda.AT",
+            "Malex.gen!J",
+            "Obfuscator.AD",
+            "Rbot!gen",
+            "Skintrim.N",
+            "Swizzor.gen!E",
+            "Swizzor.gen!I",
+            "VB.AT",
+            "Wintrim.BX",
+            "Yuner.A",
+        )
         dataset_path = os.path.join(str(Path.home()), "datasets")
         if not os.path.exists(dataset_path):
             os.mkdir(dataset_path)
