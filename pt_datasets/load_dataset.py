@@ -24,6 +24,7 @@ from sklearn.model_selection import train_test_split
 import torch
 import torchvision
 
+from pt_datasets.datasets import MalImg
 from pt_datasets.datasets.AGNews import AGNews
 from pt_datasets.datasets.COVID19Dataset import (
     BinaryCOVID19Dataset,
@@ -226,7 +227,8 @@ def load_dataset(
             root=data_folder, split="test", download=True, transform=test_transform
         )
     elif name == "malimg":
-        train_dataset, test_dataset = load_malimg()
+        train_dataset = MalImg(train=True, download=False)
+        test_dataset = MalImg(train=False, download=False)
     elif name == "ag_news":
         if return_vectorizer:
             train_dataset = AGNews(
