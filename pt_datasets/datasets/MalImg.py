@@ -97,13 +97,13 @@ class MalImg(torch.utils.data.Dataset):
                 dataset, test_size=3e-1, random_state=torch.random.initial_seed()
             )
             features, labels = test_data[:, : (32 ** 2)], test_data[:, -1]
-        self.features = features
+        self.data = features
         self.targets = labels
         self.transform = transform
 
     def __getitem__(self, index: int) -> Tuple[Any, Any]:
-        features, labels = self.features[index], self.targets[index]
+        features, labels = self.data[index], self.targets[index]
         return (features, labels)
 
     def __len__(self) -> int:
-        return len(self.features)
+        return len(self.data)
