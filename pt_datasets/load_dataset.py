@@ -30,15 +30,14 @@ from pt_datasets.datasets.COVID19Dataset import (
     MultiCOVID19Dataset,
 )
 from pt_datasets.datasets.IMDB import IMDB
+from pt_datasets.datasets.TwentyNewsgroups import TwentyNewsgroups
+from pt_datasets.datasets.WDBC import WDBC
+from pt_datasets.datasets.Yelp import Yelp
 from pt_datasets.download_covid_dataset import (
     download_binary_covid19_dataset,
     download_covidx5_dataset,
 )
-from pt_datasets.datasets.TwentyNewsgroups import TwentyNewsgroups
 from pt_datasets.utils import unzip_dataset
-from pt_datasets.datasets.WDBC import WDBC
-from pt_datasets.datasets.Yelp import Yelp
-
 
 __author__ = "Abien Fred Agarap"
 
