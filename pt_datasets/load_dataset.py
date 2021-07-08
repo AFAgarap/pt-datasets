@@ -227,8 +227,8 @@ def load_dataset(
             root=data_folder, split="test", download=True, transform=test_transform
         )
     elif name == "malimg":
-        train_dataset = MalImg(train=True, download=False)
-        test_dataset = MalImg(train=False, download=False)
+        train_dataset = MalImg(train=True, download=False, transform=train_transform)
+        test_dataset = MalImg(train=False, download=False, transform=test_transform)
     elif name == "ag_news":
         if return_vectorizer:
             train_dataset = AGNews(
