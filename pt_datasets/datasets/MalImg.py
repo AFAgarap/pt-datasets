@@ -105,7 +105,7 @@ class MalImg(torch.utils.data.Dataset):
         features = self.data[index]
         if self.transform:
             features = self.transform(features)
-        labels = self.targets[index]
+        labels = self.targets[index].astype("int64")
         return (features, labels)
 
     def __len__(self) -> int:
