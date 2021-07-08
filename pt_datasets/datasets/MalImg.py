@@ -22,13 +22,19 @@ import gdown
 import numpy as np
 from sklearn.model_selection import train_test_split
 import torch
+import torchvision
 
 
 class MalImg(torch.utils.data.Dataset):
-    _download_url = "https://drive.google.com/uc?id=1Y6Ha5Jir8EI726KdwAKWHVU-oWmPqNDT"
+    _download_url = "https://drive.google.com/uc?id=1ljOv9NnEsyOPTVC4RFgUGYDy189pNl2S"
     _filename = "malimg_dataset_32x32.npy"
 
-    def __init__(self, train: bool = True, download: bool = True):
+    def __init__(
+        self,
+        train: bool = True,
+        download: bool = True,
+        transform: torchvision.transforms = None,
+    ):
         """
         Loads the Malware Image dataset.
 
@@ -38,6 +44,8 @@ class MalImg(torch.utils.data.Dataset):
             Whether to load the training split or not.
         download: bool
             Whether to download the dataset or not.
+        transform: torchvision.transform
+            The transformation pipeline to use for image preprocessing.
         """
         super().__init__()
         self.classes = (
@@ -76,7 +84,9 @@ class MalImg(torch.utils.data.Dataset):
                 os.path.join(dataset_path, MalImg._filename),
                 quiet=True,
             )
-        dataset = np.load(os.path.join(dataset_path, MalImg._filename))
+        dataset = np.load(
+            os.path.join(dataset_path, MalImg._filename), allow_pickle=True
+        )
         if train:
             train_data, _ = train_test_split(
                 dataset, test_size=3e-1, random_state=torch.random.initial_seed()
@@ -87,12 +97,16 @@ class MalImg(torch.utils.data.Dataset):
                 dataset, test_size=3e-1, random_state=torch.random.initial_seed()
             )
             features, labels = test_data[:, : (32 ** 2)], test_data[:, -1]
-        self.features = features
+        self.data = features.reshape(-1, 32, 32)
         self.targets = labels
+        self.transform = transform
 
     def __getitem__(self, index: int) -> Tuple[Any, Any]:
-        features, labels = self.features[index], self.targets[index]
+        features = self.data[index]
+        if self.transform:
+            features = self.transform(features)
+        labels = self.targets[index].astype("int64")
         return (features, labels)
 
     def __len__(self) -> int:
-        return len(self.features)
+        return len(self.data)

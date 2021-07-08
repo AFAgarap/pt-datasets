@@ -24,21 +24,21 @@ from sklearn.model_selection import train_test_split
 import torch
 import torchvision
 
+from pt_datasets.datasets import MalImg
 from pt_datasets.datasets.AGNews import AGNews
 from pt_datasets.datasets.COVID19Dataset import (
     BinaryCOVID19Dataset,
     MultiCOVID19Dataset,
 )
 from pt_datasets.datasets.IMDB import IMDB
+from pt_datasets.datasets.TwentyNewsgroups import TwentyNewsgroups
+from pt_datasets.datasets.WDBC import WDBC
+from pt_datasets.datasets.Yelp import Yelp
 from pt_datasets.download_covid_dataset import (
     download_binary_covid19_dataset,
     download_covidx5_dataset,
 )
-from pt_datasets.datasets.TwentyNewsgroups import TwentyNewsgroups
 from pt_datasets.utils import unzip_dataset
-from pt_datasets.datasets.WDBC import WDBC
-from pt_datasets.datasets.Yelp import Yelp
-
 
 __author__ = "Abien Fred Agarap"
 
@@ -227,7 +227,8 @@ def load_dataset(
             root=data_folder, split="test", download=True, transform=test_transform
         )
     elif name == "malimg":
-        train_dataset, test_dataset = load_malimg()
+        train_dataset = MalImg(train=True, download=False, transform=train_transform)
+        test_dataset = MalImg(train=False, download=False, transform=test_transform)
     elif name == "ag_news":
         if return_vectorizer:
             train_dataset = AGNews(
