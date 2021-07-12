@@ -153,6 +153,19 @@ deep learning approach using support vector machine (svm) for malware
 classification." arXiv preprint arXiv:1801.00318 (2017).
 ```
 
+If you use this library, kindly cite it as,
+
+- BibTex
+
+```
+@misc{agarap2020pytorch,
+  author       = "Abien Fred Agarap",
+  title        = "{PyTorch} datasets",
+  howpublished = "\url{https://github.com/afagarap/pt-datasets}",
+  note         = "Accessed: 20xx-xx-xx"
+}
+```
+
 ## License
 
 ```
